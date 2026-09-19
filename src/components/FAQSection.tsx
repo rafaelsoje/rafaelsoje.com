@@ -115,13 +115,11 @@ export function FAQSection() {
             </a>
             <span className="text-slate-300">|</span>
             <a
-              href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20tenho%20uma%20d%C3%BAvida%20espec%C3%ADfica."
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "faq" })}
+              href="mailto:contato@rafaelsoje.com"
+              onClick={() => trackAnalyticsEvent("email_click", { location: "faq" })}
               className="text-slate-600 hover:text-slate-900 whitespace-nowrap"
             >
-              WhatsApp
+              contato@rafaelsoje.com
             </a>
           </div>
         </div>

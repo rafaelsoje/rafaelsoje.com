@@ -13,6 +13,7 @@ export type HelpTopic = (typeof HELP_TOPICS)[number];
 export interface ContactFormData {
   name: string;
   company?: string;
+  phone?: string;
   whatsapp?: string;
   email: string;
   helpTopic: string;
@@ -25,6 +26,7 @@ export interface ValidationResult {
   errors: {
     name?: string;
     company?: string;
+    phone?: string;
     whatsapp?: string;
     email?: string;
     helpTopic?: string;
@@ -35,6 +37,7 @@ export interface ValidationResult {
   sanitizedData?: {
     name: string;
     company: string;
+    phone: string;
     whatsapp: string;
     email: string;
     helpTopic: string;
@@ -49,14 +52,16 @@ export function validateEmail(email: string): boolean {
   return emailRegex.test(email.trim());
 }
 
-export function validateWhatsApp(phone: string): boolean {
+export function validatePhone(phone: string): boolean {
   if (!phone) return false;
   // Remove non-digit characters
   const digits = phone.replace(/\D/g, "");
-  // Brazilian numbers with DDD have 10 or 11 digits (e.g. 21 99984-0419)
+  // Brazilian numbers with DDD have 10 or 11 digits (e.g. 11 98765-4321)
   // General international allows 8 to 15 digits according to E.164
   return digits.length >= 10 && digits.length <= 15;
 }
+
+export const validateWhatsApp = validatePhone;
 
 export function validateContactForm(data: Partial<ContactFormData>): ValidationResult {
   const errors: ValidationResult["errors"] = {};
@@ -97,10 +102,12 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
     errors.email = "E-mail inválido. Verifique o formato digitado.";
   }
 
-  // WhatsApp validation (opcional - se preenchido, valida formato)
-  const whatsapp = (data.whatsapp || "").trim();
-  if (whatsapp && !validateWhatsApp(whatsapp)) {
-    errors.whatsapp = "Número de WhatsApp inválido. Digite DDD + número (ex: 21 99984-0419).";
+  // Phone validation (opcional - se preenchido, valida formato)
+  const phone = (data.phone || data.whatsapp || "").trim();
+  if (phone && !validatePhone(phone)) {
+    const errorMsg = "Número de telefone inválido. Digite DDD + número (ex: 11 98765-4321).";
+    errors.phone = errorMsg;
+    errors.whatsapp = errorMsg;
   }
 
   // Message validation (obrigatória)
@@ -123,7 +130,8 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
           sanitizedData: {
             name,
             company,
-            whatsapp,
+            phone,
+            whatsapp: phone,
             email,
             helpTopic,
             message,

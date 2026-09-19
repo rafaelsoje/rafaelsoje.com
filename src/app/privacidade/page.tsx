@@ -47,7 +47,7 @@ export default function PrivacyPage() {
                 1. Finalidade da Coleta de Dados
               </h2>
               <p>
-                Os dados solicitados em nosso formulário (nome, empresa opcional, WhatsApp, e-mail e mensagem) 
+                Os dados solicitados em nosso formulário (nome, empresa opcional, telefone opcional, e-mail e mensagem) 
                 têm a única e exclusiva finalidade de viabilizar a comunicação direta entre você e Rafael Soje, 
                 permitindo responder às suas dúvidas, realizar a triagem técnica preliminar e enviar orçamentos solicitados.
               </p>
@@ -58,33 +58,30 @@ export default function PrivacyPage() {
                 2. Não Compartilhamento com Terceiros
               </h2>
               <p>
-                Seus dados não são vendidos, alugados, cedidos ou compartilhados com terceiros, agências de marketing 
-                ou serviços de publicidade. O contato é estritamente confidencial e profissional.
+                Seus dados não são vendidos, alugados ou compartilhados com terceiros para fins de marketing ou publicidade. 
+                As informações são tratadas sob sigilo profissional e utilizadas estritamente para o propósito 
+                comercial/técnico para o qual foram enviadas.
               </p>
             </section>
 
             <section className="space-y-2">
               <h2 className="text-base font-bold text-white font-mono uppercase tracking-wide">
-                3. Armazenamento e Segurança
+                3. Segurança das Informações
               </h2>
               <p>
-                As mensagens enviadas pelo formulário são processadas por meio de canal criptografado (HTTPS/TLS) 
-                e encaminhadas com segurança para a caixa de e-mail profissional de Rafael Soje, sob proteção de 
-                autenticação forte.
+                Adotamos medidas técnicas de segurança para proteger os dados transmitidos através deste site, 
+                incluindo tráfego criptografado via HTTPS/TLS e proteção por Web Application Firewall (WAF).
               </p>
             </section>
 
             <section className="space-y-2">
               <h2 className="text-base font-bold text-white font-mono uppercase tracking-wide">
-                4. Exclusão de Informações
+                4. Seus Direitos (LGPD)
               </h2>
               <p>
-                Caso deseje que os dados de seu contato sejam excluídos de nossas mensagens após o encerramento do 
-                atendimento, basta solicitar pelo e-mail{" "}
-                <a href="mailto:contato@rafaelsoje.com" className="text-teal-400 hover:underline">
-                  contato@rafaelsoje.com
-                </a>
-                .
+                Em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018), você tem o direito 
+                de solicitar a confirmação da existência de tratamento, o acesso aos dados ou a exclusão definitiva 
+                de suas informações de nossos registros a qualquer momento.
               </p>
             </section>
 
@@ -97,8 +94,7 @@ export default function PrivacyPage() {
               </p>
               <ul className="list-disc pl-5 font-mono text-xs text-slate-300 space-y-1">
                 <li>E-mail: contato@rafaelsoje.com</li>
-                <li>WhatsApp: +55 21 99984-0419</li>
-                <li>WhatsApp: Atendimento direto via link oficial no site</li>
+                <li>Canal Web: Formulário de contato em rafaelsoje.com</li>
               </ul>
             </section>
           </div>

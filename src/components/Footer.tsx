@@ -81,18 +81,7 @@ export function Footer() {
             <span className="text-slate-300 font-bold uppercase tracking-wider block mb-3">
               Contato &amp; Termos
             </span>
-            <p className="text-slate-400">
-              WhatsApp:{" "}
-              <a
-                href="https://wa.me/5521999840419"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "footer" })}
-                className="text-teal-400 hover:underline font-semibold"
-              >
-                +55 21 99984-0419
-              </a>
-            </p>
+
             <p className="text-slate-400">
               E-mail:{" "}
               <a

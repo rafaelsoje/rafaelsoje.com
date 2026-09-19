@@ -37,13 +37,11 @@ export function Header() {
               RIO DE JANEIRO (UTC-3)
             </span>
             <a
-              href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "header_topbar" })}
+              href="mailto:contato@rafaelsoje.com"
+              onClick={() => trackAnalyticsEvent("email_click", { location: "header_topbar" })}
               className="text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1 font-semibold"
             >
-              Conversar no WhatsApp
+              contato@rafaelsoje.com
             </a>
           </div>
         </div>
@@ -132,16 +130,14 @@ export function Header() {
               Solicitar Avaliação Inicial
             </a>
             <a
-              href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:contato@rafaelsoje.com"
               onClick={() => {
                 setMobileMenuOpen(false);
-                trackAnalyticsEvent("whatsapp_click", { location: "header_mobile" });
+                trackAnalyticsEvent("email_click", { location: "header_mobile" });
               }}
               className="w-full text-center px-4 py-2 rounded text-xs font-mono border border-slate-700 hover:border-teal-400 text-slate-300 hover:text-white transition-colors"
             >
-              Conversar no WhatsApp
+              contato@rafaelsoje.com
             </a>
           </div>
         </div>

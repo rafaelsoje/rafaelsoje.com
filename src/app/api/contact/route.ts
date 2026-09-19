@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "Limite de mensagens atingido para este período. Por favor, aguarde alguns minutos ou entre em contato diretamente pelo WhatsApp.",
+            "Limite de mensagens atingido para este período. Por favor, aguarde alguns minutos ou envie um e-mail para contato@rafaelsoje.com.",
         },
         { status: 429 }
       );
@@ -58,12 +58,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { name, company, whatsapp, email, helpTopic, message } = validation.sanitizedData;
+    const { name, company, phone, whatsapp, email, helpTopic, message } = validation.sanitizedData;
+    const clientPhone = phone || whatsapp;
 
     // 4. Sanitização contra injeção em HTML e headers
     const safeName = escapeHtml(sanitizeText(name));
     const safeCompany = company ? escapeHtml(sanitizeText(company)) : "Não informada";
-    const safeWhatsapp = whatsapp ? escapeHtml(sanitizeText(whatsapp)) : "Não informado";
+    const safePhone = clientPhone ? escapeHtml(sanitizeText(clientPhone)) : "Não informado";
     const safeEmail = email ? escapeHtml(sanitizeText(email)) : "Não informado";
     const safeHelpTopic = escapeHtml(sanitizeText(helpTopic));
     const safeMessage = escapeHtml(sanitizeText(message)).replace(/\n/g, "<br>");
@@ -72,7 +73,8 @@ export async function POST(req: NextRequest) {
     await dispatchToHubSpot({
       name,
       company,
-      whatsapp,
+      phone: clientPhone,
+      whatsapp: clientPhone,
       email,
       helpTopic,
       message,
@@ -108,8 +110,7 @@ export async function POST(req: NextRequest) {
         text: `Novo contato recebido pelo site rafaelsoje.com:
 --------------------------------------------------
 Nome: ${name}
-Empresa: ${company || "Não informada"}
-WhatsApp: ${whatsapp || "Não informado"}
+Empresa: ${company || "Não informada"}${clientPhone ? `\nTelefone: ${clientPhone}` : ""}
 E-mail: ${email || "Não informado"}
 Assunto / Como posso ajudar: ${helpTopic}
 --------------------------------------------------
@@ -131,11 +132,11 @@ Data/Hora: ${new Date().toISOString()}`,
     <tr>
       <td style="padding: 8px 0; font-weight: bold; color: #64748b;">Empresa:</td>
       <td style="padding: 8px 0; color: #0f172a;">${safeCompany}</td>
-    </tr>
+    </tr>${clientPhone ? `
     <tr>
-      <td style="padding: 8px 0; font-weight: bold; color: #64748b;">WhatsApp:</td>
-      <td style="padding: 8px 0; color: #0f172a;">${safeWhatsapp}</td>
-    </tr>
+      <td style="padding: 8px 0; font-weight: bold; color: #64748b;">Telefone:</td>
+      <td style="padding: 8px 0; color: #0f172a;">${safePhone}</td>
+    </tr>` : ""}
     <tr>
       <td style="padding: 8px 0; font-weight: bold; color: #64748b;">E-mail:</td>
       <td style="padding: 8px 0; color: #0f172a;">${safeEmail}</td>
@@ -182,7 +183,7 @@ Data/Hora: ${new Date().toISOString()}`,
     return NextResponse.json(
       {
         error:
-          "Ocorreu um erro ao enviar sua mensagem. Se preferir, entre em contato diretamente pelo WhatsApp através do site.",
+          "Ocorreu um erro ao enviar sua mensagem. Se preferir, envie um e-mail diretamente para contato@rafaelsoje.com.",
       },
       { status: 500 }
     );
@@ -192,6 +193,7 @@ Data/Hora: ${new Date().toISOString()}`,
 interface LeadPayload {
   name: string;
   company?: string;
+  phone?: string;
   whatsapp?: string;
   email: string;
   helpTopic: string;

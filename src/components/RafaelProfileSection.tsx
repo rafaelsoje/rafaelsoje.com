@@ -80,7 +80,7 @@ export function RafaelProfileSection() {
               <div className="p-5 rounded border border-slate-200 bg-white shadow-sm">
                 <h3 className="font-mono text-sm font-bold uppercase mb-1.5 text-slate-900">Contato Direto</h3>
                 <p className="text-body-small text-slate-600 leading-relaxed">
-                  Comunicação clara e ágil pelo WhatsApp ou e-mail, com histórico e alinhamento direto.
+                  Comunicação clara e ágil por e-mail e canais estruturados, com histórico e alinhamento direto.
                 </p>
               </div>
               <div className="p-5 rounded border border-slate-200 bg-white shadow-sm">

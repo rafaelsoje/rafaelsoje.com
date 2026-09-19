@@ -86,7 +86,7 @@ const jsonLd = {
   jobTitle: "Consultor de Infraestrutura e Desenvolvedor Web",
   description:
     "Serviços profissionais de infraestrutura de servidores Linux e Windows Server, Cloud, segurança da informação, rotinas de backup e desenvolvimento de sistemas web sob medida.",
-  telephone: "+5521999840419",
+  email: "contato@rafaelsoje.com",
   priceRange: "$$",
   areaServed: {
     "@type": "Country",

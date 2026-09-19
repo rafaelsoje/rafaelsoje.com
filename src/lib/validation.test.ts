@@ -22,10 +22,10 @@ describe("Validation Utilities", () => {
 
   describe("validateWhatsApp", () => {
     it("deve aceitar números válidos de WhatsApp brasileiros e internacionais", () => {
-      expect(validateWhatsApp("21 99984-0419")).toBe(true);
-      expect(validateWhatsApp("(21) 99984-0419")).toBe(true);
-      expect(validateWhatsApp("+55 21 99984-0419")).toBe(true);
-      expect(validateWhatsApp("21999840419")).toBe(true);
+      expect(validateWhatsApp("11 98765-4321")).toBe(true);
+      expect(validateWhatsApp("(11) 98765-4321")).toBe(true);
+      expect(validateWhatsApp("+55 11 98765-4321")).toBe(true);
+      expect(validateWhatsApp("11987654321")).toBe(true);
       expect(validateWhatsApp("21 98765-4321")).toBe(true);
       expect(validateWhatsApp("(21) 98765-4321")).toBe(true);
       expect(validateWhatsApp("+55 21 98765-4321")).toBe(true);
@@ -49,20 +49,29 @@ describe("Validation Utilities", () => {
       message: "Gostaria de solicitar uma avaliação inicial para nosso servidor Linux.",
     };
 
-    it("deve aprovar quando os campos obrigatórios (nome, e-mail, como posso ajudar, mensagem) são preenchidos sem WhatsApp", () => {
+    it("deve aprovar quando os campos obrigatórios (nome, e-mail, como posso ajudar, mensagem) são preenchidos sem telefone", () => {
       const result = validateContactForm(validBase);
       expect(result.isValid).toBe(true);
       expect(result.sanitizedData?.email).toBe("contato@empresa.com");
-      expect(result.sanitizedData?.whatsapp).toBe("");
+      expect(result.sanitizedData?.phone).toBe("");
     });
 
-    it("deve aprovar quando WhatsApp válido também é fornecido", () => {
+    it("deve aprovar quando telefone válido é fornecido", () => {
       const result = validateContactForm({
         ...validBase,
-        whatsapp: "21 99984-0419",
+        phone: "11 98765-4321",
       });
       expect(result.isValid).toBe(true);
-      expect(result.sanitizedData?.whatsapp).toBe("21 99984-0419");
+      expect(result.sanitizedData?.phone).toBe("11 98765-4321");
+    });
+
+    it("deve aprovar quando WhatsApp válido também é fornecido via campo legacy", () => {
+      const result = validateContactForm({
+        ...validBase,
+        whatsapp: "11 98765-4321",
+      });
+      expect(result.isValid).toBe(true);
+      expect(result.sanitizedData?.whatsapp).toBe("11 98765-4321");
     });
 
     it("deve reprovar quando o e-mail não é informado", () => {
