@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { validateContactForm } from "../../../lib/validation";
-import { escapeHtml, sanitizeText } from "../../../lib/sanitize";
-import { checkRateLimit } from "../../../lib/rate-limit";
+import { escapeHtml, sanitizeText, sanitizeHeaderValue } from "../../../lib/sanitize";
+import { checkRateLimit, extractClientIp } from "../../../lib/rate-limit";
+import { submitToHubSpotForm } from "../../../lib/hubspot";
 
 // Limite máximo do payload: 64 KB
 const MAX_PAYLOAD_SIZE = 64 * 1024;
-
-import { submitToHubSpotForm } from "../../../lib/hubspot";
 
 /**
  * Notificação SMTP opcional em segundo plano (fail-safe)
@@ -48,6 +47,11 @@ async function sendEmailNotification({
   const safeHelpTopic = escapeHtml(sanitizeText(helpTopic));
   const safeMessage = escapeHtml(sanitizeText(message)).replace(/\n/g, "<br>");
 
+  // Sanitização estrita contra CRLF / SMTP Header Injection no Subject (remove \r e \n)
+  const cleanSubjectTopic = sanitizeHeaderValue(helpTopic);
+  const cleanSubjectName = sanitizeHeaderValue(name);
+  const cleanSubjectCompany = company ? sanitizeHeaderValue(company) : "";
+
   const transporter = nodemailer.createTransport({
     host: smtpHost,
     port: smtpPort,
@@ -62,7 +66,7 @@ async function sendEmailNotification({
     from: smtpFrom,
     to: recipientEmail,
     replyTo: email || undefined,
-    subject: `[Novo Contato Comercial - ${safeHelpTopic}] ${safeName}${company ? ` (${safeCompany})` : ""}`,
+    subject: `[Novo Contato Comercial - ${cleanSubjectTopic}] ${cleanSubjectName}${cleanSubjectCompany ? ` (${cleanSubjectCompany})` : ""}`,
     text: `Novo contato recebido pelo site rafaelsoje.com:
 --------------------------------------------------
 Nome: ${name}
@@ -128,11 +132,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Rate Limiting por IP (5 envios a cada 10 minutos por IP)
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      req.headers.get("cf-connecting-ip") ||
-      req.headers.get("x-real-ip") ||
-      "127.0.0.1";
+    const ip = extractClientIp(req.headers);
 
     const rateLimit = checkRateLimit(ip, 5, 10 * 60 * 1000);
     if (!rateLimit.success) {

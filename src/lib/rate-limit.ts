@@ -62,3 +62,27 @@ export function resetRateLimitStoreForTesting(): void {
   rateLimitStore.clear();
 }
 
+/**
+ * Extrai o IP do cliente priorizando headers confiáveis da Cloudflare e proxies reversos.
+ * Evita que atacantes burlem o rate limit forjando cabeçalhos X-Forwarded-For quando atrás do Cloudflare.
+ */
+export function extractClientIp(headers: Headers): string {
+  // 1. Prioridade máxima: CF-Connecting-IP (injetado pela borda da Cloudflare)
+  const cfIp = headers.get("cf-connecting-ip")?.trim();
+  if (cfIp) return cfIp;
+
+  // 2. Fallback secundário: X-Real-IP (injetado por proxies locais como Nginx)
+  const realIp = headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+
+  // 3. Fallback terciário: X-Forwarded-For (primeiro IP da lista)
+  const forwardedFor = headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    const firstIp = forwardedFor.split(",")[0]?.trim();
+    if (firstIp) return firstIp;
+  }
+
+  // 4. Fallback para ambiente local / desenvolvimento
+  return "127.0.0.1";
+}
+

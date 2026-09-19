@@ -6,8 +6,12 @@ import {
   validatePhone,
   formatPhoneToE164,
 } from "./validation";
-import { escapeHtml, sanitizeText } from "./sanitize";
-import { checkRateLimit, resetRateLimitStoreForTesting } from "./rate-limit";
+import { escapeHtml, sanitizeText, sanitizeHeaderValue } from "./sanitize";
+import {
+  checkRateLimit,
+  resetRateLimitStoreForTesting,
+  extractClientIp,
+} from "./rate-limit";
 
 describe("Validation Utilities", () => {
   describe("validateEmail", () => {
@@ -187,6 +191,23 @@ describe("Validation Utilities", () => {
       expect(sanitizeText(dirty)).toBe("Nome com lixo");
     });
 
+    it("deve sanitizar cabeçalhos de e-mail substituindo quebras de linha CRLF por espaço e prevenindo header injection", () => {
+      const malicious = "Servidor / infraestrutura\r\nBcc: atacante@spam.org\r\nSubject: Injetado";
+      expect(sanitizeHeaderValue(malicious)).toBe(
+        "Servidor / infraestrutura Bcc: atacante@spam.org Subject: Injetado"
+      );
+    });
+
+    it("deve tratar quebras de linha com múltiplos \\r e \\n consecutivos", () => {
+      const multiLine = "Linha 1\r\n\r\n\nLinha 2\nLinha 3";
+      expect(sanitizeHeaderValue(multiLine)).toBe("Linha 1 Linha 2 Linha 3");
+    });
+
+    it("deve remover caracteres invisíveis e aparar bordas ao sanitizar header", () => {
+      const withInvisible = "  \u0000Empresa Segura\r\n  ";
+      expect(sanitizeHeaderValue(withInvisible)).toBe("Empresa Segura");
+    });
+
     it("deve respeitar a janela de requisições do rate limit", () => {
       resetRateLimitStoreForTesting();
       const ip = "192.168.1.50";
@@ -197,6 +218,37 @@ describe("Validation Utilities", () => {
       expect(checkRateLimit(ip, 3, 5000).success).toBe(true);
       // 4ª requisição deve ser bloqueada
       expect(checkRateLimit(ip, 3, 5000).success).toBe(false);
+    });
+  });
+
+  describe("extractClientIp", () => {
+    it("deve priorizar cf-connecting-ip sobre x-forwarded-for e x-real-ip", () => {
+      const headers = new Headers({
+        "cf-connecting-ip": "203.0.113.195",
+        "x-forwarded-for": "198.51.100.1, 10.0.0.1",
+        "x-real-ip": "198.51.100.2",
+      });
+      expect(extractClientIp(headers)).toBe("203.0.113.195");
+    });
+
+    it("deve usar x-real-ip como fallback secundário quando cf-connecting-ip não existir", () => {
+      const headers = new Headers({
+        "x-real-ip": "198.51.100.2",
+        "x-forwarded-for": "198.51.100.1, 10.0.0.1",
+      });
+      expect(extractClientIp(headers)).toBe("198.51.100.2");
+    });
+
+    it("deve usar o primeiro IP de x-forwarded-for como fallback terciário", () => {
+      const headers = new Headers({
+        "x-forwarded-for": "198.51.100.5, 10.0.0.1",
+      });
+      expect(extractClientIp(headers)).toBe("198.51.100.5");
+    });
+
+    it("deve retornar 127.0.0.1 quando nenhum cabeçalho de IP for fornecido", () => {
+      const headers = new Headers({});
+      expect(extractClientIp(headers)).toBe("127.0.0.1");
     });
   });
 });

@@ -230,5 +230,89 @@ describe("HubSpot Forms API Integration (/api/contact)", () => {
       expect(data.error).toBe("Dados inválidos.");
       expect(data.validationErrors).toBeDefined();
     });
+
+    it("deve aplicar rate limit de 5 requisições e bloquear a 6ª com HTTP 429", async () => {
+      vi.spyOn(globalThis, "fetch").mockResolvedValue(
+        new Response(JSON.stringify({ status: "success" }), { status: 200 })
+      );
+
+      const clientIp = "198.51.100.77";
+
+      for (let i = 1; i <= 5; i++) {
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "cf-connecting-ip": clientIp,
+          },
+          body: JSON.stringify(validPayload),
+        });
+        const res = await POST(req);
+        expect(res.status).toBe(200);
+      }
+
+      // 6ª requisição deve retornar 429
+      const blockedReq = new NextRequest("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "cf-connecting-ip": clientIp,
+        },
+        body: JSON.stringify(validPayload),
+      });
+      const blockedRes = await POST(blockedReq);
+      const blockedData = await blockedRes.json();
+
+      expect(blockedRes.status).toBe(429);
+      expect(blockedData.error).toContain("Limite de mensagens atingido");
+
+      // Requisição de outro IP não deve ser afetada
+      const otherReq = new NextRequest("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "cf-connecting-ip": "198.51.100.88",
+        },
+        body: JSON.stringify(validPayload),
+      });
+      const otherRes = await POST(otherReq);
+      expect(otherRes.status).toBe(200);
+    });
+
+    it("não deve permitir burlar o rate limit alterando x-forwarded-for quando cf-connecting-ip está presente", async () => {
+      vi.spyOn(globalThis, "fetch").mockResolvedValue(
+        new Response(JSON.stringify({ status: "success" }), { status: 200 })
+      );
+
+      const realEdgeIp = "203.0.113.80";
+
+      // 5 requisições simulando atacante tentando trocar X-Forwarded-For
+      for (let i = 1; i <= 5; i++) {
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "cf-connecting-ip": realEdgeIp,
+            "x-forwarded-for": `10.0.0.${i}`,
+          },
+          body: JSON.stringify(validPayload),
+        });
+        const res = await POST(req);
+        expect(res.status).toBe(200);
+      }
+
+      // 6ª tentativa com novo spoof de X-Forwarded-For
+      const bypassAttempt = new NextRequest("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "cf-connecting-ip": realEdgeIp,
+          "x-forwarded-for": "10.0.0.99",
+        },
+        body: JSON.stringify(validPayload),
+      });
+      const bypassRes = await POST(bypassAttempt);
+      expect(bypassRes.status).toBe(429);
+    });
   });
 });
