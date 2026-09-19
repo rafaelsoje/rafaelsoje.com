@@ -1,4 +1,5 @@
 import React from "react";
+import { BrandSymbol } from "./BrandLogo";
 
 export function RafaelProfileSection() {
   return (
@@ -21,8 +22,8 @@ export function RafaelProfileSection() {
                 </div>
 
                 <div className="py-8 flex flex-col items-center text-center">
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-900 border-2 border-teal-500/40 flex items-center justify-center shadow-lg relative mb-5">
-                    <span className="font-mono text-4xl sm:text-5xl font-extrabold text-teal-400 tracking-tighter">rs.</span>
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-900 border-2 border-teal-500/40 flex items-center justify-center shadow-lg relative mb-5 p-3">
+                    <BrandSymbol className="w-14 h-14 sm:w-16 sm:h-16" theme="dark" />
                     <span className="absolute -bottom-2.5 px-2.5 py-0.5 rounded-full bg-teal-900/90 border border-teal-400/50 text-[10px] font-mono font-bold text-teal-200 uppercase tracking-wider">
                       OPERACIONAL
                     </span>

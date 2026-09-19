@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { BrandMonogram } from "@/components/BrandMonogram";
+import { BrandSymbol } from "@/components/BrandLogo";
 
 export const metadata = {
   title: "Política de Privacidade | Rafael Soje",
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <header className="border-b border-slate-800 bg-slate-950/80 px-4 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2 text-white hover:text-teal-400 transition-colors">
-            <BrandMonogram size="sm" variant="minimal" className="text-teal-400 text-lg" />
+            <BrandSymbol className="w-5 h-5" theme="dark" />
             <span className="font-sans font-bold text-sm">Rafael Soje</span>
           </Link>
           <Link

@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
-import { BrandMonogram } from "./BrandMonogram";
+import { BrandSymbol } from "./BrandLogo";
 import { InfrastructureDiagram } from "./InfrastructureDiagram";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export function HeroSection() {
   return (
@@ -19,10 +22,9 @@ export function HeroSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Monogram & Category Header */}
         <div className="flex items-center space-x-3 mb-6">
-          <BrandMonogram size="sm" variant="minimal" className="text-teal-400" />
+          <BrandSymbol className="w-5 h-5" theme="dark" />
           <div className="h-3 w-[1px] bg-slate-700" />
           <span className="text-micro text-slate-400 font-bold tracking-wider uppercase">
-            Servidores, Segurança & Sistemas
             Infraestrutura, Cloud &amp; Desenvolvimento Web
           </span>
         </div>
@@ -45,10 +47,10 @@ export function HeroSection() {
         {/* Action CTAs */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-14">
           <a
-            href="#avaliacao"
+            href="#contato"
             className="inline-flex items-center justify-center px-6 py-4 rounded text-xs sm:text-sm font-mono font-bold tracking-wider uppercase bg-teal-500 hover:bg-teal-400 text-slate-950 transition-all shadow-lg shadow-teal-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
           >
-            <span>Solicitar Avaliação Inicial Gratuita</span>
+            <span>Solicitar avaliação inicial</span>
             <span className="ml-2 font-sans font-bold">→</span>
           </a>
 
@@ -56,6 +58,7 @@ export function HeroSection() {
             href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "hero" })}
             className="inline-flex items-center justify-center px-6 py-4 rounded text-xs sm:text-sm font-mono font-semibold tracking-wider uppercase border border-slate-700 bg-slate-900/80 hover:bg-slate-800 hover:border-slate-500 text-slate-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
           >
             <svg className="w-4 h-4 mr-2 text-teal-400" fill="currentColor" viewBox="0 0 24 24">

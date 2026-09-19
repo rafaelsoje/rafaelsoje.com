@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export function FreeEvaluationSection() {
   return (
@@ -100,12 +103,13 @@ export function FreeEvaluationSection() {
                   href="#contato"
                   className="w-full inline-flex items-center justify-center px-5 py-3.5 rounded text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-all shadow-md"
                 >
-                  Solicitar Triagem Preliminar
+                  Solicitar avaliação inicial
                 </a>
                 <a
                   href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20uma%20avalia%C3%A7%C3%A3o%20inicial%20gratuita%20sobre%20meu%20ambiente."
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "free_evaluation" })}
                   className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded text-xs sm:text-sm font-mono border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white transition-colors"
                 >
                   Conversar no WhatsApp

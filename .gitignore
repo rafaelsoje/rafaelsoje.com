@@ -24,6 +24,7 @@
 .DS_Store
 /screenshots/
 take-screenshots.mjs
+*:Zone.Identifier
 *.pem
 
 # debug

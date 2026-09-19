@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { BrandMonogram } from "./BrandMonogram";
+import { BrandSymbol } from "./BrandLogo";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,10 +40,10 @@ export function Header() {
               href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "header_topbar" })}
               className="text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1 font-semibold"
             >
-              <span>WhatsApp: +55 21 99984-0419</span>
-              <span>Conversar no WhatsApp</span>
+              Conversar no WhatsApp
             </a>
           </div>
         </div>
@@ -54,21 +55,14 @@ export function Header() {
         <Link
           href="/"
           className="flex items-center space-x-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded"
-          aria-label="Rafael Soje - Página inicial"
+          aria-label="Rafael Soje — Página inicial"
         >
-          <div className="w-9 h-9 rounded bg-slate-900 border border-slate-700 flex items-center justify-center text-white group-hover:border-teal-400/80 transition-colors">
-            <BrandMonogram size="sm" variant="minimal" className="text-white text-lg" />
+          <div className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-700/80 flex items-center justify-center p-1.5 text-white group-hover:border-teal-400/80 transition-colors shadow-sm">
+            <BrandSymbol className="w-full h-full" theme="dark" />
           </div>
-          <div className="flex flex-col">
-            <span className="font-sans font-bold text-base tracking-tight text-white group-hover:text-teal-300 transition-colors">
-              Rafael Soje
-            </span>
-            <span className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
-              Infraestrutura & Dev
-              Servidores & Sistemas
-              Infraestrutura, Cloud &amp; Dev Web
-            </span>
-          </div>
+          <span className="font-sans font-bold text-base tracking-tight text-white group-hover:text-teal-300 transition-colors">
+            Rafael Soje
+          </span>
         </Link>
 
         {/* Desktop Nav Links */}
@@ -90,7 +84,7 @@ export function Header() {
             href="#contato"
             className="inline-flex items-center justify-center px-4 py-2 rounded text-xs font-mono font-semibold tracking-wider uppercase bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
           >
-            Avaliação Gratuita
+            Avaliação Inicial
           </a>
         </div>
 
@@ -135,15 +129,18 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors"
             >
-              Solicitar Avaliação Gratuita
+              Solicitar Avaliação Inicial
             </a>
             <a
               href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                trackAnalyticsEvent("whatsapp_click", { location: "header_mobile" });
+              }}
               className="w-full text-center px-4 py-2 rounded text-xs font-mono border border-slate-700 hover:border-teal-400 text-slate-300 hover:text-white transition-colors"
             >
-              Conversar no WhatsApp (+55 21 99984-0419)
               Conversar no WhatsApp
             </a>
           </div>

@@ -44,69 +44,66 @@ describe("Validation Utilities", () => {
     const validBase = {
       name: "Cliente Exemplo",
       company: "Empresa Tecnologia",
-      helpTopic: "Diagnóstico de lentidão ou instabilidade",
+      email: "contato@empresa.com",
+      helpTopic: "Servidor / infraestrutura",
       message: "Gostaria de solicitar uma avaliação inicial para nosso servidor Linux.",
     };
 
-    it("deve reprovar quando o campo 'Como posso ajudar?' não é selecionado", () => {
-      const result = validateContactForm({
-        ...validBase,
-        helpTopic: "",
-        whatsapp: "21 99984-0419",
-      });
-      expect(result.isValid).toBe(false);
-      expect(result.errors.helpTopic).toBeDefined();
-    });
-
-    it("deve aprovar quando apenas WhatsApp válido é fornecido", () => {
-      const result = validateContactForm({
-        ...validBase,
-        whatsapp: "21 98765-4321",
-      });
-      expect(result.isValid).toBe(true);
-      expect(result.sanitizedData?.whatsapp).toBe("21 98765-4321");
-    });
-
-    it("deve aprovar quando apenas E-mail válido é fornecido", () => {
-      const result = validateContactForm({
-        ...validBase,
-        email: "contato@empresa.com",
-      });
+    it("deve aprovar quando os campos obrigatórios (nome, e-mail, como posso ajudar, mensagem) são preenchidos sem WhatsApp", () => {
+      const result = validateContactForm(validBase);
       expect(result.isValid).toBe(true);
       expect(result.sanitizedData?.email).toBe("contato@empresa.com");
+      expect(result.sanitizedData?.whatsapp).toBe("");
     });
 
-    it("deve aprovar quando ambos WhatsApp e E-mail são válidos", () => {
+    it("deve aprovar quando WhatsApp válido também é fornecido", () => {
       const result = validateContactForm({
         ...validBase,
-        whatsapp: "21 98765-4321",
-        email: "contato@empresa.com",
+        whatsapp: "21 99984-0419",
       });
       expect(result.isValid).toBe(true);
+      expect(result.sanitizedData?.whatsapp).toBe("21 99984-0419");
     });
 
-    it("deve reprovar quando nenhum canal de contato é informado", () => {
+    it("deve reprovar quando o e-mail não é informado", () => {
       const result = validateContactForm({
         ...validBase,
-      });
-      expect(result.isValid).toBe(false);
-      expect(result.errors.contact).toBeDefined();
-    });
-
-    it("deve reprovar se ambos são preenchidos mas um deles é inválido", () => {
-      const result = validateContactForm({
-        ...validBase,
-        whatsapp: "21 98765-4321",
-        email: "email-invalido",
+        email: "",
       });
       expect(result.isValid).toBe(false);
       expect(result.errors.email).toBeDefined();
     });
 
+    it("deve reprovar quando o e-mail é inválido", () => {
+      const result = validateContactForm({
+        ...validBase,
+        email: "email-invalido-sem-arroba",
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.email).toBeDefined();
+    });
+
+    it("deve reprovar quando o WhatsApp fornecido é inválido", () => {
+      const result = validateContactForm({
+        ...validBase,
+        whatsapp: "12345",
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.whatsapp).toBeDefined();
+    });
+
+    it("deve reprovar quando o campo 'Como posso ajudar?' não é selecionado", () => {
+      const result = validateContactForm({
+        ...validBase,
+        helpTopic: "",
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.helpTopic).toBeDefined();
+    });
+
     it("deve rejeitar preenchimento de honeypot (bloqueio de robôs)", () => {
       const result = validateContactForm({
         ...validBase,
-        email: "teste@empresa.com",
         honeypot: "http://bot-link.spam",
       });
       expect(result.isValid).toBe(false);

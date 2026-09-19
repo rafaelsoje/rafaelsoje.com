@@ -173,7 +173,7 @@ Data/Hora: ${new Date().toISOString()}`,
       {
         success: true,
         message:
-          "Mensagem recebida com sucesso! Rafael entrará em contato em breve para realizar a triagem inicial.",
+          "Recebi sua solicitação. Vou analisar as informações e entrar em contato.",
       },
       { status: 200 }
     );
@@ -182,7 +182,7 @@ Data/Hora: ${new Date().toISOString()}`,
     return NextResponse.json(
       {
         error:
-          "Ocorreu um erro ao enviar sua mensagem. Se preferir, contate diretamente pelo WhatsApp através do site.",
+          "Ocorreu um erro ao enviar sua mensagem. Se preferir, entre em contato diretamente pelo WhatsApp através do site.",
       },
       { status: 500 }
     );
@@ -193,7 +193,7 @@ interface LeadPayload {
   name: string;
   company?: string;
   whatsapp?: string;
-  email?: string;
+  email: string;
   helpTopic: string;
   message: string;
   ip: string;
@@ -203,6 +203,7 @@ async function dispatchToHubSpot(lead: LeadPayload) {
   const token = process.env.HUBSPOT_ACCESS_TOKEN;
   const portalId = process.env.HUBSPOT_PORTAL_ID;
   const formGuid = process.env.HUBSPOT_FORM_GUID;
+  const contactDate = new Date().toISOString();
 
   try {
     // 1. Prioridade: HubSpot CRM API v3 (com Access Token privado)
@@ -223,9 +224,12 @@ async function dispatchToHubSpot(lead: LeadPayload) {
             lastname,
             company: lead.company || "",
             phone: lead.whatsapp || "",
-            email: lead.email || "",
+            mobilephone: lead.whatsapp || "",
+            email: lead.email,
             message: `[${lead.helpTopic}] ${lead.message}`,
             hs_lead_status: "NEW",
+            lead_source: "rafaelsoje.com",
+            notes_last_contacted: `Origem: rafaelsoje.com | Data: ${contactDate} | Demanda: ${lead.helpTopic}`,
           },
         }),
       });
@@ -245,8 +249,9 @@ async function dispatchToHubSpot(lead: LeadPayload) {
         { objectTypeId: "0-1", name: "firstname", value: lead.name },
         { objectTypeId: "0-1", name: "company", value: lead.company || "" },
         { objectTypeId: "0-1", name: "phone", value: lead.whatsapp || "" },
-        { objectTypeId: "0-1", name: "email", value: lead.email || "" },
+        { objectTypeId: "0-1", name: "email", value: lead.email },
         { objectTypeId: "0-1", name: "message", value: `[${lead.helpTopic}] ${lead.message}` },
+        { objectTypeId: "0-1", name: "lead_source", value: "rafaelsoje.com" },
       ];
 
       const res = await fetch(
@@ -258,7 +263,7 @@ async function dispatchToHubSpot(lead: LeadPayload) {
             fields,
             context: {
               pageUri: "https://rafaelsoje.com",
-              pageName: "Contato Comercial - Rafael Soje",
+              pageName: "Formulário Comercial - rafaelsoje.com",
             },
           }),
         }
@@ -273,18 +278,20 @@ async function dispatchToHubSpot(lead: LeadPayload) {
       return;
     }
 
-    // 3. Fallback simulado caso as credenciais não estejam configuradas
-    console.log("[HubSpot Simulated Dispatch] Credenciais ausentes. Lead registrado em fallback:", {
-      name: lead.name,
-      company: lead.company,
-      whatsapp: lead.whatsapp,
+    // 3. Fallback / Log estruturado caso as variáveis de ambiente ainda não estejam preenchidas
+    console.log("[HubSpot Simulated Dispatch] Credenciais ausentes. Mapeamento pronto para conexão:", {
+      nome: lead.name,
+      empresa: lead.company || "Não informada",
       email: lead.email,
-      helpTopic: lead.helpTopic,
-      message: lead.message,
+      whatsapp: lead.whatsapp || "Não informado",
+      tipo_de_necessidade: lead.helpTopic,
+      mensagem: lead.message,
+      origem_do_lead: "rafaelsoje.com",
+      data_do_contato: contactDate,
       ip: lead.ip,
     });
   } catch (hubspotErr) {
-    // Não quebra a requisição do usuário em caso de falha externa de CRM
+    // Fail-safe: Não quebra a requisição do usuário em caso de indisponibilidade de rede ou falha externa
     console.error("[HubSpot Integration Exception]:", hubspotErr);
   }
 }

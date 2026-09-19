@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First open by default
@@ -105,14 +106,24 @@ export function FAQSection() {
         {/* Quick Help Note */}
         <div className="mt-10 p-4 sm:p-5 rounded bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs sm:text-sm text-slate-600 font-mono">
           <span>Tem outra dúvida específica sobre a sua necessidade?</span>
-          <a
-            href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20tenho%20uma%20d%C3%BAvida%20espec%C3%ADfica."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-teal-700 font-bold hover:underline whitespace-nowrap"
-          >
-            Perguntar no WhatsApp →
-          </a>
+          <div className="flex items-center gap-4 flex-wrap">
+            <a
+              href="#contato"
+              className="text-teal-700 font-bold hover:underline whitespace-nowrap"
+            >
+              Enviar pelo formulário →
+            </a>
+            <span className="text-slate-300">|</span>
+            <a
+              href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20tenho%20uma%20d%C3%BAvida%20espec%C3%ADfica."
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "faq" })}
+              className="text-slate-600 hover:text-slate-900 whitespace-nowrap"
+            >
+              WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </section>

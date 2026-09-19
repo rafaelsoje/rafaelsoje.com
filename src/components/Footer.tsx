@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { BrandMonogram } from "./BrandMonogram";
+import { BrandSymbol } from "./BrandLogo";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,8 +15,8 @@ export function Footer() {
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-3">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center text-white">
-                <BrandMonogram size="sm" variant="minimal" className="text-white text-base" />
+              <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center p-1.5 text-white">
+                <BrandSymbol className="w-full h-full" theme="dark" />
               </div>
               <span className="font-sans font-bold text-slate-200 text-base">
                 Rafael Soje
@@ -51,13 +54,18 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <a href="#contato" className="hover:text-teal-400 transition-colors">
+                  › Avaliação Inicial &amp; Contato
+                </a>
+              </li>
+              <li>
                 <a href="#avaliacao" className="hover:text-teal-400 transition-colors">
-                  › Triagem Inicial Gratuita
+                  › Triagem Inicial
                 </a>
               </li>
               <li>
                 <a href="#sobre" className="hover:text-teal-400 transition-colors">
-                  › Identidade & Atuação
+                  › Identidade &amp; Atuação
                 </a>
               </li>
               <li>
@@ -71,7 +79,7 @@ export function Footer() {
           {/* Contact and Legal */}
           <div className="md:col-span-3 space-y-2">
             <span className="text-slate-300 font-bold uppercase tracking-wider block mb-3">
-              Contato & Termos
+              Contato &amp; Termos
             </span>
             <p className="text-slate-400">
               WhatsApp:{" "}
@@ -79,6 +87,7 @@ export function Footer() {
                 href="https://wa.me/5521999840419"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackAnalyticsEvent("whatsapp_click", { location: "footer" })}
                 className="text-teal-400 hover:underline font-semibold"
               >
                 +55 21 99984-0419
@@ -86,7 +95,11 @@ export function Footer() {
             </p>
             <p className="text-slate-400">
               E-mail:{" "}
-              <a href="mailto:contato@rafaelsoje.com" className="text-teal-400 hover:underline">
+              <a
+                href="mailto:contato@rafaelsoje.com"
+                onClick={() => trackAnalyticsEvent("email_click", { location: "footer" })}
+                className="text-teal-400 hover:underline"
+              >
                 contato@rafaelsoje.com
               </a>
             </p>
@@ -107,8 +120,8 @@ export function Footer() {
             © {currentYear} Rafael Soje. Todos os direitos reservados.
           </div>
           <div className="flex items-center space-x-2">
-            <span>MARCA REGISTRÁVEL:</span>
-            <BrandMonogram size="sm" variant="minimal" className="text-teal-500 font-bold" />
+            <span>IDENTIDADE VISUAL:</span>
+            <BrandSymbol className="w-4 h-4 inline-block" theme="dark" />
           </div>
         </div>
       </div>

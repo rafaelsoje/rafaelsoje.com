@@ -1,10 +1,11 @@
 export const HELP_TOPICS = [
-  "Diagnóstico de lentidão ou instabilidade",
-  "Configuração ou migração de servidor",
-  "Rotinas de backup e segurança",
-  "Desenvolvimento ou manutenção de sistema",
-  "Manutenção mensal preventiva",
-  "Outro assunto",
+  "Servidor / infraestrutura",
+  "Site / sistema",
+  "Migração",
+  "Backup",
+  "Segurança",
+  "Automação",
+  "Outro",
 ] as const;
 
 export type HelpTopic = (typeof HELP_TOPICS)[number];
@@ -13,8 +14,8 @@ export interface ContactFormData {
   name: string;
   company?: string;
   whatsapp?: string;
-  email?: string;
-  helpTopic?: string;
+  email: string;
+  helpTopic: string;
   message: string;
   honeypot?: string;
 }
@@ -66,7 +67,7 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
     return { isValid: false, errors };
   }
 
-  // Name validation
+  // Name validation (obrigatório)
   const name = (data.name || "").trim();
   if (!name) {
     errors.name = "Por favor, informe seu nome.";
@@ -76,37 +77,33 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
     errors.name = "O nome não pode exceder 100 caracteres.";
   }
 
-  // Help topic validation
+  // Help topic validation (obrigatório)
   const helpTopic = (data.helpTopic || "").trim();
   if (!helpTopic) {
     errors.helpTopic = "Por favor, selecione como posso ajudar.";
   }
 
-  // Company validation (optional)
+  // Company validation (opcional)
   const company = (data.company || "").trim();
   if (company.length > 100) {
     errors.company = "O nome da empresa não pode exceder 100 caracteres.";
   }
 
-  // Contact channel rule: WhatsApp OR Email required. If both provided, both must be valid.
-  const whatsapp = (data.whatsapp || "").trim();
+  // Email validation (obrigatório)
   const email = (data.email || "").trim();
-
-  const hasWhatsApp = whatsapp.length > 0;
-  const hasEmail = email.length > 0;
-
-  if (!hasWhatsApp && !hasEmail) {
-    errors.contact = "Informe ao menos um canal para contato: WhatsApp ou E-mail.";
-  } else {
-    if (hasWhatsApp && !validateWhatsApp(whatsapp)) {
-      errors.whatsapp = "Número de WhatsApp inválido. Digite DDD + número (ex: 21 99984-0419).";
-    }
-    if (hasEmail && !validateEmail(email)) {
-      errors.email = "E-mail inválido. Verifique o formato digitado.";
-    }
+  if (!email) {
+    errors.email = "Por favor, informe seu e-mail de contato.";
+  } else if (!validateEmail(email)) {
+    errors.email = "E-mail inválido. Verifique o formato digitado.";
   }
 
-  // Message validation
+  // WhatsApp validation (opcional - se preenchido, valida formato)
+  const whatsapp = (data.whatsapp || "").trim();
+  if (whatsapp && !validateWhatsApp(whatsapp)) {
+    errors.whatsapp = "Número de WhatsApp inválido. Digite DDD + número (ex: 21 99984-0419).";
+  }
+
+  // Message validation (obrigatória)
   const message = (data.message || "").trim();
   if (!message) {
     errors.message = "Por favor, descreva brevemente seu problema ou necessidade.";
