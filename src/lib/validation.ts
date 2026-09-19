@@ -63,6 +63,45 @@ export function validatePhone(phone: string): boolean {
 
 export const validateWhatsApp = validatePhone;
 
+/**
+ * Normaliza número de telefone para formato E.164:
+ * - Trata adequadamente números brasileiros com DDI +55
+ * - Preserva números internacionais existentes sem corrompê-los
+ */
+export function formatPhoneToE164(phone?: string): string {
+  if (!phone) return "";
+  const trimmed = phone.trim();
+  if (!trimmed) return "";
+
+  // Se já começar com '+'
+  if (trimmed.startsWith("+")) {
+    const digits = trimmed.replace(/\D/g, "");
+    return digits ? `+${digits}` : "";
+  }
+
+  // Se começar com prefixo internacional '00'
+  if (trimmed.startsWith("00")) {
+    const digits = trimmed.slice(2).replace(/\D/g, "");
+    return digits ? `+${digits}` : "";
+  }
+
+  const digits = trimmed.replace(/\D/g, "");
+  if (!digits) return "";
+
+  // Números brasileiros (DDD com 2 dígitos + telefone com 8 ou 9 dígitos = 10 ou 11 dígitos)
+  if (digits.length === 10 || digits.length === 11) {
+    return `+55${digits}`;
+  }
+
+  // Se já possui o código 55 (12 ou 13 dígitos)
+  if ((digits.length === 12 || digits.length === 13) && digits.startsWith("55")) {
+    return `+${digits}`;
+  }
+
+  // Padrão genérico E.164
+  return `+${digits}`;
+}
+
 export function validateContactForm(data: Partial<ContactFormData>): ValidationResult {
   const errors: ValidationResult["errors"] = {};
 
@@ -82,10 +121,12 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
     errors.name = "O nome não pode exceder 100 caracteres.";
   }
 
-  // Help topic validation (obrigatório)
+  // Help topic validation (obrigatório e validado contra enum permitida)
   const helpTopic = (data.helpTopic || "").trim();
   if (!helpTopic) {
     errors.helpTopic = "Por favor, selecione como posso ajudar.";
+  } else if (!HELP_TOPICS.includes(helpTopic as HelpTopic)) {
+    errors.helpTopic = "Opção selecionada inválida. Escolha uma das opções da lista.";
   }
 
   // Company validation (opcional)
@@ -102,7 +143,7 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
     errors.email = "E-mail inválido. Verifique o formato digitado.";
   }
 
-  // Phone validation (opcional - se preenchido, valida formato)
+  // Phone / WhatsApp validation (opcional - se preenchido, valida formato)
   const phone = (data.phone || data.whatsapp || "").trim();
   if (phone && !validatePhone(phone)) {
     const errorMsg = "Número de telefone inválido. Digite DDD + número (ex: 11 98765-4321).";

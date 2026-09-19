@@ -70,7 +70,7 @@ export function ContactSection() {
         setSubmitStatus("success");
         setServerMessage(
           data.message ||
-            "Recebi sua solicitação. Vou analisar as informações e entrar em contato."
+            "Solicitação enviada com sucesso. Obrigado pelo contato. Analisarei as informações e retornarei pelo e-mail ou WhatsApp informado."
         );
         trackAnalyticsEvent("form_success", { helpTopic: formData.helpTopic });
         // Reset form
@@ -89,13 +89,13 @@ export function ContactSection() {
         setSubmitStatus("error");
         setServerMessage(
           data.error ||
-            "Não foi possível processar sua solicitação no momento. Tente novamente ou envie um e-mail para contato@rafaelsoje.com."
+            "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes."
         );
       }
     } catch {
       setSubmitStatus("error");
       setServerMessage(
-        "Erro de conexão com o servidor. Por favor, tente novamente ou envie um e-mail para contato@rafaelsoje.com."
+        "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes."
       );
     } finally {
       setIsSubmitting(false);

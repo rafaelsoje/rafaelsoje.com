@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { validateContactForm, validateEmail, validateWhatsApp } from "./validation";
+import {
+  validateContactForm,
+  validateEmail,
+  validateWhatsApp,
+  validatePhone,
+  formatPhoneToE164,
+} from "./validation";
 import { escapeHtml, sanitizeText } from "./sanitize";
 import { checkRateLimit, resetRateLimitStoreForTesting } from "./rate-limit";
 
@@ -20,8 +26,9 @@ describe("Validation Utilities", () => {
     });
   });
 
-  describe("validateWhatsApp", () => {
+  describe("validateWhatsApp & validatePhone", () => {
     it("deve aceitar números válidos de WhatsApp brasileiros e internacionais", () => {
+      expect(validatePhone("11 98765-4321")).toBe(true);
       expect(validateWhatsApp("11 98765-4321")).toBe(true);
       expect(validateWhatsApp("(11) 98765-4321")).toBe(true);
       expect(validateWhatsApp("+55 11 98765-4321")).toBe(true);
@@ -34,9 +41,35 @@ describe("Validation Utilities", () => {
     });
 
     it("deve rejeitar números com dígitos insuficientes ou inválidos", () => {
+      expect(validatePhone("")).toBe(false);
       expect(validateWhatsApp("")).toBe(false);
       expect(validateWhatsApp("123")).toBe(false);
       expect(validateWhatsApp("telefone_invalido")).toBe(false);
+    });
+  });
+
+  describe("formatPhoneToE164", () => {
+    it("deve formatar número brasileiro com DDD para +55...", () => {
+      expect(formatPhoneToE164("11 98765-4321")).toBe("+5511987654321");
+      expect(formatPhoneToE164("(21) 99876-5432")).toBe("+5521998765432");
+      expect(formatPhoneToE164("11987654321")).toBe("+5511987654321");
+      expect(formatPhoneToE164("21 3344-5566")).toBe("+552133445566");
+    });
+
+    it("deve preservar número brasileiro que já inclui +55 ou 55", () => {
+      expect(formatPhoneToE164("+55 11 98765-4321")).toBe("+5511987654321");
+      expect(formatPhoneToE164("5511987654321")).toBe("+5511987654321");
+    });
+
+    it("deve preservar números internacionais", () => {
+      expect(formatPhoneToE164("+1 (415) 555-2671")).toBe("+14155552671");
+      expect(formatPhoneToE164("+351 912 345 678")).toBe("+351912345678");
+      expect(formatPhoneToE164("0014155552671")).toBe("+14155552671");
+    });
+
+    it("deve retornar string vazia para valores vazios ou indefinidos", () => {
+      expect(formatPhoneToE164("")).toBe("");
+      expect(formatPhoneToE164(undefined)).toBe("");
     });
   });
 
@@ -53,6 +86,7 @@ describe("Validation Utilities", () => {
       const result = validateContactForm(validBase);
       expect(result.isValid).toBe(true);
       expect(result.sanitizedData?.email).toBe("contato@empresa.com");
+      expect(result.sanitizedData?.whatsapp).toBe("");
       expect(result.sanitizedData?.phone).toBe("");
     });
 
@@ -105,6 +139,15 @@ describe("Validation Utilities", () => {
       const result = validateContactForm({
         ...validBase,
         helpTopic: "",
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.helpTopic).toBeDefined();
+    });
+
+    it("deve reprovar quando o campo 'Como posso ajudar?' tem valor não pertencente à lista permitida", () => {
+      const result = validateContactForm({
+        ...validBase,
+        helpTopic: "Valor Inexistente / Spam",
       });
       expect(result.isValid).toBe(false);
       expect(result.errors.helpTopic).toBeDefined();
