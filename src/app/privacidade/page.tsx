@@ -98,6 +98,7 @@ export default function PrivacyPage() {
               <ul className="list-disc pl-5 font-mono text-xs text-slate-300 space-y-1">
                 <li>E-mail: contato@rafaelsoje.com</li>
                 <li>WhatsApp: +55 21 99984-0419</li>
+                <li>WhatsApp: Atendimento direto via link oficial no site</li>
               </ul>
             </section>
           </div>

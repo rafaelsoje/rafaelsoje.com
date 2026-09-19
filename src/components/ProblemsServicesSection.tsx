@@ -3,59 +3,64 @@ import React from "react";
 export function ProblemsServicesSection() {
   const journeys = [
     {
-      code: "01 // DISPONIBILIDADE",
-      problemTitle: "Site fora do ar, erros 502/504 ou lentidão extrema",
+      code: "01 // ESTABILIDADE & DISPONIBILIDADE",
+      problemTitle: "“Meu site está fora do ar, muito lento ou caindo com frequência.”",
       problemDesc:
-        "O site cai em horários de pico, demora segundos para carregar ou apresenta telas de erro inesperadas que afastam clientes.",
+        "Telas de erro (502, 504, conexões esgotadas), lentidão súbita em horários de pico ou serviços que param de responder sem motivo aparente, afastando clientes e gerando prejuízo.",
       diagnosis:
-        "Esgotamento de memória RAM, configuração inadequada de pools no PHP-FPM, gargalo de conexões no Nginx ou falta de política de cache.",
+        "Gargalos de memória ou processamento no servidor, configurações inadequadas de conexões simultâneas, consultas lentas no banco de dados ou ausência de políticas eficientes de cache.",
       solution:
-        "Estabilização imediata da VPS, ajuste fino de limites de processos, otimização de buffers do servidor web e aplicação de cache inteligente.",
+        "Investigação completa do servidor e da aplicação, identificação da causa raiz e otimização das configurações do ambiente para melhorar a estabilidade e o tempo de resposta.",
       serviceType: "Suporte Pontual / Manutenção",
+      actionText: "Solicitar diagnóstico para site ou servidor",
     },
     {
-      code: "02 // SEGURANÇA & SSL",
-      problemTitle: "Avisos de 'Site Não Seguro', falhas de SSL e erros de Cloudflare",
+      code: "02 // MIGRAÇÃO & NOVOS AMBIENTES",
+      problemTitle: "“Preciso mudar de hospedagem ou colocar um servidor novo no ar.”",
       problemDesc:
-        "Certificados expirando sem renovar, navegadores bloqueando o acesso de visitantes ou erros 521/522/525 ao ativar o Cloudflare.",
+        "Necessidade de transferir sites, bancos de dados e arquivos volumosos entre servidores ou provedores de nuvem, com receio de perder dados ou deixar a operação paralisada.",
       diagnosis:
-        "Conflito entre o modo de criptografia do Cloudflare (Flexible vs. Full Strict), renovações automáticas do Certbot falhando por regras de porta ou DNS incorreto.",
+        "Migrações sem planejamento prévio de espelhamento, transferências incompletas de dados, permissões corrompidas de arquivos ou alteração precipitada de DNS que paralisa e-mails e sistemas.",
       solution:
-        "Instalação e alinhamento do SSL com renovação automática confiável, parametrização do Cloudflare no modo Strict e segurança no servidor de origem.",
-      serviceType: "Suporte Pontual / Configuração",
-    },
-    {
-      code: "03 // PROTEÇÃO DE DADOS",
-      problemTitle: "Risco de perda irreversível por ausência de backups",
-      problemDesc:
-        "A empresa não possui cópias de segurança confiáveis ou guarda os backups no mesmo disco do servidor onde o site está instalado.",
-      diagnosis:
-        "Ponto único de falha crítico: em caso de ataque, corrupção de sistema de arquivos ou exclusão acidental, não há como recuperar o negócio.",
-      solution:
-        "Criação de rotina automatizada de dumps de banco de dados e arquivos com compactação, criptografia e envio direto para storage em nuvem externo.",
-      serviceType: "Configuração & Migração / Manutenção",
-    },
-    {
-      code: "04 // INFRAESTRUTURA & MIGRAÇÃO",
-      problemTitle: "Necessidade de trocar de servidor sem ficar fora do ar",
-      problemDesc:
-        "Medo legítimo de migrar para uma VPS ou novo provedor e ter e-mails parados, banco de dados desatualizado ou dias de indisponibilidade.",
-      diagnosis:
-        "Migrações sem planejamento prévio, transferência lenta durante a produção ou corte de DNS antes da validação completa do ambiente espelho.",
-      solution:
-        "Setup completo do novo servidor Linux (hardening, firewall, Nginx, PHP/Node, DB), sincronização prévia de dados e virada assistida de DNS com zero downtime.",
+        "Planejamento estruturado da migração, preparação do novo servidor (Linux ou Windows Server), transferência segura de dados e virada assistida de DNS com foco em reduzir riscos de indisponibilidade.",
       serviceType: "Configuração e Migração",
+      actionText: "Planejar migração de servidor",
     },
     {
-      code: "05 // APLICAÇÕES WEB",
-      problemTitle: "Aplicações travando, código desatualizado ou falhas de rotina",
+      code: "03 // PROTEÇÃO DE DADOS & BACKUP",
+      problemTitle: "“Tenho backup, mas não sei se conseguiria recuperar meus dados em caso de desastre.”",
       problemDesc:
-        "Sistemas internos, painéis administrativos ou APIs com erros 500, processamentos lentos ou rotinas de cron job que deixaram de rodar.",
+        "Receio legítimo de perder bancos de dados, arquivos de clientes ou histórico da empresa após uma falha de hardware, exclusão acidental, corrupção ou incidente de segurança.",
       diagnosis:
-        "Erros de compatibilidade de versões, logs acumulados sem rotação, falhas em consultas a banco de dados ou ausência de monitoramento de jobs.",
+        "Cópias de segurança armazenadas no mesmo disco do servidor (ponto único de falha crítico), rotinas manuais esquecidas ou backups corrompidos que nunca foram testados para restauração.",
       solution:
-        "Análise detalhada de logs do sistema, refatoração de código pontual em PHP (Laravel, CodeIgniter) ou Next.js/NestJS e normalização de rotinas.",
+        "Revisão da rotina existente, estruturação de cópias automatizadas com compactação e envio seguro para armazenamento externo em nuvem, além de validação dos procedimentos de recuperação.",
+      serviceType: "Configuração & Migração / Manutenção",
+      actionText: "Estruturar estratégia de backup",
+    },
+    {
+      code: "04 // SEGURANÇA, SSL & DOMÍNIO",
+      problemTitle: "“Meu site exibe aviso de conexão não segura ou recebo muitas tentativas de acesso.”",
+      problemDesc:
+        "Navegadores bloqueando visitantes com alerta de segurança, falhas na renovação de certificados SSL, erros de apontamento de domínio ou servidor exposto a tentativas frequentes de invasão.",
+      diagnosis:
+        "Falhas na emissão e renovação automática de certificados, conflitos de DNS ou portas administrativas do servidor desnecessariamente abertas na internet sem filtragem ou regras de proteção.",
+      solution:
+        "Instalação e alinhamento de certificados SSL com renovação automática confiável, diagnóstico e ajuste de zonas de DNS, isolamento de acessos e aplicação de medidas de proteção adequadas ao ambiente.",
+      serviceType: "Suporte Pontual / Configuração",
+      actionText: "Corrigir SSL, DNS ou segurança",
+    },
+    {
+      code: "05 // SISTEMAS & AUTOMAÇÃO",
+      problemTitle: "“Minha empresa depende de planilhas e tarefas manuais que poderiam ser um sistema.”",
+      problemDesc:
+        "Controles operacionais fragmentados, retrabalho diário em tarefas manuais repetitivas, sistemas existentes sem manutenção ou necessidade de integrar ferramentas que não conversam entre si.",
+      diagnosis:
+        "Falta de um sistema centralizado para regras de negócio, bancos de dados desorganizados ou dependência de rotinas manuais lentas e sujeitas a erros operacionais.",
+      solution:
+        "Desenvolvimento de sistemas sob medida, criação de aplicações web, manutenção e evolução de sistemas existentes, integração de APIs e automação de processos para organizar a operação.",
       serviceType: "Desenvolvimento & Suporte Técnico",
+      actionText: "Conversar sobre sistema ou automação",
     },
   ];
 
@@ -65,20 +70,20 @@ export function ProblemsServicesSection() {
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
           <div className="flex items-center space-x-3 mb-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-teal-700">
+            <span className="text-micro font-bold text-teal-700 tracking-wider">
               02 // RESOLUÇÃO DE PROBLEMAS
             </span>
             <div className="h-[1px] w-12 bg-slate-300" />
-            <span className="font-mono text-xs text-slate-500 uppercase">
+            <span className="text-micro text-slate-500 uppercase tracking-wider">
               Diagnóstico Estruturado
             </span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-section-title font-extrabold text-slate-900 leading-tight">
             Problemas reais exigem diagnósticos precisos, não soluções improvisadas.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Em vez de tratar serviços de infraestrutura como pacotes abstratos, entenda como uma 
-            falha operacional é mapeada e solucionada de forma definitiva.
+          <p className="mt-4 text-body-lead text-slate-600 leading-relaxed max-w-[65ch]">
+            Em vez de contratar ferramentas isoladas, entenda como as falhas e gargalos mais 
+            comuns da sua operação digital são investigados e resolvidos.
           </p>
         </div>
 
@@ -87,58 +92,59 @@ export function ProblemsServicesSection() {
           {journeys.map((item, index) => (
             <div
               key={index}
-              className="border border-slate-200 rounded-lg p-5 sm:p-7 bg-slate-50/50 hover:bg-slate-50 hover:border-slate-300 transition-colors"
+              className="border border-slate-200 rounded-lg p-6 sm:p-8 bg-slate-50/50 hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-xs"
             >
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-4">
-                <span className="font-mono text-xs font-bold text-teal-700 tracking-wider">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-200 pb-3 mb-5">
+                <span className="text-micro font-bold text-teal-700 tracking-wider">
                   {item.code}
                 </span>
-                <span className="self-start md:self-auto font-mono text-[11px] uppercase tracking-wider px-2.5 py-0.5 rounded bg-slate-200/80 text-slate-700 font-semibold">
+                <span className="self-start md:self-auto text-micro uppercase tracking-wider px-2.5 py-0.5 rounded bg-slate-200/80 text-slate-700 font-semibold">
                   Modalidade: {item.serviceType}
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                {/* Problema */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                {/* 1. Problema Observado */}
                 <div className="lg:col-span-4">
-                  <span className="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                    Problema Observado
+                  <span className="text-micro font-bold text-slate-500 block mb-2 uppercase tracking-wider">
+                    PROBLEMA OBSERVADO
                   </span>
-                  <h3 className="text-base font-bold text-slate-900 mb-2">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug mb-2">
                     {item.problemTitle}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="text-sm text-slate-600 leading-relaxed">
                     {item.problemDesc}
                   </p>
                 </div>
 
-                {/* Diagnóstico Técnico */}
+                {/* 2. O que está acontecendo */}
                 <div className="lg:col-span-4 lg:border-l lg:border-slate-200 lg:pl-6">
-                  <span className="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                    Diagnóstico Técnico
+                  <span className="text-micro font-bold text-slate-500 block mb-2 uppercase tracking-wider">
+                    O QUE ESTÁ ACONTECENDO
                   </span>
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-mono bg-white p-3 rounded border border-slate-200/80">
-                    {item.diagnosis}
-                  </p>
+                  <div className="bg-white p-3.5 rounded border border-slate-200/80 shadow-xs">
+                    <p className="text-sm sm:text-[15px] text-slate-700 leading-relaxed">
+                      {item.diagnosis}
+                    </p>
+                  </div>
                 </div>
-
-                {/* Solução & Entrega */}
+                {/* 3. Como posso ajudar */}
                 <div className="lg:col-span-4 lg:border-l lg:border-slate-200 lg:pl-6 flex flex-col justify-between">
                   <div>
-                    <span className="font-mono text-[11px] font-bold text-teal-700 uppercase tracking-wider block mb-1">
-                      Solução & Engenharia
+                    <span className="text-micro font-bold text-teal-700 block mb-2 uppercase tracking-wider">
+                      COMO POSSO AJUDAR
                     </span>
-                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">
+                    <p className="text-sm sm:text-[15px] text-slate-800 leading-relaxed">
                       {item.solution}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-2 border-t border-slate-200 flex items-center justify-between">
+                  <div className="mt-5 pt-3 border-t border-slate-200 flex items-center justify-between">
                     <a
                       href="#contato"
-                      className="text-xs font-mono font-bold text-teal-700 hover:text-teal-900 flex items-center gap-1"
+                      className="text-xs sm:text-sm font-semibold text-teal-700 hover:text-teal-900 flex items-center gap-1.5 transition-colors"
                     >
-                      <span>Solicitar diagnóstico para este caso</span>
+                      <span>{item.actionText}</span>
                       <span>→</span>
                     </a>
                   </div>
@@ -151,4 +157,3 @@ export function ProblemsServicesSection() {
     </section>
   );
 }
-

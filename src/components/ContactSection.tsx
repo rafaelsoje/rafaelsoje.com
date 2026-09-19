@@ -2,27 +2,30 @@
 
 import React, { useState } from "react";
 import { BrandMonogram } from "./BrandMonogram";
-import { validateContactForm } from "@/lib/validation";
+import { validateContactForm, ContactFormData, HELP_TOPICS } from "@/lib/validation";
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     company: "",
     whatsapp: "",
     email: "",
+    helpTopic: "",
     message: "",
-    honeypot: "", // anti-spam field
+    honeypot: "",
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-  const [serverMessage, setServerMessage] = useState<string>("");
+  const [serverMessage, setServerMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear field-specific error as user types
+    // Clear error for the active field
     if (errors[name] || errors.contact) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -36,7 +39,7 @@ export function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Client-side pre-validation
+    // Client-side strict validation
     const validation = validateContactForm(formData);
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -48,25 +51,27 @@ export function ContactSection() {
     setServerMessage("");
 
     try {
-      const res = await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(validation.sanitizedData),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (res.ok) {
+      if (response.ok && data.success) {
         setSubmitStatus("success");
         setServerMessage(
           data.message ||
-            "Sua solicitação foi enviada com sucesso! Rafael responderá em breve com a triagem inicial."
+            "Sua mensagem foi enviada com sucesso. Rafael responderá em breve!"
         );
+        // Reset form
         setFormData({
           name: "",
           company: "",
           whatsapp: "",
           email: "",
+          helpTopic: "",
           message: "",
           honeypot: "",
         });
@@ -74,16 +79,14 @@ export function ContactSection() {
       } else {
         setSubmitStatus("error");
         setServerMessage(
-          data.error || "Ocorreu um erro no processamento. Você também pode me chamar diretamente no WhatsApp."
+          data.error ||
+            "Não foi possível processar sua solicitação no momento. Tente via WhatsApp."
         );
-        if (data.validationErrors) {
-          setErrors(data.validationErrors);
-        }
       }
     } catch {
       setSubmitStatus("error");
       setServerMessage(
-        "Não foi possível conectar ao servidor no momento. Por favor, entre em contato direto pelo WhatsApp +55 21 99984-0419."
+        "Erro de conexão com o servidor. Por favor, tente novamente ou utilize o WhatsApp direto."
       );
     } finally {
       setIsSubmitting(false);
@@ -91,61 +94,60 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contato" className="relative bg-[#090d16] text-white py-16 md:py-28 border-b border-slate-800 overflow-hidden">
-      {/* Editorial Grid Background */}
+    <section id="contato" className="relative bg-[#090d16] text-white py-16 md:py-24 border-b border-slate-800">
       <div className="absolute inset-0 bg-grid-pattern opacity-50 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Marker */}
-        <div className="flex items-center space-x-3 mb-6">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-teal-400">
-            08 // CANAL DIRETO & CONTRATAÇÃO
-          </span>
-          <div className="h-[1px] w-12 bg-slate-700" />
-          <span className="font-mono text-xs text-slate-400 uppercase">
-            Clímax Comercial
-          </span>
+        {/* Section Header */}
+        <div className="max-w-3xl mb-12">
+          <div className="flex items-center space-x-3 mb-3">
+            <span className="text-micro font-bold text-teal-400 tracking-wider">
+              06 // CANAL DE ATENDIMENTO
+            </span>
+            <div className="h-[1px] w-12 bg-slate-700" />
+            <span className="text-micro text-slate-400 uppercase tracking-wider">
+              Triagem Técnica Direta
+            </span>
+          </div>
+          <h2 className="text-section-title font-extrabold text-slate-100 leading-tight">
+            Descreva seu problema ou projeto para receber uma orientação direta.
+          </h2>
+          <p className="mt-4 text-body-lead text-slate-300 leading-relaxed max-w-[65ch]">
+            Sem atendentes comerciais intermediários. Toda conversa é tratada diretamente por quem 
+            analisará o ambiente, investigará logs ou desenvolverá o sistema.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Commercial Statement & Direct Channels */}
-          <div className="lg:col-span-5 flex flex-col justify-between h-full">
-            <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Vamos colocar sua infraestrutura em ordem.
-              </h2>
-              <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed">
-                Você conversa diretamente com Rafael Soje. Sem triagem automatizada inútil, 
-                sem atendentes comerciais que não entendem de servidor.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Left Column: Direct Channels & Confidence */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-6 sm:p-7 backdrop-blur-sm">
+              <span className="text-micro font-bold text-teal-400 uppercase tracking-wider block mb-2">
+                Canal Ágil // Mensagem Direta
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                WhatsApp Oficial
+              </h3>
+              <p className="font-mono text-base sm:text-lg font-bold text-teal-400 mb-3">
+                +55 21 99984-0419
               </p>
-
-              {/* Direct Quick WhatsApp Card */}
-              <div className="mt-8 p-6 rounded-lg border border-teal-500/40 bg-teal-950/20 shadow-lg">
-                <div className="flex items-center space-x-2 text-xs font-mono text-teal-400 font-bold mb-2">
-                  <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                  <span>RESPOSTA MAIS RÁPIDA VIA WHATSAPP</span>
-                </div>
-                <p className="text-xs text-slate-300 mb-4 leading-relaxed">
-                  Prefere conversar em tempo real? Envie uma mensagem com seu problema ou objetivo:
-                </p>
-                <a
-                  href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full px-5 py-3 rounded text-xs font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors shadow-md"
-                >
-                  <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.842-.981z" />
-                  </svg>
-                  <span>Iniciar Conversa no WhatsApp</span>
-                </a>
-                <div className="mt-2 text-center text-[11px] font-mono text-slate-400">
-                  +55 21 99984-0419
-                </div>
-              </div>
+              <p className="text-body-small text-slate-300 mb-4 leading-relaxed">
+                Prefere conversar em tempo real? Envie uma mensagem com o que está acontecendo:
+              </p>
+              <a
+                href="https://wa.me/5521999840419?text=Ol%C3%A1%20Rafael%2C%20gostaria%20de%20conversar%20sobre%20uma%20demanda%20t%C3%A9cnica."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-full px-5 py-3.5 rounded text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors shadow-md"
+              >
+                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.842-.981z" />
+                </svg>
+                <span>Iniciar Conversa no WhatsApp</span>
+              </a>
 
               {/* Direct Email Card */}
-              <div className="mt-4 p-4 rounded border border-slate-800 bg-slate-900/60 flex items-center justify-between text-xs font-mono">
+              <div className="mt-4 p-4 rounded border border-slate-800 bg-slate-900/60 flex items-center justify-between text-xs sm:text-sm font-mono">
                 <span className="text-slate-400">E-mail comercial direto:</span>
                 <a
                   href="mailto:contato@rafaelsoje.com"
@@ -157,7 +159,7 @@ export function ContactSection() {
             </div>
 
             {/* Commercial Trust Notes */}
-            <div className="mt-8 pt-6 border-t border-slate-800/80 space-y-2 text-xs font-mono text-slate-400">
+            <div className="pt-4 space-y-2.5 text-xs sm:text-sm font-mono text-slate-300">
               <div className="flex items-center space-x-2">
                 <span className="text-teal-400 font-bold">✓</span>
                 <span>Avaliação Inicial Gratuita (Triagem Preliminar)</span>
@@ -168,7 +170,7 @@ export function ContactSection() {
               </div>
               <div className="flex items-center space-x-2">
                 <span className="text-teal-400 font-bold">✓</span>
-                <span>Atendimento 100% confidencial sob boas práticas de segurança</span>
+                <span>Atendimento confidencial sob boas práticas de segurança</span>
               </div>
             </div>
           </div>
@@ -178,10 +180,10 @@ export function ContactSection() {
             <div className="rounded-lg border border-slate-700/80 bg-slate-900/90 p-6 sm:p-8 shadow-2xl backdrop-blur-sm relative">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-white tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                     Formulário de Solicitação & Triagem
                   </h3>
-                  <p className="text-xs text-slate-400 font-mono mt-0.5">
+                  <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
                     Envio seguro criptografado com validação no servidor
                   </p>
                 </div>
@@ -215,7 +217,7 @@ export function ContactSection() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} noValidate className="space-y-4">
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 {/* Honeypot field - visually hidden from humans */}
                 <div className="hidden" aria-hidden="true">
                   <label htmlFor="honeypot">Deixe este campo em branco</label>
@@ -235,7 +237,7 @@ export function ContactSection() {
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-1.5"
+                      className="block text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-slate-200 mb-1.5"
                     >
                       Seu Nome <span className="text-teal-400">*</span>
                     </label>
@@ -247,21 +249,21 @@ export function ContactSection() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Ex: Carlos Silva"
-                      className={`w-full px-3.5 py-2.5 rounded bg-slate-950/80 border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 ${
+                      className={`w-full px-4 py-3 rounded bg-slate-950/80 border text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 ${
                         errors.name ? "border-rose-500" : "border-slate-700"
                       }`}
                     />
                     {errors.name && (
-                      <p className="mt-1 text-xs text-rose-400 font-mono">{errors.name}</p>
+                      <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-medium">{errors.name}</p>
                     )}
                   </div>
 
                   <div>
                     <label
                       htmlFor="company"
-                      className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-1.5"
+                      className="block text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-slate-200 mb-1.5"
                     >
-                      Empresa <span className="text-slate-500 text-[10px] lowercase">(opcional)</span>
+                      Empresa <span className="text-slate-400 text-xs lowercase">(opcional)</span>
                     </label>
                     <input
                       id="company"
@@ -269,24 +271,63 @@ export function ContactSection() {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      placeholder="Ex: Studio / E-commerce"
-                      className="w-full px-3.5 py-2.5 rounded bg-slate-950/80 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400"
+                      placeholder="Ex: Minha Empresa / Projeto"
+                      className="w-full px-4 py-3 rounded bg-slate-950/80 border border-slate-700 text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:border-teal-400"
                     />
                   </div>
+                </div>
+
+                {/* Quick Select: Como posso ajudar? */}
+                <div>
+                  <label
+                    htmlFor="helpTopic"
+                    className="block text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-slate-200 mb-1.5"
+                  >
+                    Como posso ajudar? <span className="text-teal-400">*</span>
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="helpTopic"
+                      name="helpTopic"
+                      required
+                      value={formData.helpTopic}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 rounded bg-slate-950/80 border text-sm sm:text-base text-white focus:outline-none focus:border-teal-400 appearance-none cursor-pointer ${
+                        errors.helpTopic ? "border-rose-500" : "border-slate-700"
+                      }`}
+                    >
+                      <option value="" disabled className="bg-slate-900 text-slate-400">
+                        Selecione o tipo de demanda técnica...
+                      </option>
+                      {HELP_TOPICS.map((topic) => (
+                        <option key={topic} value={topic} className="bg-slate-900 text-white">
+                          {topic}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400 font-mono text-xs">
+                      ▼
+                    </div>
+                  </div>
+                  {errors.helpTopic && (
+                    <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-medium">
+                      {errors.helpTopic}
+                    </p>
+                  )}
                 </div>
 
                 {/* Contact Notice (WhatsApp OU E-mail) */}
                 <div className="pt-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider">
+                    <span className="text-xs sm:text-sm font-mono text-slate-200 font-semibold uppercase tracking-wider">
                       Canais de Retorno <span className="text-teal-400">*</span>
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400">
+                    <span className="text-xs sm:text-sm font-mono text-slate-400">
                       (Informe WhatsApp <strong>OU</strong> E-mail)
                     </span>
                   </div>
                   {errors.contact && (
-                    <p className="mt-1 text-xs text-rose-400 font-mono font-semibold">
+                    <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-semibold">
                       {errors.contact}
                     </p>
                   )}
@@ -297,7 +338,7 @@ export function ContactSection() {
                   <div>
                     <label
                       htmlFor="whatsapp"
-                      className="block text-xs font-mono text-slate-400 mb-1"
+                      className="block text-xs sm:text-sm font-mono text-slate-300 mb-1"
                     >
                       WhatsApp com DDD
                     </label>
@@ -308,21 +349,21 @@ export function ContactSection() {
                       value={formData.whatsapp}
                       onChange={handleChange}
                       placeholder="21 99984-0419"
-                      className={`w-full px-3.5 py-2.5 rounded bg-slate-950/80 border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 ${
+                      className={`w-full px-4 py-3 rounded bg-slate-950/80 border text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 ${
                         errors.whatsapp ? "border-rose-500" : "border-slate-700"
                       }`}
                     />
                     {errors.whatsapp && (
-                      <p className="mt-1 text-xs text-rose-400 font-mono">{errors.whatsapp}</p>
+                      <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-medium">{errors.whatsapp}</p>
                     )}
                   </div>
 
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-xs font-mono text-slate-400 mb-1"
+                      className="block text-xs sm:text-sm font-mono text-slate-300 mb-1"
                     >
-                      E-mail profissional
+                      E-mail de contato
                     </label>
                     <input
                       id="email"
@@ -331,12 +372,12 @@ export function ContactSection() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="voce@empresa.com.br"
-                      className={`w-full px-3.5 py-2.5 rounded bg-slate-950/80 border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 ${
+                      className={`w-full px-4 py-3 rounded bg-slate-950/80 border text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 ${
                         errors.email ? "border-rose-500" : "border-slate-700"
                       }`}
                     />
                     {errors.email && (
-                      <p className="mt-1 text-xs text-rose-400 font-mono">{errors.email}</p>
+                      <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-medium">{errors.email}</p>
                     )}
                   </div>
                 </div>
@@ -345,7 +386,7 @@ export function ContactSection() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-1.5"
+                    className="block text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-slate-200 mb-1.5"
                   >
                     Descreva o Problema ou Necessidade <span className="text-teal-400">*</span>
                   </label>
@@ -356,19 +397,19 @@ export function ContactSection() {
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Conte o que está ocorrendo: site fora do ar, erro de SSL, lentidão, necessidade de migração ou criação de aplicação..."
-                    className={`w-full px-3.5 py-2.5 rounded bg-slate-950/80 border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 ${
+                    placeholder="Ex: Meu site está apresentando lentidão em horários de pico / Preciso migrar para um novo servidor / Meu certificado SSL está com erro / Gostaria de desenvolver um sistema para organizar um processo interno..."
+                    className={`w-full px-4 py-3 rounded bg-slate-950/80 border text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 ${
                       errors.message ? "border-rose-500" : "border-slate-700"
                     }`}
                   />
                   {errors.message && (
-                    <p className="mt-1 text-xs text-rose-400 font-mono">{errors.message}</p>
+                    <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-medium">{errors.message}</p>
                   )}
                 </div>
 
                 {/* Privacy agreement & Submit */}
                 <div className="pt-2">
-                  <p className="text-[11px] font-mono text-slate-400 mb-4 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] font-mono text-slate-400 mb-4 leading-relaxed">
                     Seus dados serão utilizados unicamente para responder a este contato e realizar a triagem técnica. 
                     Sem spam. Leia a nossa <a href="/privacidade" className="text-teal-400 hover:underline">Política de Privacidade</a>.
                   </p>
@@ -376,12 +417,12 @@ export function ContactSection() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full inline-flex items-center justify-center px-6 py-3.5 rounded text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-teal-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
+                    className="w-full inline-flex items-center justify-center px-6 py-4 rounded text-xs sm:text-sm lg:text-base font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-teal-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center space-x-2">
                         <span className="animate-spin h-4 w-4 border-2 border-slate-950 border-t-transparent rounded-full" />
-                        <span>Enviando Mensagem com Segurança...</span>
+                        <span>Enviando Solicitação...</span>
                       </span>
                     ) : (
                       <span>Enviar Solicitação para Rafael Soje →</span>
@@ -396,4 +437,3 @@ export function ContactSection() {
     </section>
   );
 }
-

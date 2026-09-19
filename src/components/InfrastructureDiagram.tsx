@@ -8,39 +8,39 @@ export function InfrastructureDiagram() {
   const layers = [
     {
       id: 1,
-      name: "Borda & Proteção",
-      tag: "EDGE // WAF",
-      tech: "Cloudflare Anycast",
-      details: "Mitigação DDoS, WAF, DNS de baixa latência e terminação TLS de borda.",
+      name: "Proteção & DNS",
+      tag: "BORDA // REDE",
+      tech: "Mitigação & DNS Rápido",
+      details: "Proteção contra tráfego abusivo, estabilização de DNS e garantia de conexão criptografada para os visitantes.",
       status: "PROTEGIDO",
-      metrics: "DNS < 15ms // TLS 1.3",
+      metrics: "DNS Rápido // HTTPS Ativo",
     },
     {
       id: 2,
-      name: "Segurança & Ingress",
-      tag: "INGRESS // PROXY",
-      tech: "Nginx + Fail2ban + UFW",
-      details: "Proxy reverso calibrado, isolamento de portas, certificados SSL Full Strict e prevenção de força bruta.",
+      name: "Segurança do Servidor",
+      tag: "ACESSO // DEFESA",
+      tech: "Defesa Ativa & Isolamento",
+      details: "Bloqueio a tentativas de invasão, portas desnecessárias fechadas e certificados SSL sem avisos de insegurança.",
       status: "ATIVO",
-      metrics: "Portas: 443 / 80 // SSL A+",
+      metrics: "Portas Restritas // SSL A+",
     },
     {
       id: 3,
-      name: "Núcleo da Aplicação",
-      tag: "COMPUTE // APP",
-      tech: "Linux VPS (PHP / Node / Next.js)",
-      details: "Execução otimizada de aplicações, tuning de memória/CPU, pools PHP-FPM e orquestração de rotinas.",
+      name: "Execução do Sistema",
+      tag: "SERVIDORES // COMPUTE",
+      tech: "Linux & Windows Server",
+      details: "Ajuste de recursos do ambiente para que sites e sistemas respondam com agilidade e estabilidade mesmo sob carga.",
       status: "ESTÁVEL",
-      metrics: "Uptime 99.9% // RAM Otimizada",
+      metrics: "Recursos Calibrados",
     },
     {
       id: 4,
-      name: "Persistência & Resiliência",
-      tag: "STORAGE // BACKUP",
-      tech: "PostgreSQL / MySQL / Snapshots",
-      details: "Bancos de dados indexados, rotinas de dump automatizadas e backups criptografados em repositório externo.",
+      name: "Backup & Recuperação",
+      tag: "DADOS // SEGURANÇA",
+      tech: "Cópias Externas & Resiliência",
+      details: "Rotinas automáticas de backup de bancos e arquivos enviadas para armazenamento externo, prontas para restauração.",
       status: "SINCRONIZADO",
-      metrics: "Snapshots diários // Offsite",
+      metrics: "Rotinas Externas",
     },
   ];
 
@@ -58,8 +58,8 @@ export function InfrastructureDiagram() {
           </span>
         </div>
         <div className="flex items-center space-x-4 font-mono text-[11px] text-slate-400">
-          <span className="hidden sm:inline">STATUS: <strong className="text-teal-400">NORMAL</strong></span>
-          <span>SLA: <strong className="text-slate-200">ALTA RESILIÊNCIA</strong></span>
+          <span className="hidden sm:inline">ESTADO: <strong className="text-teal-400">MONITORADO</strong></span>
+          <span>ESTABILIDADE: <strong className="text-slate-200">ALTA DISPONIBILIDADE</strong></span>
         </div>
       </div>
 
@@ -80,7 +80,7 @@ export function InfrastructureDiagram() {
             >
               {/* Node index */}
               <div className="flex items-center justify-between text-xs mb-2">
-                <span className="font-mono text-[10px] text-teal-400/90 tracking-wider">
+                <span className="text-micro font-mono text-teal-400/90 tracking-wider">
                   0{idx + 1} {"//"} {layer.tag}
                 </span>
                 <span
@@ -95,20 +95,20 @@ export function InfrastructureDiagram() {
               </div>
 
               {/* Title & Core Tech */}
-              <h4 className="text-sm font-semibold text-slate-100 tracking-tight mb-1">
+              <h4 className="text-sm sm:text-base font-bold text-slate-100 tracking-tight mb-1">
                 {layer.name}
               </h4>
-              <p className="font-mono text-xs text-teal-400 font-medium mb-2.5">
+              <p className="font-mono text-xs text-teal-300 font-semibold mb-2.5">
                 {layer.tech}
               </p>
 
-              {/* Explanatory text in accessible Portuguese */}
-              <p className="text-xs text-slate-300/90 leading-relaxed min-h-[52px]">
+              {/* Explanatory text */}
+              <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed min-h-[52px]">
                 {layer.details}
               </p>
 
               {/* Micro-technical metric footer */}
-              <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between font-mono text-[10px] text-slate-400">
+              <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between font-mono text-micro text-slate-400">
                 <span>{layer.metrics}</span>
               </div>
 
@@ -135,10 +135,10 @@ export function InfrastructureDiagram() {
       <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-400 text-xs font-mono">
         <div className="flex items-center space-x-2">
           <span className="text-teal-400 font-bold">↳</span>
-          <span>Fluxo contínuo: Requisição do usuário → Proteção → Entrega rápida → Dados seguros</span>
+          <span>Fluxo operacional: Proteção de acesso → Servidor seguro → Execução sem travamentos → Dados protegidos</span>
         </div>
-        <div className="text-[11px] text-slate-400">
-          Arquitetura sem pontos únicos de falha
+        <div className="text-micro text-slate-400">
+          Prevenção e redução de riscos operacionais
         </div>
       </div>
     </div>

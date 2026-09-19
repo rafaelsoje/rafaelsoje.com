@@ -3,41 +3,39 @@ import React from "react";
 export function TechMatrixSection() {
   const pillars = [
     {
-      category: "INFRAESTRUTURA",
-      code: "01 // HOSTING & PROXY",
+      category: "SERVIDORES & SISTEMAS",
+      code: "01 // AMBIENTES & HOSTING",
       items: [
         { name: "Linux", role: "Distribuições Debian e Ubuntu Server em ambientes dedicados e VPS." },
-        { name: "Nginx", role: "Configuração de proxy reverso, balanceamento, cache e terminação TLS." },
-        { name: "Apache", role: "Gestão de VirtualHosts, módulos de reescrita (.htaccess) e compatibilidade." },
+        { name: "Windows Server", role: "Configuração de ambiente, serviços IIS e suporte a sistemas corporativos." },
+        { name: "Servidores Web", role: "Nginx e Apache para proxy reverso, balanceamento, HTTPS e desempenho." },
       ],
     },
     {
-      category: "DESENVOLVIMENTO",
-      code: "02 // STACK WEB & API",
+      category: "DESENVOLVIMENTO & APIS",
+      code: "02 // SISTEMAS & FLUXOS",
       items: [
-        { name: "PHP", role: "Arquitetura e manutenção de código moderno, OOP e otimização de execução." },
-        { name: "Laravel", role: "Construção de ecossistemas web robustos, filas de processamento e ORM." },
-        { name: "CodeIgniter", role: "Sustentação, atualização e diagnóstico em bases legadas existentes." },
-        { name: "Next.js", role: "Interfaces modernas de alto desempenho, SSR e comunicação com APIs." },
-        { name: "NestJS", role: "Microsserviços e APIs estruturadas em TypeScript com arquitetura limpa." },
+        { name: "PHP & Frameworks", role: "Manutenção e evolução em Laravel, CodeIgniter e sistemas legados." },
+        { name: "TypeScript & Node", role: "Desenvolvimento de aplicações web, interfaces Next.js e APIs NestJS." },
+        { name: "APIs & Integrações", role: "Comunicação entre serviços externos, webhooks e interligação de sistemas." },
       ],
     },
     {
-      category: "DADOS",
+      category: "DADOS & ARMAZENAMENTO",
       code: "03 // PERSISTÊNCIA & CACHE",
       items: [
-        { name: "PostgreSQL", role: "Modelagem relacional consistente, índices eficientes e integridade." },
-        { name: "MySQL", role: "Ajuste de pools de conexão, otimização de consultas e rotinas de dump." },
-        { name: "Redis", role: "Camada de cache em memória rápida para sessões e filas de execução." },
+        { name: "PostgreSQL", role: "Modelagem relacional consistente, índices eficientes e integridade de dados." },
+        { name: "MySQL / MariaDB", role: "Ajuste de pools de conexão, otimização de consultas e rotinas de dump." },
+        { name: "Redis", role: "Camada de cache em memória para aceleração de sessões e filas de execução." },
       ],
     },
     {
-      category: "CLOUD, SEGURANÇA & FERRAMENTAS",
-      code: "04 // BORDER & OPS",
+      category: "SEGURANÇA & ROTINAS",
+      code: "04 // PROTEÇÃO & OPS",
       items: [
-        { name: "Cloudflare", role: "WAF, proteção DDoS, regras de página, CDN global e DNS Anycast." },
-        { name: "Git", role: "Versionamento de código estruturado, branch workflow e deploys controlados." },
-        { name: "Bash", role: "Scripts de automação para rotinas de backup, monitoramento e manutenção." },
+        { name: "Cloudflare & DNS", role: "Gestão de zonas de DNS, proteção contra tráfego abusivo e SSL de borda." },
+        { name: "Segurança de Servidor", role: "Firewall, controle de acesso e regras contra tentativas de invasão." },
+        { name: "Automação de Rotinas", role: "Scripts para backups automáticos externos, sincronização e manutenção." },
       ],
     },
   ];
@@ -48,20 +46,20 @@ export function TechMatrixSection() {
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
           <div className="flex items-center space-x-3 mb-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-teal-700">
-              06 // REPERTÓRIO TÉCNICO
+            <span className="text-micro font-bold text-teal-700 tracking-wider">
+              06 // AMBIENTES & REPERTÓRIO
             </span>
             <div className="h-[1px] w-12 bg-slate-300" />
-            <span className="font-mono text-xs text-slate-500 uppercase">
-              Ferramental Consolidado
+            <span className="text-micro text-slate-500 uppercase tracking-wider">
+              Tecnologia como Meio
             </span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
-            Tecnologias dominadas na prática, sem listas infinitas e sem excessos.
+          <h2 className="text-section-title font-extrabold text-slate-900 leading-tight">
+            Tecnologias e ambientes com os quais trabalho.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Uma seleção de ferramentas consolidadas utilizadas no dia a dia para garantir estabilidade operacional, 
-            segurança e velocidade de entrega.
+          <p className="mt-4 text-body-lead text-slate-600 leading-relaxed max-w-[65ch]">
+            As ferramentas são decisões técnicas adotadas conforme a necessidade de cada projeto. 
+            Esta seção existe como referência técnica para quem deseja conhecer os principais componentes utilizados.
           </p>
         </div>
 
@@ -70,15 +68,15 @@ export function TechMatrixSection() {
           {pillars.map((pillar, pIdx) => (
             <div
               key={pIdx}
-              className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-colors"
+              className="rounded-lg border border-slate-200 bg-white p-6 sm:p-7 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-colors"
             >
               <div>
                 <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-4">
-                  <span className="font-mono text-[10px] font-bold text-teal-700 tracking-wider">
+                  <span className="text-micro font-bold text-teal-700 tracking-wider">
                     {pillar.code}
                   </span>
                 </div>
-                <h3 className="font-mono text-xs font-black uppercase tracking-wider text-slate-900 mb-5">
+                <h3 className="text-micro font-mono font-bold uppercase tracking-wider text-slate-500 mb-5">
                   {pillar.category}
                 </h3>
 
@@ -87,11 +85,11 @@ export function TechMatrixSection() {
                     <div key={iIdx} className="group">
                       <div className="flex items-center space-x-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-slate-400 group-hover:bg-teal-600 transition-colors" />
-                        <span className="font-sans font-bold text-sm text-slate-900">
+                        <span className="font-sans font-bold text-base text-slate-900">
                           {item.name}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-600 font-mono mt-1 pl-3.5 leading-relaxed">
+                      <p className="text-xs sm:text-[13px] text-slate-600 font-mono mt-1 pl-3.5 leading-relaxed">
                         {item.role}
                       </p>
                     </div>
@@ -99,8 +97,8 @@ export function TechMatrixSection() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-slate-100 text-[10px] font-mono text-slate-400">
-                PRODUÇÃO VALIDADA
+              <div className="mt-6 pt-3 border-t border-slate-100 text-micro font-mono text-slate-400">
+                PRODUÇÃO HOMOLOGADA
               </div>
             </div>
           ))}
@@ -109,4 +107,3 @@ export function TechMatrixSection() {
     </section>
   );
 }
-

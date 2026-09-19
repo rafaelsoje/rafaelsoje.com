@@ -58,16 +58,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { name, company, whatsapp, email, message } = validation.sanitizedData;
+    const { name, company, whatsapp, email, helpTopic, message } = validation.sanitizedData;
 
     // 4. Sanitização contra injeção em HTML e headers
     const safeName = escapeHtml(sanitizeText(name));
     const safeCompany = company ? escapeHtml(sanitizeText(company)) : "Não informada";
     const safeWhatsapp = whatsapp ? escapeHtml(sanitizeText(whatsapp)) : "Não informado";
     const safeEmail = email ? escapeHtml(sanitizeText(email)) : "Não informado";
+    const safeHelpTopic = escapeHtml(sanitizeText(helpTopic));
     const safeMessage = escapeHtml(sanitizeText(message)).replace(/\n/g, "<br>");
 
-    // 5. Configuração e Envio SMTP
+    // 5. Integração com HubSpot CRM (não bloqueante / fail-safe)
+    await dispatchToHubSpot({
+      name,
+      company,
+      whatsapp,
+      email,
+      helpTopic,
+      message,
+      ip,
+    });
+
+    // 6. Configuração e Envio SMTP
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10);
     const smtpSecure = process.env.SMTP_SECURE === "true";
@@ -92,13 +104,14 @@ export async function POST(req: NextRequest) {
         from: smtpFrom,
         to: recipientEmail,
         replyTo: email || undefined,
-        subject: `[Novo Contato Comercial] ${safeName}${company ? ` (${safeCompany})` : ""}`,
+        subject: `[Novo Contato Comercial - ${safeHelpTopic}] ${safeName}${company ? ` (${safeCompany})` : ""}`,
         text: `Novo contato recebido pelo site rafaelsoje.com:
 --------------------------------------------------
 Nome: ${name}
 Empresa: ${company || "Não informada"}
 WhatsApp: ${whatsapp || "Não informado"}
 E-mail: ${email || "Não informado"}
+Assunto / Como posso ajudar: ${helpTopic}
 --------------------------------------------------
 Mensagem:
 ${message}
@@ -112,7 +125,7 @@ Data/Hora: ${new Date().toISOString()}`,
   </div>
   <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
     <tr>
-      <td style="padding: 8px 0; font-weight: bold; width: 120px; color: #64748b;">Nome:</td>
+      <td style="padding: 8px 0; font-weight: bold; width: 140px; color: #64748b;">Nome:</td>
       <td style="padding: 8px 0; color: #0f172a;">${safeName}</td>
     </tr>
     <tr>
@@ -126,6 +139,10 @@ Data/Hora: ${new Date().toISOString()}`,
     <tr>
       <td style="padding: 8px 0; font-weight: bold; color: #64748b;">E-mail:</td>
       <td style="padding: 8px 0; color: #0f172a;">${safeEmail}</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; font-weight: bold; color: #64748b;">Como posso ajudar:</td>
+      <td style="padding: 8px 0; color: #0d9488; font-weight: bold;">${safeHelpTopic}</td>
     </tr>
   </table>
   <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; margin-bottom: 20px;">
@@ -146,6 +163,7 @@ Data/Hora: ${new Date().toISOString()}`,
         company,
         whatsapp,
         email,
+        helpTopic,
         message,
         ip,
       });
@@ -164,10 +182,110 @@ Data/Hora: ${new Date().toISOString()}`,
     return NextResponse.json(
       {
         error:
-          "Ocorreu um erro ao enviar sua mensagem. Se preferir, contate diretamente pelo WhatsApp +55 21 99984-0419.",
+          "Ocorreu um erro ao enviar sua mensagem. Se preferir, contate diretamente pelo WhatsApp através do site.",
       },
       { status: 500 }
     );
+  }
+}
+
+interface LeadPayload {
+  name: string;
+  company?: string;
+  whatsapp?: string;
+  email?: string;
+  helpTopic: string;
+  message: string;
+  ip: string;
+}
+
+async function dispatchToHubSpot(lead: LeadPayload) {
+  const token = process.env.HUBSPOT_ACCESS_TOKEN;
+  const portalId = process.env.HUBSPOT_PORTAL_ID;
+  const formGuid = process.env.HUBSPOT_FORM_GUID;
+
+  try {
+    // 1. Prioridade: HubSpot CRM API v3 (com Access Token privado)
+    if (token) {
+      const names = lead.name.trim().split(" ");
+      const firstname = names[0];
+      const lastname = names.slice(1).join(" ") || "";
+
+      const res = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          properties: {
+            firstname,
+            lastname,
+            company: lead.company || "",
+            phone: lead.whatsapp || "",
+            email: lead.email || "",
+            message: `[${lead.helpTopic}] ${lead.message}`,
+            hs_lead_status: "NEW",
+          },
+        }),
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.warn(`[HubSpot CRM API Error] Status ${res.status}: ${errorText}`);
+      } else {
+        console.log("[HubSpot CRM API] Lead despachado com sucesso.");
+      }
+      return;
+    }
+
+    // 2. Alternativa: HubSpot Forms API v3 (com Portal ID e Form GUID)
+    if (portalId && formGuid) {
+      const fields = [
+        { objectTypeId: "0-1", name: "firstname", value: lead.name },
+        { objectTypeId: "0-1", name: "company", value: lead.company || "" },
+        { objectTypeId: "0-1", name: "phone", value: lead.whatsapp || "" },
+        { objectTypeId: "0-1", name: "email", value: lead.email || "" },
+        { objectTypeId: "0-1", name: "message", value: `[${lead.helpTopic}] ${lead.message}` },
+      ];
+
+      const res = await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fields,
+            context: {
+              pageUri: "https://rafaelsoje.com",
+              pageName: "Contato Comercial - Rafael Soje",
+            },
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.warn(`[HubSpot Forms API Error] Status ${res.status}: ${errorText}`);
+      } else {
+        console.log("[HubSpot Forms API] Lead despachado com sucesso.");
+      }
+      return;
+    }
+
+    // 3. Fallback simulado caso as credenciais não estejam configuradas
+    console.log("[HubSpot Simulated Dispatch] Credenciais ausentes. Lead registrado em fallback:", {
+      name: lead.name,
+      company: lead.company,
+      whatsapp: lead.whatsapp,
+      email: lead.email,
+      helpTopic: lead.helpTopic,
+      message: lead.message,
+      ip: lead.ip,
+    });
+  } catch (hubspotErr) {
+    // Não quebra a requisição do usuário em caso de falha externa de CRM
+    console.error("[HubSpot Integration Exception]:", hubspotErr);
   }
 }
 

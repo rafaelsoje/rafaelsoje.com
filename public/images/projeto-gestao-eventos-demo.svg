@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1324" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="accentTeal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <linearGradient id="chartLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)" />
+
+  <!-- Left Sidebar -->
+  <rect x="0" y="0" width="220" height="800" fill="#090d16" stroke="#1e293b" stroke-width="1" />
+  
+  <!-- Sidebar Monogram / Logo -->
+  <rect x="24" y="24" width="36" height="36" rx="6" fill="#0f172a" stroke="#0d9488" stroke-width="1.5" />
+  <text x="33" y="47" fill="#14b8a6" font-family="monospace" font-size="16" font-weight="bold">rs.</text>
+  <text x="70" y="42" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">SIGES EVENTOS</text>
+  <text x="70" y="55" fill="#64748b" font-family="monospace" font-size="10">PAINEL DE GESTÃO</text>
+
+  <!-- Sidebar Nav Items -->
+  <g transform="translate(20, 95)">
+    <!-- Active Item -->
+    <rect x="0" y="0" width="180" height="36" rx="6" fill="#0d9488" fill-opacity="0.15" stroke="#0d9488" stroke-opacity="0.3" />
+    <rect x="0" y="6" width="3" height="24" rx="1.5" fill="#14b8a6" />
+    <text x="16" y="23" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="bold">Visão Geral / Dashboard</text>
+
+    <!-- Other items -->
+    <text x="16" y="65" fill="#94a3b8" font-family="sans-serif" font-size="12">Propostas Comerciais</text>
+    <text x="16" y="105" fill="#94a3b8" font-family="sans-serif" font-size="12">Agenda &amp; Calendário</text>
+    <text x="16" y="145" fill="#94a3b8" font-family="sans-serif" font-size="12">Ordens de Serviço</text>
+    <text x="16" y="185" fill="#94a3b8" font-family="sans-serif" font-size="12">Equipes &amp; Escalas</text>
+    <text x="16" y="225" fill="#94a3b8" font-family="sans-serif" font-size="12">Controle Financeiro</text>
+    <text x="16" y="265" fill="#94a3b8" font-family="sans-serif" font-size="12">Relatórios Operacionais</text>
+  </g>
+
+  <!-- System Version Footer in Sidebar -->
+  <rect x="20" y="730" width="180" height="42" rx="6" fill="#0f172a" stroke="#1e293b" />
+  <text x="32" y="748" fill="#64748b" font-family="monospace" font-size="10">STATUS // OPERACIONAL</text>
+  <text x="32" y="762" fill="#10b981" font-family="monospace" font-size="10">● AMBIENTE ESTÁVEL</text>
+
+  <!-- Main Top Bar -->
+  <rect x="220" y="0" width="980" height="64" fill="#090d16" stroke="#1e293b" stroke-width="1" />
+  <text x="248" y="38" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="bold">Gestão Operacional de Eventos</text>
+  <text x="510" y="38" fill="#64748b" font-family="monospace" font-size="11">DADOS DEMONSTRATIVOS FICTÍCIOS</text>
+  
+  <rect x="1020" y="18" width="150" height="28" rx="4" fill="#1e293b" stroke="#334155" />
+  <circle cx="1036" cy="32" r="4" fill="#10b981" />
+  <text x="1048" y="36" fill="#94a3b8" font-family="monospace" font-size="10">FILTRO: 30 DIAS</text>
+
+  <!-- 4 KPI Cards -->
+  <g transform="translate(248, 88)">
+    <!-- KPI 1 -->
+    <rect x="0" y="0" width="216" height="96" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    <text x="16" y="24" fill="#64748b" font-family="monospace" font-size="10">EVENTOS ATIVOS</text>
+    <text x="16" y="58" fill="#f8fafc" font-family="sans-serif" font-size="28" font-weight="bold">24</text>
+    <text x="16" y="80" fill="#10b981" font-family="monospace" font-size="11">↑ 100% no cronograma</text>
+
+    <!-- KPI 2 -->
+    <rect x="236" y="0" width="216" height="96" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    <text x="252" y="24" fill="#64748b" font-family="monospace" font-size="10">PROPOSTAS ABERTAS</text>
+    <text x="252" y="58" fill="#f8fafc" font-family="sans-serif" font-size="28" font-weight="bold">12</text>
+    <text x="252" y="80" fill="#38bdf8" font-family="monospace" font-size="11">R$ 142.500 (em negociação)</text>
+
+    <!-- KPI 3 -->
+    <rect x="472" y="0" width="216" height="96" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    <text x="488" y="24" fill="#64748b" font-family="monospace" font-size="10">TAXA DE CONVERSÃO</text>
+    <text x="488" y="58" fill="#f8fafc" font-family="sans-serif" font-size="28" font-weight="bold">68%</text>
+    <text x="488" y="80" fill="#10b981" font-family="monospace" font-size="11">↑ 4.2% vs mês anterior</text>
+
+    <!-- KPI 4 -->
+    <rect x="708" y="0" width="216" height="96" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    <text x="724" y="24" fill="#64748b" font-family="monospace" font-size="10">CONTRATOS ASSINADOS</text>
+    <text x="724" y="58" fill="#f8fafc" font-family="sans-serif" font-size="28" font-weight="bold">19</text>
+    <text x="724" y="80" fill="#2dd4bf" font-family="monospace" font-size="11">Docs validados em nuvem</text>
+  </g>
+
+  <!-- Big Chart Box -->
+  <g transform="translate(248, 204)">
+    <rect x="0" y="0" width="600" height="260" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    <text x="20" y="30" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Evolução Mensal de Vendas &amp; Realizações</text>
+    <text x="20" y="48" fill="#64748b" font-family="monospace" font-size="10">VOLUME DE EVENTOS CONFIRMADOS POR TRIMESTRE</text>
+
+    <!-- Chart Grid Lines -->
+    <line x1="40" y1="90" x2="560" y2="90" stroke="#334155" stroke-dasharray="3 3" stroke-width="0.8" />
+    <line x1="40" y1="140" x2="560" y2="140" stroke="#334155" stroke-dasharray="3 3" stroke-width="0.8" />
+    <line x1="40" y1="190" x2="560" y2="190" stroke="#334155" stroke-dasharray="3 3" stroke-width="0.8" />
+    <line x1="40" y1="230" x2="560" y2="230" stroke="#475569" stroke-width="1" />
+
+    <!-- Chart Smooth Curve -->
+    <path d="M 50 200 C 120 185, 170 140, 240 130 C 310 120, 360 80, 440 95 C 500 110, 530 65, 550 55" fill="none" stroke="url(#chartLine)" stroke-width="3.5" />
+    
+    <!-- Data points -->
+    <circle cx="50" cy="200" r="4" fill="#06b6d4" />
+    <circle cx="240" cy="130" r="4" fill="#0d9488" />
+    <circle cx="440" cy="95" r="4" fill="#10b981" />
+    <circle cx="550" cy="55" r="5" fill="#14b8a6" stroke="#042f2e" stroke-width="2" />
+
+    <!-- Month labels -->
+    <text x="45" y="248" fill="#64748b" font-family="monospace" font-size="10">JAN</text>
+    <text x="140" y="248" fill="#64748b" font-family="monospace" font-size="10">FEV</text>
+    <text x="235" y="248" fill="#64748b" font-family="monospace" font-size="10">MAR</text>
+    <text x="330" y="248" fill="#64748b" font-family="monospace" font-size="10">ABR</text>
+    <text x="430" y="248" fill="#64748b" font-family="monospace" font-size="10">MAI</text>
+    <text x="535" y="248" fill="#64748b" font-family="monospace" font-size="10">JUN</text>
+  </g>
+
+  <!-- Secondary Donut Distribution Box -->
+  <g transform="translate(868, 204)">
+    <rect x="0" y="0" width="304" height="260" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    <text x="20" y="30" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Distribuição por Categoria</text>
+    <text x="20" y="48" fill="#64748b" font-family="monospace" font-size="10">PERCENTUAL DE LOCAÇÕES</text>
+
+    <!-- Donut Chart representation -->
+    <circle cx="152" cy="140" r="62" fill="none" stroke="#0d9488" stroke-width="20" stroke-dasharray="190 200" stroke-dashoffset="0" />
+    <circle cx="152" cy="140" r="62" fill="none" stroke="#0284c7" stroke-width="20" stroke-dasharray="110 280" stroke-dashoffset="-190" />
+    <circle cx="152" cy="140" r="62" fill="none" stroke="#eab308" stroke-width="20" stroke-dasharray="90 300" stroke-dashoffset="-300" />
+    <text x="152" y="145" text-anchor="middle" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="bold">100%</text>
+
+    <!-- Legend -->
+    <circle cx="45" cy="225" r="4" fill="#0d9488" />
+    <text x="55" y="228" fill="#94a3b8" font-family="sans-serif" font-size="10">Corporativo (50%)</text>
+    <circle cx="165" cy="225" r="4" fill="#0284c7" />
+    <text x="175" y="228" fill="#94a3b8" font-family="sans-serif" font-size="10">Social (30%)</text>
+  </g>
+
+  <!-- Data Table Box -->
+  <g transform="translate(248, 484)">
+    <rect x="0" y="0" width="924" height="288" rx="8" fill="url(#cardGrad)" stroke="#1e293b" />
+    
+    <text x="20" y="30" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Eventos Recentes &amp; Status Operacional</text>
+    <text x="20" y="48" fill="#64748b" font-family="monospace" font-size="10">FLUXO ATIVO DE ATENDIMENTO</text>
+
+    <!-- Table Header -->
+    <rect x="20" y="65" width="884" height="28" rx="4" fill="#090d16" />
+    <text x="35" y="83" fill="#64748b" font-family="monospace" font-size="10">CÓDIGO</text>
+    <text x="140" y="83" fill="#64748b" font-family="monospace" font-size="10">TIPO DE EVENTO</text>
+    <text x="360" y="83" fill="#64748b" font-family="monospace" font-size="10">CLIENTE (DEMO)</text>
+    <text x="560" y="83" fill="#64748b" font-family="monospace" font-size="10">DATA</text>
+    <text x="690" y="83" fill="#64748b" font-family="monospace" font-size="10">STATUS</text>
+    <text x="820" y="83" fill="#64748b" font-family="monospace" font-size="10">AÇÃO</text>
+
+    <!-- Row 1 -->
+    <line x1="20" y1="130" x2="904" y2="130" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="118" fill="#2dd4bf" font-family="monospace" font-size="11">EVT-2026-041</text>
+    <text x="140" y="118" fill="#f8fafc" font-family="sans-serif" font-size="12">Convenção Empresarial</text>
+    <text x="360" y="118" fill="#94a3b8" font-family="sans-serif" font-size="12">Empresa Exemplo Alfa</text>
+    <text x="560" y="118" fill="#cbd5e1" font-family="monospace" font-size="11">24/10/2026</text>
+    <rect x="685" y="105" width="88" height="20" rx="4" fill="#065f46" fill-opacity="0.4" stroke="#059669" stroke-width="0.8" />
+    <text x="698" y="118" fill="#34d399" font-family="monospace" font-size="10">CONFIRMADO</text>
+    <text x="820" y="118" fill="#38bdf8" font-family="monospace" font-size="11">Ver detalhes →</text>
+
+    <!-- Row 2 -->
+    <line x1="20" y1="175" x2="904" y2="175" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="163" fill="#2dd4bf" font-family="monospace" font-size="11">EVT-2026-042</text>
+    <text x="140" y="163" fill="#f8fafc" font-family="sans-serif" font-size="12">Workshop de Inovação</text>
+    <text x="360" y="163" fill="#94a3b8" font-family="sans-serif" font-size="12">Grupo Beta Soluções</text>
+    <text x="560" y="163" fill="#cbd5e1" font-family="monospace" font-size="11">28/10/2026</text>
+    <rect x="685" y="150" width="88" height="20" rx="4" fill="#075985" fill-opacity="0.4" stroke="#0284c7" stroke-width="0.8" />
+    <text x="698" y="163" fill="#38bdf8" font-family="monospace" font-size="10">EM EXECUÇÃO</text>
+    <text x="820" y="163" fill="#38bdf8" font-family="monospace" font-size="11">Ver detalhes →</text>
+
+    <!-- Row 3 -->
+    <line x1="20" y1="220" x2="904" y2="220" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="208" fill="#2dd4bf" font-family="monospace" font-size="11">EVT-2026-043</text>
+    <text x="140" y="208" fill="#f8fafc" font-family="sans-serif" font-size="12">Encontro Anual de Líderes</text>
+    <text x="360" y="208" fill="#94a3b8" font-family="sans-serif" font-size="12">Associação Delta</text>
+    <text x="560" y="208" fill="#cbd5e1" font-family="monospace" font-size="11">04/11/2026</text>
+    <rect x="685" y="195" width="88" height="20" rx="4" fill="#854d0e" fill-opacity="0.4" stroke="#ca8a04" stroke-width="0.8" />
+    <text x="702" y="208" fill="#facc15" font-family="monospace" font-size="10">PROPOSTA</text>
+    <text x="820" y="208" fill="#38bdf8" font-family="monospace" font-size="11">Ver detalhes →</text>
+
+    <!-- Row 4 -->
+    <text x="35" y="253" fill="#2dd4bf" font-family="monospace" font-size="11">EVT-2026-044</text>
+    <text x="140" y="253" fill="#f8fafc" font-family="sans-serif" font-size="12">Seminário de Tecnologia</text>
+    <text x="360" y="253" fill="#94a3b8" font-family="sans-serif" font-size="12">Consultoria Gamma</text>
+    <text x="560" y="253" fill="#cbd5e1" font-family="monospace" font-size="11">12/11/2026</text>
+    <rect x="685" y="240" width="88" height="20" rx="4" fill="#065f46" fill-opacity="0.4" stroke="#059669" stroke-width="0.8" />
+    <text x="698" y="253" fill="#34d399" font-family="monospace" font-size="10">CONFIRMADO</text>
+    <text x="820" y="253" fill="#38bdf8" font-family="monospace" font-size="11">Ver detalhes →</text>
+  </g>
+</svg>
+

@@ -42,6 +42,7 @@ export function Header() {
               className="text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1 font-semibold"
             >
               <span>WhatsApp: +55 21 99984-0419</span>
+              <span>Conversar no WhatsApp</span>
             </a>
           </div>
         </div>
@@ -64,6 +65,8 @@ export function Header() {
             </span>
             <span className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
               Infraestrutura & Dev
+              Servidores & Sistemas
+              Infraestrutura, Cloud &amp; Dev Web
             </span>
           </div>
         </Link>
@@ -141,6 +144,7 @@ export function Header() {
               className="w-full text-center px-4 py-2 rounded text-xs font-mono border border-slate-700 hover:border-teal-400 text-slate-300 hover:text-white transition-colors"
             >
               Conversar no WhatsApp (+55 21 99984-0419)
+              Conversar no WhatsApp
             </a>
           </div>
         </div>

@@ -16,6 +16,48 @@
     --accent-cyan: #06b6d4;
     --border-dark: rgba(255, 255, 255, 0.08);
     --border-light: rgba(15, 23, 42, 0.08);
+
+    /* ==========================================================================
+       TYPOGRAPHIC SCALE TOKENS (Responsive clamp scale)
+       Level 1: Hero Display (dominant visual authority)
+       Level 2: Section Headline (chapter distinction)
+       Level 3: Feature / Project Title (rapid scanning)
+       Level 4: Commercial Body Copy (comfortable reading 16-18px desktop)
+       Level 5: Technical Metadata (crisp system details)
+       Level 6: Micro Label (eyebrow / codes / indexes)
+       ========================================================================== */
+    --font-size-display: clamp(2.35rem, 5vw + 0.75rem, 4.25rem);
+    --line-height-display: 1.08;
+    --letter-spacing-display: -0.035em;
+
+    --font-size-h1: clamp(1.85rem, 3.2vw + 0.6rem, 2.85rem);
+    --line-height-h1: 1.15;
+    --letter-spacing-h1: -0.025em;
+
+    --font-size-h2: clamp(1.5rem, 2.2vw + 0.5rem, 2.25rem);
+    --line-height-h2: 1.2;
+    --letter-spacing-h2: -0.02em;
+
+    --font-size-h3: clamp(1.25rem, 1.2vw + 0.75rem, 1.6rem);
+    --line-height-h3: 1.3;
+    --letter-spacing-h3: -0.015em;
+
+    --font-size-body-lg: clamp(1.125rem, 0.5vw + 0.95rem, 1.25rem);
+    --line-height-body-lg: 1.65;
+    --letter-spacing-body-lg: -0.01em;
+
+    --font-size-body: clamp(1rem, 0.25vw + 0.925rem, 1.125rem);
+    --line-height-body: 1.65;
+
+    --font-size-small: clamp(0.875rem, 0.15vw + 0.825rem, 0.9375rem);
+    --line-height-small: 1.55;
+
+    --font-size-meta: 0.8125rem;
+    --line-height-meta: 1.45;
+
+    --font-size-micro: 0.6875rem;
+    --line-height-micro: 1.4;
+    --letter-spacing-micro: 0.08em;
   }
 
   html {
@@ -41,6 +83,55 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Typographic scale utility classes */
+.text-display {
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-display);
+}
+
+.text-section-title {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+}
+
+.text-feature-title {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  letter-spacing: var(--letter-spacing-h3);
+}
+
+.text-body-lead {
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-body-lg);
+  letter-spacing: var(--letter-spacing-body-lg);
+}
+
+.text-body-editorial {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.text-body-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-metadata {
+  font-size: var(--font-size-meta);
+  line-height: var(--line-height-meta);
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.text-micro {
+  font-size: var(--font-size-micro);
+  line-height: var(--line-height-micro);
+  letter-spacing: var(--letter-spacing-micro);
+  text-transform: uppercase;
+  font-family: var(--font-geist-mono), monospace;
 }
 
 /* Custom editorial pattern utilities */
@@ -73,5 +164,8 @@
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
+  font-size: var(--font-size-micro);
+  line-height: var(--line-height-micro);
+  letter-spacing: var(--letter-spacing-micro);
   text-transform: uppercase;
 }

@@ -1,8 +1,20 @@
+export const HELP_TOPICS = [
+  "Diagnóstico de lentidão ou instabilidade",
+  "Configuração ou migração de servidor",
+  "Rotinas de backup e segurança",
+  "Desenvolvimento ou manutenção de sistema",
+  "Manutenção mensal preventiva",
+  "Outro assunto",
+] as const;
+
+export type HelpTopic = (typeof HELP_TOPICS)[number];
+
 export interface ContactFormData {
   name: string;
   company?: string;
   whatsapp?: string;
   email?: string;
+  helpTopic?: string;
   message: string;
   honeypot?: string;
 }
@@ -14,6 +26,7 @@ export interface ValidationResult {
     company?: string;
     whatsapp?: string;
     email?: string;
+    helpTopic?: string;
     message?: string;
     contact?: string;
     honeypot?: string;
@@ -23,6 +36,7 @@ export interface ValidationResult {
     company: string;
     whatsapp: string;
     email: string;
+    helpTopic: string;
     message: string;
   };
 }
@@ -39,7 +53,6 @@ export function validateWhatsApp(phone: string): boolean {
   // Remove non-digit characters
   const digits = phone.replace(/\D/g, "");
   // Brazilian numbers with DDD have 10 or 11 digits (e.g. 21 99984-0419)
-  // International format with DDI (55) has 12 or 13 digits
   // General international allows 8 to 15 digits according to E.164
   return digits.length >= 10 && digits.length <= 15;
 }
@@ -61,6 +74,12 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
     errors.name = "O nome deve conter pelo menos 2 caracteres.";
   } else if (name.length > 100) {
     errors.name = "O nome não pode exceder 100 caracteres.";
+  }
+
+  // Help topic validation
+  const helpTopic = (data.helpTopic || "").trim();
+  if (!helpTopic) {
+    errors.helpTopic = "Por favor, selecione como posso ajudar.";
   }
 
   // Company validation (optional)
@@ -109,6 +128,7 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
             company,
             whatsapp,
             email,
+            helpTopic,
             message,
           },
         }

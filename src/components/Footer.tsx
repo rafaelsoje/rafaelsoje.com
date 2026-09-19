@@ -20,9 +20,9 @@ export function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              Engenharia de Infraestrutura Linux, Cloudflare, segurança, SSL, migrações 
-              e desenvolvimento de aplicações web. Presença técnica independente com 
-              responsabilidade direta.
+              Soluções profissionais para servidores, segurança, migração de dados, backup 
+              e desenvolvimento de sistemas sob medida. Atendimento técnico direto e independente 
+              com responsabilidade profissional.
             </p>
             <div className="text-[11px] text-slate-400 pt-1">
               <span>FUSO: BRASÍLIA / RIO DE JANEIRO (UTC-3)</span>
@@ -37,27 +37,27 @@ export function Footer() {
             <ul className="space-y-1.5">
               <li>
                 <a href="#servicos" className="hover:text-teal-400 transition-colors">
-                  › Problemas & Diagnósticos
+                  › Problemas & Soluções
                 </a>
               </li>
               <li>
                 <a href="#projetos" className="hover:text-teal-400 transition-colors">
-                  › Portfólio Técnico & Blueprints
+                  › Projetos & Cases
                 </a>
               </li>
               <li>
                 <a href="#precos" className="hover:text-teal-400 transition-colors">
-                  › Modalidades & Preços Claros
+                  › Modalidades & Preços
                 </a>
               </li>
               <li>
                 <a href="#avaliacao" className="hover:text-teal-400 transition-colors">
-                  › Avaliação Inicial Gratuita
+                  › Triagem Inicial Gratuita
                 </a>
               </li>
               <li>
                 <a href="#sobre" className="hover:text-teal-400 transition-colors">
-                  › Formação & Sobre Rafael
+                  › Identidade & Atuação
                 </a>
               </li>
               <li>
@@ -79,7 +79,7 @@ export function Footer() {
                 href="https://wa.me/5521999840419"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-teal-400 hover:underline"
+                className="text-teal-400 hover:underline font-semibold"
               >
                 +55 21 99984-0419
               </a>
@@ -115,4 +115,3 @@ export function Footer() {
     </footer>
   );
 }
-

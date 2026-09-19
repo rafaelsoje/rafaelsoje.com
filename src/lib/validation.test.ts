@@ -26,6 +26,10 @@ describe("Validation Utilities", () => {
       expect(validateWhatsApp("(21) 99984-0419")).toBe(true);
       expect(validateWhatsApp("+55 21 99984-0419")).toBe(true);
       expect(validateWhatsApp("21999840419")).toBe(true);
+      expect(validateWhatsApp("21 98765-4321")).toBe(true);
+      expect(validateWhatsApp("(21) 98765-4321")).toBe(true);
+      expect(validateWhatsApp("+55 21 98765-4321")).toBe(true);
+      expect(validateWhatsApp("21987654321")).toBe(true);
       expect(validateWhatsApp("+1 415 555 2671")).toBe(true);
     });
 
@@ -40,16 +44,27 @@ describe("Validation Utilities", () => {
     const validBase = {
       name: "Cliente Exemplo",
       company: "Empresa Tecnologia",
+      helpTopic: "Diagnóstico de lentidão ou instabilidade",
       message: "Gostaria de solicitar uma avaliação inicial para nosso servidor Linux.",
     };
+
+    it("deve reprovar quando o campo 'Como posso ajudar?' não é selecionado", () => {
+      const result = validateContactForm({
+        ...validBase,
+        helpTopic: "",
+        whatsapp: "21 99984-0419",
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.helpTopic).toBeDefined();
+    });
 
     it("deve aprovar quando apenas WhatsApp válido é fornecido", () => {
       const result = validateContactForm({
         ...validBase,
-        whatsapp: "21 99984-0419",
+        whatsapp: "21 98765-4321",
       });
       expect(result.isValid).toBe(true);
-      expect(result.sanitizedData?.whatsapp).toBe("21 99984-0419");
+      expect(result.sanitizedData?.whatsapp).toBe("21 98765-4321");
     });
 
     it("deve aprovar quando apenas E-mail válido é fornecido", () => {
@@ -64,7 +79,7 @@ describe("Validation Utilities", () => {
     it("deve aprovar quando ambos WhatsApp e E-mail são válidos", () => {
       const result = validateContactForm({
         ...validBase,
-        whatsapp: "21 99984-0419",
+        whatsapp: "21 98765-4321",
         email: "contato@empresa.com",
       });
       expect(result.isValid).toBe(true);
@@ -81,7 +96,7 @@ describe("Validation Utilities", () => {
     it("deve reprovar se ambos são preenchidos mas um deles é inválido", () => {
       const result = validateContactForm({
         ...validBase,
-        whatsapp: "21 99984-0419",
+        whatsapp: "21 98765-4321",
         email: "email-invalido",
       });
       expect(result.isValid).toBe(false);

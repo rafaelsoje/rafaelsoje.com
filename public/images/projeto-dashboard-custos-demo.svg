@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="barGradTeal" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <linearGradient id="barGradBlue" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0369a1" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad2)" />
+
+  <!-- Left Operational Sidebar -->
+  <rect x="0" y="0" width="220" height="800" fill="#090d16" stroke="#1e293b" stroke-width="1" />
+  
+  <!-- Sidebar Monogram / Brand -->
+  <rect x="24" y="24" width="36" height="36" rx="6" fill="#0f172a" stroke="#0d9488" stroke-width="1.5" />
+  <text x="33" y="47" fill="#14b8a6" font-family="monospace" font-size="16" font-weight="bold">rs.</text>
+  <text x="70" y="42" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">PAINEL OPERACIONAL</text>
+  <text x="70" y="55" fill="#64748b" font-family="monospace" font-size="10">CONTROLE DE CUSTOS</text>
+
+  <!-- Sidebar Nav Items -->
+  <g transform="translate(20, 95)">
+    <rect x="0" y="0" width="180" height="36" rx="6" fill="#0d9488" fill-opacity="0.15" stroke="#0d9488" stroke-opacity="0.3" />
+    <rect x="0" y="6" width="3" height="24" rx="1.5" fill="#14b8a6" />
+    <text x="16" y="23" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="bold">Custos &amp; Insumos</text>
+
+    <text x="16" y="65" fill="#94a3b8" font-family="sans-serif" font-size="12">Uso de Geradores</text>
+    <text x="16" y="105" fill="#94a3b8" font-family="sans-serif" font-size="12">Água &amp; Esgoto</text>
+    <text x="16" y="145" fill="#94a3b8" font-family="sans-serif" font-size="12">Energia / Concessionária</text>
+    <text x="16" y="185" fill="#94a3b8" font-family="sans-serif" font-size="12">Taxas de Cozinha</text>
+    <text x="16" y="225" fill="#94a3b8" font-family="sans-serif" font-size="12">Eventos Realizados</text>
+    <text x="16" y="265" fill="#94a3b8" font-family="sans-serif" font-size="12">Manutenção Preventiva</text>
+  </g>
+
+  <!-- Signature in Sidebar -->
+  <rect x="20" y="730" width="180" height="44" rx="6" fill="#0f172a" stroke="#1e293b" />
+  <text x="32" y="748" fill="#64748b" font-family="monospace" font-size="9">DESENVOLVIDO POR</text>
+  <text x="32" y="763" fill="#2dd4bf" font-family="sans-serif" font-size="12" font-weight="bold">Rafael Soje</text>
+
+  <!-- Main Top Bar -->
+  <rect x="220" y="0" width="980" height="64" fill="#090d16" stroke="#1e293b" stroke-width="1" />
+  <text x="248" y="38" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="bold">Auditoria e Rateio de Custos Operacionais</text>
+  <text x="600" y="38" fill="#64748b" font-family="monospace" font-size="11">DADOS DEMONSTRATIVOS FICTÍCIOS</text>
+  
+  <rect x="1000" y="18" width="170" height="28" rx="4" fill="#1e293b" stroke="#334155" />
+  <text x="1016" y="36" fill="#94a3b8" font-family="monospace" font-size="10">PERÍODO: ÚLTIMOS 60 DIAS</text>
+
+  <!-- 4 KPI Cards -->
+  <g transform="translate(248, 88)">
+    <!-- KPI 1 -->
+    <rect x="0" y="0" width="216" height="96" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="16" y="24" fill="#64748b" font-family="monospace" font-size="10">CONSUMO DIESEL (L)</text>
+    <text x="16" y="58" fill="#f8fafc" font-family="sans-serif" font-size="26" font-weight="bold">3.450 L</text>
+    <text x="16" y="80" fill="#10b981" font-family="monospace" font-size="11">Eficiência de 94.2%</text>
+
+    <!-- KPI 2 -->
+    <rect x="236" y="0" width="216" height="96" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="252" y="24" fill="#64748b" font-family="monospace" font-size="10">USO GERADOR 01</text>
+    <text x="252" y="58" fill="#f8fafc" font-family="sans-serif" font-size="26" font-weight="bold">142 / 200 h</text>
+    <text x="252" y="80" fill="#facc15" font-family="monospace" font-size="11">Revisão em 58 horas</text>
+
+    <!-- KPI 3 -->
+    <rect x="472" y="0" width="216" height="96" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="488" y="24" fill="#64748b" font-family="monospace" font-size="10">USO GERADOR 02</text>
+    <text x="488" y="58" fill="#f8fafc" font-family="sans-serif" font-size="26" font-weight="bold">78 / 200 h</text>
+    <text x="488" y="80" fill="#10b981" font-family="monospace" font-size="11">Saúde nominal estável</text>
+
+    <!-- KPI 4 -->
+    <rect x="708" y="0" width="216" height="96" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="724" y="24" fill="#64748b" font-family="monospace" font-size="10">CUSTO MÉDIO / EVENTO</text>
+    <text x="724" y="58" fill="#f8fafc" font-family="sans-serif" font-size="26" font-weight="bold">R$ 3.120</text>
+    <text x="724" y="80" fill="#38bdf8" font-family="monospace" font-size="11">Redução de 8% em insumos</text>
+  </g>
+
+  <!-- Left: Operational Bar Chart -->
+  <g transform="translate(248, 204)">
+    <rect x="0" y="0" width="560" height="260" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="20" y="30" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Comparativo de Custos por Tipo de Insumo</text>
+    <text x="20" y="48" fill="#64748b" font-family="monospace" font-size="10">VALORES CONSOLIDADOS POR SEMANA OPERACIONAL</text>
+
+    <!-- Bars -->
+    <g transform="translate(50, 80)">
+      <!-- S1 -->
+      <rect x="20" y="40" width="22" height="110" rx="3" fill="url(#barGradTeal)" />
+      <rect x="46" y="70" width="22" height="80" rx="3" fill="url(#barGradBlue)" />
+      <text x="35" y="168" fill="#64748b" font-family="monospace" font-size="10">SEM 1</text>
+
+      <!-- S2 -->
+      <rect x="110" y="20" width="22" height="130" rx="3" fill="url(#barGradTeal)" />
+      <rect x="136" y="50" width="22" height="100" rx="3" fill="url(#barGradBlue)" />
+      <text x="125" y="168" fill="#64748b" font-family="monospace" font-size="10">SEM 2</text>
+
+      <!-- S3 -->
+      <rect x="200" y="60" width="22" height="90" rx="3" fill="url(#barGradTeal)" />
+      <rect x="226" y="80" width="22" height="70" rx="3" fill="url(#barGradBlue)" />
+      <text x="215" y="168" fill="#64748b" font-family="monospace" font-size="10">SEM 3</text>
+
+      <!-- S4 -->
+      <rect x="290" y="30" width="22" height="120" rx="3" fill="url(#barGradTeal)" />
+      <rect x="316" y="65" width="22" height="85" rx="3" fill="url(#barGradBlue)" />
+      <text x="305" y="168" fill="#64748b" font-family="monospace" font-size="10">SEM 4</text>
+
+      <!-- S5 -->
+      <rect x="380" y="15" width="22" height="135" rx="3" fill="url(#barGradTeal)" />
+      <rect x="406" y="45" width="22" height="105" rx="3" fill="url(#barGradBlue)" />
+      <text x="395" y="168" fill="#64748b" font-family="monospace" font-size="10">SEM 5</text>
+    </g>
+
+    <line x1="40" y1="230" x2="520" y2="230" stroke="#334155" stroke-width="1" />
+  </g>
+
+  <!-- Right: Preventive Status Meters -->
+  <g transform="translate(828, 204)">
+    <rect x="0" y="0" width="344" height="260" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="20" y="30" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Manutenção &amp; Confiabilidade</text>
+    <text x="20" y="48" fill="#64748b" font-family="monospace" font-size="10">STATUS TÉCNICO DOS EQUIPAMENTOS</text>
+
+    <!-- Meter 1 -->
+    <text x="20" y="90" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="bold">Gerador Primário 150 kVA</text>
+    <text x="260" y="90" fill="#10b981" font-family="monospace" font-size="11">71% VIDA ÚTIL</text>
+    <rect x="20" y="100" width="304" height="10" rx="5" fill="#1e293b" />
+    <rect x="20" y="100" width="216" height="10" rx="5" fill="#10b981" />
+
+    <!-- Meter 2 -->
+    <text x="20" y="145" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="bold">Gerador Secundário 80 kVA</text>
+    <text x="260" y="145" fill="#10b981" font-family="monospace" font-size="11">88% VIDA ÚTIL</text>
+    <rect x="20" y="155" width="304" height="10" rx="5" fill="#1e293b" />
+    <rect x="20" y="155" width="267" height="10" rx="5" fill="#14b8a6" />
+
+    <!-- Meter 3 -->
+    <text x="20" y="200" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="bold">Pressurização &amp; Bombas d'Água</text>
+    <text x="260" y="200" fill="#38bdf8" font-family="monospace" font-size="11">NORMAL</text>
+    <rect x="20" y="210" width="304" height="10" rx="5" fill="#1e293b" />
+    <rect x="20" y="210" width="290" height="10" rx="5" fill="#0284c7" />
+  </g>
+
+  <!-- Table: Events Cost Breakdown -->
+  <g transform="translate(248, 484)">
+    <rect x="0" y="0" width="924" height="288" rx="8" fill="url(#cardGrad2)" stroke="#1e293b" />
+    <text x="20" y="30" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Rateio de Despesas por Evento Realizado</text>
+    <text x="20" y="48" fill="#64748b" font-family="monospace" font-size="10">AUDITORIA DE CUSTO REAL X PREVISTO</text>
+
+    <!-- Table Header -->
+    <rect x="20" y="65" width="884" height="28" rx="4" fill="#090d16" />
+    <text x="35" y="83" fill="#64748b" font-family="monospace" font-size="10">DATA</text>
+    <text x="140" y="83" fill="#64748b" font-family="monospace" font-size="10">EVENTO (DEMO)</text>
+    <text x="380" y="83" fill="#64748b" font-family="monospace" font-size="10">GERADOR (h)</text>
+    <text x="530" y="83" fill="#64748b" font-family="monospace" font-size="10">DIESEL (L)</text>
+    <text x="670" y="83" fill="#64748b" font-family="monospace" font-size="10">CUSTO TOTAL</text>
+    <text x="820" y="83" fill="#64748b" font-family="monospace" font-size="10">EFICIÊNCIA</text>
+
+    <!-- Row 1 -->
+    <line x1="20" y1="130" x2="904" y2="130" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="118" fill="#cbd5e1" font-family="monospace" font-size="11">18/10/2026</text>
+    <text x="140" y="118" fill="#f8fafc" font-family="sans-serif" font-size="12">Convenção Empresarial Alpha</text>
+    <text x="380" y="118" fill="#94a3b8" font-family="monospace" font-size="11">8.5 h</text>
+    <text x="530" y="118" fill="#94a3b8" font-family="monospace" font-size="11">210 L</text>
+    <text x="670" y="118" fill="#2dd4bf" font-family="monospace" font-size="11">R$ 2.450,00</text>
+    <text x="820" y="118" fill="#10b981" font-family="monospace" font-size="11">ÓTIMA (A)</text>
+
+    <!-- Row 2 -->
+    <line x1="20" y1="175" x2="904" y2="175" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="163" fill="#cbd5e1" font-family="monospace" font-size="11">12/10/2026</text>
+    <text x="140" y="163" fill="#f8fafc" font-family="sans-serif" font-size="12">Celebração de Aniversário 40 Anos</text>
+    <text x="380" y="163" fill="#94a3b8" font-family="monospace" font-size="11">7.0 h</text>
+    <text x="530" y="163" fill="#94a3b8" font-family="monospace" font-size="11">175 L</text>
+    <text x="670" y="163" fill="#2dd4bf" font-family="monospace" font-size="11">R$ 1.980,00</text>
+    <text x="820" y="163" fill="#10b981" font-family="monospace" font-size="11">ÓTIMA (A)</text>
+
+    <!-- Row 3 -->
+    <line x1="20" y1="220" x2="904" y2="220" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="208" fill="#cbd5e1" font-family="monospace" font-size="11">05/10/2026</text>
+    <text x="140" y="208" fill="#f8fafc" font-family="sans-serif" font-size="12">Jantar Corporativo Tech Summit</text>
+    <text x="380" y="208" fill="#94a3b8" font-family="monospace" font-size="11">9.2 h</text>
+    <text x="530" y="208" fill="#94a3b8" font-family="monospace" font-size="11">245 L</text>
+    <text x="670" y="208" fill="#2dd4bf" font-family="monospace" font-size="11">R$ 2.890,00</text>
+    <text x="820" y="208" fill="#facc15" font-family="monospace" font-size="11">REGULAR (B)</text>
+
+    <!-- Row 4 -->
+    <text x="35" y="253" fill="#cbd5e1" font-family="monospace" font-size="11">28/09/2026</text>
+    <text x="140" y="253" fill="#f8fafc" font-family="sans-serif" font-size="12">Conferência Regional de Negócios</text>
+    <text x="380" y="253" fill="#94a3b8" font-family="monospace" font-size="11">10.0 h</text>
+    <text x="530" y="253" fill="#94a3b8" font-family="monospace" font-size="11">260 L</text>
+    <text x="670" y="253" fill="#2dd4bf" font-family="monospace" font-size="11">R$ 3.150,00</text>
+    <text x="820" y="253" fill="#10b981" font-family="monospace" font-size="11">ÓTIMA (A)</text>
+  </g>
+</svg>
+

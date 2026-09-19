@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="portalBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="60%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#0b1324" />
+    </linearGradient>
+    <linearGradient id="heroGlow" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0d9488" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="ctaBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#portalBg)" />
+
+  <!-- Subtle Radial Glow in Hero -->
+  <ellipse cx="600" cy="220" rx="480" ry="220" fill="url(#heroGlow)" />
+
+  <!-- Navigation Bar -->
+  <rect x="0" y="0" width="1200" height="72" fill="#090d16" fill-opacity="0.9" stroke="#1e293b" stroke-width="1" />
+  
+  <g transform="translate(60, 18)">
+    <rect x="0" y="0" width="36" height="36" rx="6" fill="#0f172a" stroke="#0d9488" stroke-width="1.5" />
+    <text x="9" y="24" fill="#14b8a6" font-family="monospace" font-size="16" font-weight="bold">rs.</text>
+    <text x="46" y="23" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="extrabold" letter-spacing="0.5">SIGES EVENTOS</text>
+  </g>
+
+  <!-- Nav Links -->
+  <g transform="translate(420, 40)" font-family="sans-serif" font-size="13" font-weight="500">
+    <text x="0" y="0" fill="#38bdf8">Recursos</text>
+    <text x="90" y="0" fill="#94a3b8">Planos &amp; Preços</text>
+    <text x="210" y="0" fill="#94a3b8">Segurança &amp; Cloud</text>
+    <text x="350" y="0" fill="#94a3b8">Contato</text>
+  </g>
+
+  <!-- Nav Action Buttons -->
+  <g transform="translate(940, 20)">
+    <text x="0" y="22" fill="#94a3b8" font-family="sans-serif" font-size="13" font-weight="600">Entrar</text>
+    <rect x="60" y="0" width="140" height="36" rx="6" fill="url(#ctaBtn)" />
+    <text x="130" y="23" fill="#042f2e" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Agendar Demo</text>
+  </g>
+
+  <!-- Watermark / Fictitious Data Badge -->
+  <g transform="translate(460, 96)">
+    <rect x="0" y="0" width="280" height="26" rx="13" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <circle cx="14" cy="13" r="4" fill="#10b981" />
+    <text x="26" y="17" fill="#94a3b8" font-family="monospace" font-size="10" font-weight="bold">PORTAL DEMONSTRATIVO FICTÍCIO</text>
+  </g>
+
+  <!-- Hero Section -->
+  <g transform="translate(600, 165)" text-anchor="middle">
+    <text y="0" fill="#f8fafc" font-family="sans-serif" font-size="34" font-weight="900" letter-spacing="-0.5">
+      Gestão Operacional e Comercial de Eventos
+    </text>
+    <text y="38" fill="#f8fafc" font-family="sans-serif" font-size="34" font-weight="900" letter-spacing="-0.5">
+      Sem Planilhas e Sem Conflitos de Agenda
+    </text>
+    <text y="80" fill="#94a3b8" font-family="sans-serif" font-size="15" max-width="700">
+      Centralize propostas comerciais, contratos digitais, escalas de equipes e auditoria de insumos
+    </text>
+    <text y="104" fill="#94a3b8" font-family="sans-serif" font-size="15">
+      em uma única esteira web com infraestrutura em VPS Linux dedicada.
+    </text>
+
+    <!-- CTAs -->
+    <g transform="translate(0, 140)">
+      <rect x="-170" y="0" width="160" height="46" rx="6" fill="url(#ctaBtn)" />
+      <text x="-90" y="28" fill="#042f2e" font-family="sans-serif" font-size="14" font-weight="bold">Solicitar Proposta</text>
+      
+      <rect x="10" y="0" width="160" height="46" rx="6" fill="#1e293b" stroke="#334155" />
+      <text x="90" y="28" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="600">Ver Demonstração</text>
+    </g>
+  </g>
+
+  <!-- Metrics Ribbon -->
+  <g transform="translate(180, 390)">
+    <rect x="0" y="0" width="840" height="60" rx="8" fill="#090d16" stroke="#1e293b" />
+    
+    <g transform="translate(80, 24)" text-anchor="middle">
+      <text y="0" fill="#14b8a6" font-family="monospace" font-size="20" font-weight="bold">+1.400</text>
+      <text y="18" fill="#64748b" font-family="sans-serif" font-size="11">EVENTOS OPERADOS</text>
+    </g>
+
+    <line x1="210" y1="12" x2="210" y2="48" stroke="#1e293b" />
+
+    <g transform="translate(290, 24)" text-anchor="middle">
+      <text y="0" fill="#38bdf8" font-family="monospace" font-size="20" font-weight="bold">99.95%</text>
+      <text y="18" fill="#64748b" font-family="sans-serif" font-size="11">DISPONIBILIDADE CLOUD</text>
+    </g>
+
+    <line x1="420" y1="12" x2="420" y2="48" stroke="#1e293b" />
+
+    <g transform="translate(500, 24)" text-anchor="middle">
+      <text y="0" fill="#2dd4bf" font-family="monospace" font-size="20" font-weight="bold">100%</text>
+      <text y="18" fill="#64748b" font-family="sans-serif" font-size="11">ISOLAMENTO DE DADOS</text>
+    </g>
+
+    <line x1="630" y1="12" x2="630" y2="48" stroke="#1e293b" />
+
+    <g transform="translate(710, 24)" text-anchor="middle">
+      <text y="0" fill="#e2e8f0" font-family="monospace" font-size="20" font-weight="bold">&lt; 150ms</text>
+      <text y="18" fill="#64748b" font-family="sans-serif" font-size="11">LATÊNCIA MÉDIA CDN</text>
+    </g>
+  </g>
+
+  <!-- 3 Modular Feature Cards -->
+  <g transform="translate(100, 480)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="310" height="260" rx="8" fill="url(#cardGrad3)" stroke="#1e293b" stroke-width="1.5" />
+    <rect x="20" y="20" width="36" height="36" rx="6" fill="#0f766e" fill-opacity="0.2" stroke="#0d9488" stroke-width="1" />
+    <text x="32" y="44" fill="#2dd4bf" font-family="monospace" font-size="18">01</text>
+    <text x="20" y="85" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="bold">Propostas &amp; Contratos</text>
+    <text x="20" y="112" fill="#94a3b8" font-family="sans-serif" font-size="13" line-height="1.5">
+      Gere propostas em segundos com
+    </text>
+    <text x="20" y="132" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      cálculo dinâmico de taxas, serviços
+    </text>
+    <text x="20" y="152" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      e assinatura com status rastreado.
+    </text>
+    <rect x="20" y="185" width="270" height="1" fill="#1e293b" />
+    <text x="20" y="215" fill="#38bdf8" font-family="monospace" font-size="11">REDUÇÃO DE GARGALO COMERCIAL</text>
+    <text x="20" y="235" fill="#64748b" font-family="monospace" font-size="10">STATUS // ATIVO</text>
+
+    <!-- Card 2 -->
+    <rect x="345" y="0" width="310" height="260" rx="8" fill="url(#cardGrad3)" stroke="#0d9488" stroke-width="1.5" />
+    <rect x="365" y="20" width="36" height="36" rx="6" fill="#0d9488" fill-opacity="0.2" stroke="#14b8a6" stroke-width="1" />
+    <text x="377" y="44" fill="#2dd4bf" font-family="monospace" font-size="18">02</text>
+    <text x="365" y="85" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="bold">Agenda &amp; Execução</text>
+    <text x="365" y="112" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      Calendário inteligente que impede
+    </text>
+    <text x="365" y="132" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      conflito de salões, datas e equipes
+    </text>
+    <text x="365" y="152" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      com alertas em tempo real.
+    </text>
+    <rect x="365" y="185" width="270" height="1" fill="#1e293b" />
+    <text x="365" y="215" fill="#2dd4bf" font-family="monospace" font-size="11">CONTROLE DE CAPACIDADE 100%</text>
+    <text x="365" y="235" fill="#64748b" font-family="monospace" font-size="10">STATUS // INTEGRADO</text>
+
+    <!-- Card 3 -->
+    <rect x="690" y="0" width="310" height="260" rx="8" fill="url(#cardGrad3)" stroke="#1e293b" stroke-width="1.5" />
+    <rect x="710" y="20" width="36" height="36" rx="6" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+    <text x="722" y="44" fill="#38bdf8" font-family="monospace" font-size="18">03</text>
+    <text x="710" y="85" fill="#f8fafc" font-family="sans-serif" font-size="16" font-weight="bold">Auditoria Operacional</text>
+    <text x="710" y="112" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      Monitoramento do consumo de
+    </text>
+    <text x="710" y="132" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      geradores, água e custos reais
+    </text>
+    <text x="710" y="152" fill="#94a3b8" font-family="sans-serif" font-size="13">
+      por evento com rateio preciso.
+    </text>
+    <rect x="710" y="185" width="270" height="1" fill="#1e293b" />
+    <text x="710" y="215" fill="#38bdf8" font-family="monospace" font-size="11">RATEIO AUTOMATIZADO</text>
+    <text x="710" y="235" fill="#64748b" font-family="monospace" font-size="10">STATUS // AUDITADO</text>
+  </g>
+
+  <!-- Bottom Brand Watermark -->
+  <text x="600" y="775" fill="#475569" font-family="monospace" font-size="11" text-anchor="middle">
+    ARQUITETURA &amp; INFRAESTRUTURA DESENVOLVIDAS POR RAFAEL SOJE // NEXT.JS + NGINX + VPS LINUX
+  </text>
+</svg>
+

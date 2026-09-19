@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,18 +15,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rafaelsoje.com"),
-  title: "Rafael Soje | Infraestrutura Linux, Cloud e Desenvolvimento Web",
+  title: "Rafael Soje | Infraestrutura, Cloud e Desenvolvimento Web",
   description:
-    "Engenharia de infraestrutura Linux, servidores VPS, Cloudflare, segurança, certificados SSL, migrações sem instabilidade e desenvolvimento web para manter sua operação funcionando.",
+    "Soluções profissionais para servidores Linux e Windows Server: diagnóstico de instabilidade, configuração, migrações seguras, backups, segurança e desenvolvimento de sistemas web sob medida.",
   authors: [{ name: "Rafael Soje", url: "https://rafaelsoje.com" }],
   keywords: [
     "Infraestrutura Linux",
     "Servidores Linux",
+    "Windows Server",
     "Cloudflare",
     "Segurança da Informação",
     "Certificados SSL",
     "Migração de Servidores",
     "Desenvolvimento Web",
+    "configuração de servidores",
+    "administração de servidores",
+    "suporte a servidores",
+    "migração de sites",
+    "backup automatizado",
+    "recuperação de dados",
+    "segurança de servidores",
+    "diagnóstico DNS",
+    "desenvolvimento de sistemas",
+    "manutenção de sistemas",
     "Rafael Soje",
     "Nginx",
     "PHP",
@@ -35,9 +47,9 @@ export const metadata: Metadata = {
     canonical: "https://rafaelsoje.com",
   },
   openGraph: {
-    title: "Rafael Soje | Infraestrutura Linux, Cloud e Desenvolvimento Web",
+    title: "Rafael Soje | Infraestrutura, Cloud e Desenvolvimento Web",
     description:
-      "Engenharia de infraestrutura Linux, servidores VPS, Cloudflare, segurança, SSL, migrações e desenvolvimento web para manter sua operação funcionando.",
+      "Atendimento técnico direto para servidores Linux e Windows Server, migrações seguras, diagnóstico de instabilidade, backup, SSL e desenvolvimento de sistemas sob medida.",
     url: "https://rafaelsoje.com",
     siteName: "Rafael Soje",
     locale: "pt_BR",
@@ -45,9 +57,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rafael Soje | Infraestrutura Linux, Cloud e Desenvolvimento Web",
+    title: "Rafael Soje | Infraestrutura, Cloud e Desenvolvimento Web",
     description:
-      "Engenharia de infraestrutura Linux, servidores VPS, Cloudflare, segurança, SSL, migrações e desenvolvimento web para manter sua operação funcionando.",
+      "Atendimento técnico direto para servidores Linux e Windows Server, migrações seguras, diagnóstico de instabilidade, backup, SSL e desenvolvimento de sistemas sob medida.",
   },
   robots: {
     index: true,
@@ -55,16 +67,72 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Rafael Soje",
+  url: "https://rafaelsoje.com",
+  jobTitle: "Consultor de Infraestrutura e Desenvolvedor Web",
+  description:
+    "Serviços profissionais de infraestrutura de servidores Linux e Windows Server, Cloud, segurança da informação, rotinas de backup e desenvolvimento de sistemas web sob medida.",
+  telephone: "+5521999840419",
+  priceRange: "$$",
+  areaServed: {
+    "@type": "Country",
+    name: "Brasil",
+  },
+  knowsAbout: [
+    "Linux",
+    "Windows Server",
+    "Cloud Computing",
+    "Cloudflare",
+    "Next.js",
+    "PHP",
+    "Laravel",
+    "DevOps",
+    "Segurança da Informação",
+    "Backup e Recuperação",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="pt-BR" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#090d16] text-slate-100 selection:bg-teal-500 selection:text-slate-950`}
       >
+        {gaId && (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaId}');
+                `,
+              }}
+            />
+          </>
+        )}
         {children}
       </body>
     </html>

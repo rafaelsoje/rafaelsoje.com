@@ -7,47 +7,47 @@ export function PricingSection() {
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
           <div className="flex items-center space-x-3 mb-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-teal-700">
+            <span className="text-micro font-bold text-teal-700 tracking-wider">
               04 // MODALIDADES & PREÇOS
             </span>
             <div className="h-[1px] w-12 bg-slate-300" />
-            <span className="font-mono text-xs text-slate-500 uppercase">
+            <span className="text-micro text-slate-500 uppercase tracking-wider">
               Transparência Comercial
             </span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-section-title font-extrabold text-slate-900 leading-tight">
             Serviços profissionais com escopo e valores claros.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Sem mensalidades escondidas ou promessas enganosas de planos SaaS. 
-            Você sabe exatamente onde cada intervenção técnica começa e o que está contemplado.
+          <p className="mt-4 text-body-lead text-slate-600 leading-relaxed max-w-[65ch]">
+            Sem mensalidades escondidas ou falsas promessas. 
+            Você sabe exatamente como cada intervenção é conduzida e o que está contemplado.
           </p>
         </div>
 
         {/* 3 Core Commercial Offerings */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {/* 1. Suporte Pontual */}
-          <div className="flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-7 shadow-md hover:border-slate-400 transition-colors">
+          <div className="flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-7 sm:p-8 shadow-md hover:border-slate-400 transition-colors">
             <div>
-              <div className="flex items-center justify-between font-mono text-xs text-slate-400 mb-3 border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between text-micro font-mono text-slate-400 mb-4 border-b border-slate-100 pb-2.5">
                 <span>INTERVENÇÃO DIRETA</span>
                 <span>AVULSO</span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+              <h3 className="text-feature-title font-bold text-slate-900 tracking-tight">
                 SUPORTE PONTUAL
               </h3>
-              <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed">
-                Ideal para resolver emergências, desbloquear sistemas ou realizar correções específicas sob demanda.
+              <p className="text-body-editorial text-slate-600 mt-2.5 mb-6 leading-relaxed">
+                Ideal para resolver emergências, desbloquear serviços fora do ar ou realizar correções específicas sob demanda.
               </p>
 
               {/* Price */}
-              <div className="my-4 py-3 px-4 rounded bg-slate-50 border border-slate-200/80">
-                <span className="text-xs font-mono text-slate-500 uppercase block">
+              <div className="my-5 py-4 px-4 rounded bg-slate-50 border border-slate-200/80">
+                <span className="text-micro font-mono text-slate-500 uppercase block mb-1">
                   Investimento
                 </span>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-xs text-slate-600 font-mono">a partir de</span>
-                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-sm text-slate-500 font-mono font-medium">a partir de</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
                     R$ 150
                   </span>
                 </div>
@@ -55,25 +55,25 @@ export function PricingSection() {
 
               {/* Scope details */}
               <div className="space-y-3 mt-6">
-                <span className="font-mono text-xs uppercase tracking-wider text-slate-700 font-bold block">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-700 font-bold block">
                   Exemplos de Atendimento:
                 </span>
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-600 font-mono">
+                <ul className="space-y-2.5 text-sm text-slate-700 font-mono">
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Diagnóstico de lentidão ou travamento súbito de servidor</span>
+                    <span>Diagnóstico de lentidão, instabilidade ou queda de servidor</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Ajuste de zonas de DNS, propagação e Cloudflare</span>
+                    <span>Correção de erros em DNS, apontamentos de domínio e HTTPS</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Correção e renovação de certificados SSL quebrados</span>
+                    <span>Resolução de falhas e renovação de certificados SSL</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Desbloqueio de serviços travados (Nginx, PHP, MySQL)</span>
+                    <span>Desbloqueio e recuperação de serviços travados no ambiente</span>
                   </li>
                 </ul>
               </div>
@@ -82,7 +82,7 @@ export function PricingSection() {
             <div className="mt-8 pt-4 border-t border-slate-100">
               <a
                 href="#contato"
-                className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 hover:bg-slate-800 text-white transition-colors"
+                className="w-full inline-flex items-center justify-center px-4 py-3.5 rounded text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-slate-900 hover:bg-slate-800 text-white transition-colors"
               >
                 Solicitar Suporte Pontual
               </a>
@@ -90,32 +90,32 @@ export function PricingSection() {
           </div>
 
           {/* 2. Configuração e Migração */}
-          <div className="flex flex-col justify-between rounded-lg border-2 border-teal-600/80 bg-white p-7 shadow-lg relative">
+          <div className="flex flex-col justify-between rounded-lg border-2 border-teal-600/80 bg-white p-7 sm:p-8 shadow-lg relative">
             {/* Highlight badge */}
-            <div className="absolute -top-3 left-6 px-2.5 py-0.5 rounded bg-teal-600 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
+            <div className="absolute -top-3 left-6 px-2.5 py-0.5 rounded bg-teal-600 text-white text-micro uppercase font-bold tracking-wider">
               Setup Estrutural
             </div>
 
             <div>
-              <div className="flex items-center justify-between font-mono text-xs text-teal-800 mb-3 border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between text-micro font-mono text-teal-800 mb-4 border-b border-slate-100 pb-2.5">
                 <span>IMPLANTAÇÃO & AMBIENTE</span>
                 <span>PROJETO</span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+              <h3 className="text-feature-title font-bold text-slate-900 tracking-tight">
                 CONFIGURAÇÃO E MIGRAÇÃO
               </h3>
-              <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed">
-                Para quem está subindo um novo servidor, mudando de hospedagem ou precisa blindar sua infraestrutura.
+              <p className="text-body-editorial text-slate-600 mt-2.5 mb-6 leading-relaxed">
+                Para quem está colocando um servidor novo no ar, mudando de hospedagem ou precisa reestruturar o ambiente.
               </p>
 
               {/* Price */}
-              <div className="my-4 py-3 px-4 rounded bg-teal-50/50 border border-teal-200">
-                <span className="text-xs font-mono text-teal-800 uppercase block">
+              <div className="my-5 py-4 px-4 rounded bg-teal-50/50 border border-teal-200">
+                <span className="text-micro font-mono text-teal-800 uppercase block mb-1">
                   Investimento
                 </span>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-xs text-slate-600 font-mono">a partir de</span>
-                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-sm text-slate-500 font-mono font-medium">a partir de</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
                     R$ 350
                   </span>
                 </div>
@@ -123,29 +123,29 @@ export function PricingSection() {
 
               {/* Scope details */}
               <div className="space-y-3 mt-6">
-                <span className="font-mono text-xs uppercase tracking-wider text-slate-700 font-bold block">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-700 font-bold block">
                   O que está incluso:
                 </span>
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-600 font-mono">
+                <ul className="space-y-2.5 text-sm text-slate-700 font-mono">
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Instalação limpa e hardening em servidor Linux novo (Ubuntu/Debian)</span>
+                    <span>Preparação e configuração de servidor (Linux ou Windows Server)</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Migração completa de sites, arquivos e bancos sem perda de dados</span>
+                    <span>Migração planejada de sites, bancos e arquivos com foco em integridade</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Configuração de proxy reverso (Nginx) e otimização de execução</span>
+                    <span>Configuração de servidor web, proxy reverso e otimização do ambiente</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Firewall UFW, proteção Fail2ban e ativação de Cloudflare Full (Strict)</span>
+                    <span>Revisão de segurança, proteção contra acessos indevidos e DNS</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Criação de rotina automatizada de backup em nuvem</span>
+                    <span>Estruturação de rotinas automáticas de backup para repositório externo</span>
                   </li>
                 </ul>
               </div>
@@ -154,7 +154,7 @@ export function PricingSection() {
             <div className="mt-8 pt-4 border-t border-slate-100">
               <a
                 href="#contato"
-                className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-teal-600 hover:bg-teal-500 text-white transition-colors shadow-sm"
+                className="w-full inline-flex items-center justify-center px-4 py-3.5 rounded text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-teal-600 hover:bg-teal-500 text-white transition-colors shadow-sm"
               >
                 Orçar Configuração / Migração
               </a>
@@ -162,54 +162,54 @@ export function PricingSection() {
           </div>
 
           {/* 3. Manutenção Essencial */}
-          <div className="flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-7 shadow-md hover:border-slate-400 transition-colors">
+          <div className="flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-7 sm:p-8 shadow-md hover:border-slate-400 transition-colors">
             <div>
-              <div className="flex items-center justify-between font-mono text-xs text-slate-400 mb-3 border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between text-micro font-mono text-slate-400 mb-4 border-b border-slate-100 pb-2.5">
                 <span>ACOMPANHAMENTO PREVENTIVO</span>
                 <span>MENSAL</span>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+              <h3 className="text-feature-title font-bold text-slate-900 tracking-tight">
                 MANUTENÇÃO ESSENCIAL
               </h3>
-              <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed">
-                Tranquilidade técnica para pequenos sites e ambientes que não podem ser abandonados sem supervisão.
+              <p className="text-body-editorial text-slate-600 mt-2.5 mb-6 leading-relaxed">
+                Supervisão contínua e tranquilidade técnica para sites e ambientes que não podem ser abandonados.
               </p>
 
               {/* Price */}
-              <div className="my-4 py-3 px-4 rounded bg-slate-50 border border-slate-200/80">
-                <span className="text-xs font-mono text-slate-500 uppercase block">
+              <div className="my-5 py-4 px-4 rounded bg-slate-50 border border-slate-200/80">
+                <span className="text-micro font-mono text-slate-500 uppercase block mb-1">
                   Investimento
                 </span>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-xs text-slate-600 font-mono">a partir de</span>
-                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-sm text-slate-500 font-mono font-medium">a partir de</span>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
                     R$ 149
                   </span>
-                  <span className="text-xs text-slate-500 font-mono">/ mês</span>
+                  <span className="text-sm sm:text-base text-slate-500 font-mono font-medium">/ mês</span>
                 </div>
               </div>
 
               {/* Escopo detalhado e limites claros */}
               <div className="space-y-3 mt-6">
-                <span className="font-mono text-xs uppercase tracking-wider text-slate-700 font-bold block">
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-700 font-bold block">
                   Escopo Previsto:
                 </span>
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-600 font-mono">
+                <ul className="space-y-2.5 text-sm text-slate-700 font-mono">
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Monitoramento básico contínuo de disponibilidade (uptime)</span>
+                    <span>Monitoramento contínuo de disponibilidade básica (uptime)</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Verificação periódica de validade e renovação de SSL</span>
+                    <span>Verificação periódica de validade e renovação de certificados SSL</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Conferência da integridade dos backups já configurados</span>
+                    <span>Conferência da execução e integridade dos backups configurados</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
-                    <span>Orientação técnica preventiva contra incidentes</span>
+                    <span>Orientação técnica preventiva contra incidentes operacionais</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-teal-600 font-bold mr-2">✓</span>
@@ -218,7 +218,7 @@ export function PricingSection() {
                 </ul>
 
                 {/* Importante: Limites transparentes do escopo */}
-                <div className="mt-4 p-3 rounded bg-slate-100 border border-slate-200 text-[11px] text-slate-600 leading-relaxed">
+                <div className="mt-4 p-3.5 rounded bg-slate-100 border border-slate-200 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                   <strong className="text-slate-800 block mb-0.5 font-mono">Transparência:</strong>
                   Não inclui suporte ilimitado, atendimento emergencial 24/7, SLA corporativo ou desenvolvimento de novos recursos. Demandas fora do escopo são orçadas separadamente.
                 </div>
@@ -228,7 +228,7 @@ export function PricingSection() {
             <div className="mt-8 pt-4 border-t border-slate-100">
               <a
                 href="#contato"
-                className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 hover:bg-slate-800 text-white transition-colors"
+                className="w-full inline-flex items-center justify-center px-4 py-3.5 rounded text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-slate-900 hover:bg-slate-800 text-white transition-colors"
               >
                 Contratar Manutenção
               </a>
@@ -237,12 +237,12 @@ export function PricingSection() {
         </div>
 
         {/* Commercial Clarification Note */}
-        <div className="mt-10 p-4 rounded border border-slate-200 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-600">
+        <div className="mt-10 p-4 rounded border border-slate-200 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-slate-600">
           <div className="flex items-center space-x-2">
             <span className="font-mono font-bold text-teal-700 uppercase">Nota de Precificação:</span>
             <span>Todos os valores informados são expressos com &ldquo;a partir de&rdquo; e o investimento final depende da complexidade do ambiente.</span>
           </div>
-          <div className="font-mono text-[11px] text-slate-500 whitespace-nowrap">
+          <div className="text-micro font-mono text-slate-500 whitespace-nowrap">
             EMISSÃO DE NOTA FISCAL INCLUSA
           </div>
         </div>
@@ -250,4 +250,3 @@ export function PricingSection() {
     </section>
   );
 }
-
