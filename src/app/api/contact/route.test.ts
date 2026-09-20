@@ -141,8 +141,31 @@ describe("HubSpot Forms API Integration (/api/contact)", () => {
         hubspotutk: "inválido",
       });
 
-      expect(capturedBody?.context?.pageUri).toBe("https://rafaelsoje.com");
+      expect(capturedBody?.context?.pageUri).toBe("https://rafaelsoje.com/");
       expect(capturedBody?.context?.hutk).toBeUndefined();
+    });
+
+    it("envia UTMs no contexto sem encaminhar dados pessoais da query", async () => {
+      let capturedBody: CapturedHubSpotPayload | undefined;
+      vi.spyOn(globalThis, "fetch").mockImplementation(async (_, init) => {
+        capturedBody = JSON.parse(init?.body as string) as CapturedHubSpotPayload;
+        return new Response("{}", { status: 200 });
+      });
+
+      await submitToHubSpotForm({
+        name: "Ana Souza",
+        email: "ana@exemplo.com",
+        helpTopic: "Segurança",
+        message: "Gostaria de uma auditoria de segurança no firewall do servidor.",
+        ip: "10.0.0.1",
+        pagePath: "/?utm_source=prospeccao&utm_medium=email&utm_campaign=prospeccao_tecnica&utm_content=ger7&utm_term=servidores&email=ana%40exemplo.com&phone=11999998888",
+      });
+
+      expect(capturedBody?.context?.pageUri).toBe(
+        "https://rafaelsoje.com/?utm_source=prospeccao&utm_medium=email&utm_campaign=prospeccao_tecnica&utm_content=ger7&utm_term=servidores"
+      );
+      expect(capturedBody?.context?.pageUri).not.toContain("ana%40exemplo.com");
+      expect(capturedBody?.context?.pageUri).not.toContain("11999998888");
     });
 
     it("deve retornar success: false em caso de resposta HTTP 4xx ou 5xx do HubSpot", async () => {
@@ -193,6 +216,31 @@ describe("HubSpot Forms API Integration (/api/contact)", () => {
       helpTopic: "Servidor / infraestrutura",
       message: "Precisamos de ajuda para configurar nosso ambiente de produção na nuvem.",
     };
+
+    it("repassa atribuição da submissão à Forms API sem query pessoal", async () => {
+      let hubspotPayload: CapturedHubSpotPayload | undefined;
+      vi.spyOn(globalThis, "fetch").mockImplementation(async (_, init) => {
+        hubspotPayload = JSON.parse(init?.body as string) as CapturedHubSpotPayload;
+        return new Response("{}", { status: 200 });
+      });
+
+      const req = new NextRequest("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...validPayload,
+          pagePath: "/?utm_source=prospeccao&utm_content=ger7&email=prospect%40example.com",
+          hubspotutk: "0123456789abcdef0123456789abcdef",
+        }),
+      });
+
+      const res = await POST(req);
+      expect(res.status).toBe(200);
+      expect(hubspotPayload?.context).toMatchObject({
+        pageUri: "https://rafaelsoje.com/?utm_source=prospeccao&utm_content=ger7",
+        hutk: "0123456789abcdef0123456789abcdef",
+      });
+    });
 
     it("deve retornar HTTP 200 com mensagem padrão quando o HubSpot aceita a submissão", async () => {
       vi.spyOn(globalThis, "fetch").mockResolvedValue(

@@ -1,4 +1,5 @@
 import { formatPhoneToE164 } from "./validation";
+import { sanitizeCampaignPagePath } from "./attribution";
 
 // Configurações do formulário publicado no HubSpot
 export const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "52058679";
@@ -78,14 +79,10 @@ export async function submitToHubSpotForm({
   }
 
   const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
-  // A URL é reconstruída no servidor para impedir que o cliente envie outra origem.
-  const siteOrigin = "https://rafaelsoje.com";
-  const requestedPage = pagePath && pagePath.startsWith("/") && pagePath.length <= 2048
-    ? new URL(pagePath, siteOrigin)
-    : null;
-  const pageUri = requestedPage?.origin === siteOrigin
-    ? requestedPage.toString()
-    : siteOrigin;
+  // Recria a URL no domínio do site, incluindo somente UTMs permitidos.
+  const pageUri = pagePath
+    ? new URL(sanitizeCampaignPagePath(pagePath).pagePath, "https://rafaelsoje.com").toString()
+    : "https://rafaelsoje.com";
   const context = {
     pageUri,
     pageName: "Formulário Comercial - rafaelsoje.com",

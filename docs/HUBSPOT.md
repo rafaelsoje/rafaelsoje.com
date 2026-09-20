@@ -6,7 +6,7 @@ O site permanece em Next.js 15 e na hospedagem atual. O `RootLayout` carrega o T
 
 A captura automática de formulários externos deve permanecer **desativada** para este site. O formulário usa `onSubmit` com JavaScript e `fetch`, o que não atende aos requisitos dessa função e pode gerar envios duplicados ou incompletos. Os campos HTML existentes já têm `name` estável. O script de rastreamento não substitui a Forms API.
 
-No envio, o navegador passa o cookie `hubspotutk`, quando existir, e o caminho com a query string atual. A rota aceita apenas um cookie no formato esperado e reconstrói a URL no domínio do site. Isso permite à HubSpot associar a submissão à visita e manter `utm_source`, `utm_medium`, `utm_campaign` e `utm_content` na URL. A atribuição depende de o visitante aceitar cookies conforme a configuração do portal, de o script carregar e de o cookie estar disponível no navegador. Não há armazenamento adicional de UTMs: links internos com `#contato` preservam a query string da página, mas uma visita posterior sem UTMs não a recupera.
+No envio, o navegador passa o cookie `hubspotutk`, quando existir, e o caminho de entrada com os parâmetros `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e `utm_term`. A primeira campanha válida da aba fica em `sessionStorage` até a aba ser fechada, mesmo que o visitante navegue antes de enviar. Sem acesso ao storage, vale a URL atual. Apenas esses cinco parâmetros e valores curtos de identificadores comerciais são preservados; outros parâmetros da query são removidos para evitar dados pessoais. A rota aplica a mesma filtragem e reconstrói `context.pageUri` no domínio do site. A associação da visita ainda depende do script, do consentimento e da disponibilidade do cookie HubSpot. Os UTMs no `pageUri` não criam propriedades individuais de contato; para relatórios por valores exatos de todos os cinco parâmetros, seria necessária configuração adicional no painel HubSpot.
 
 ## Arquivos
 
@@ -15,6 +15,7 @@ No envio, o navegador passa o cookie `hubspotutk`, quando existir, e o caminho c
 - `src/app/api/contact/route.ts`: encaminhamento do contexto à Forms API.
 - `src/lib/hubspot.ts`: validação do contexto e submissão.
 - `src/app/api/contact/route.test.ts`: teste de associação e UTMs.
+- `src/lib/attribution.ts` e `src/lib/attribution.test.ts`: preservação por aba, filtragem e testes.
 - `.env.example`: variáveis necessárias.
 
 ## Configuração

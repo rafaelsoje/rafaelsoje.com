@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BrandSymbol } from "./BrandLogo";
 import { validateContactForm, ContactFormData, HELP_TOPICS } from "@/lib/validation";
 import { trackAnalyticsEvent } from "@/lib/analytics";
+import { getBrowserAttributionPagePath } from "@/lib/attribution";
 
 export function ContactSection() {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -22,6 +23,10 @@ export function ContactSection() {
   const [serverMessage, setServerMessage] = useState("");
   const formStartedRef = useRef(false);
   const submittingRef = useRef(false);
+
+  useEffect(() => {
+    getBrowserAttributionPagePath();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -66,7 +71,7 @@ export function ContactSection() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...validation.sanitizedData,
-          pagePath: window.location.pathname + window.location.search,
+          pagePath: getBrowserAttributionPagePath(),
           hubspotutk: document.cookie
             .split("; ")
             .find((cookie) => cookie.startsWith("hubspotutk="))
