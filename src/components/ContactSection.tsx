@@ -21,6 +21,7 @@ export function ContactSection() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [serverMessage, setServerMessage] = useState("");
   const formStartedRef = useRef(false);
+  const submittingRef = useRef(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -44,6 +45,7 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submittingRef.current) return;
 
     // Client-side strict validation
     const validation = validateContactForm(formData);
@@ -52,6 +54,7 @@ export function ContactSection() {
       return;
     }
 
+    submittingRef.current = true;
     setIsSubmitting(true);
     setSubmitStatus("idle");
     setServerMessage("");
@@ -61,7 +64,14 @@ export function ContactSection() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validation.sanitizedData),
+        body: JSON.stringify({
+          ...validation.sanitizedData,
+          pagePath: window.location.pathname + window.location.search,
+          hubspotutk: document.cookie
+            .split("; ")
+            .find((cookie) => cookie.startsWith("hubspotutk="))
+            ?.slice("hubspotutk=".length),
+        }),
       });
 
       const data = await response.json();
@@ -98,6 +108,7 @@ export function ContactSection() {
         "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes."
       );
     } finally {
+      submittingRef.current = false;
       setIsSubmitting(false);
     }
   };

@@ -6,7 +6,7 @@ import { resetRateLimitStoreForTesting } from "../../../lib/rate-limit";
 
 interface CapturedHubSpotPayload {
   fields: Array<{ objectTypeId?: string; name: string; value: string }>;
-  context?: { pageUri: string; pageName: string; ipAddress: string };
+  context?: { pageUri: string; pageName: string; ipAddress: string; hutk?: string };
 }
 
 describe("HubSpot Forms API Integration (/api/contact)", () => {
@@ -99,6 +99,50 @@ describe("HubSpot Forms API Integration (/api/contact)", () => {
       expect(fieldNames).toContain("mensagem_do_formulario");
       expect(fieldNames).not.toContain("company");
       expect(fieldNames).not.toContain("hs_whatsapp_phone_number");
+    });
+
+    it("associa cookie HubSpot e preserva UTMs na URL da página", async () => {
+      let capturedBody: CapturedHubSpotPayload | undefined;
+      vi.spyOn(globalThis, "fetch").mockImplementation(async (_, init) => {
+        capturedBody = JSON.parse(init?.body as string) as CapturedHubSpotPayload;
+        return new Response("{}", { status: 200 });
+      });
+
+      await submitToHubSpotForm({
+        name: "Ana Souza",
+        email: "ana@exemplo.com",
+        helpTopic: "Segurança",
+        message: "Gostaria de uma auditoria de segurança no firewall do servidor.",
+        ip: "10.0.0.1",
+        pagePath: "/?utm_source=outbound&utm_medium=email&utm_campaign=prospeccao&utm_content=empresa",
+        hubspotutk: "0123456789abcdef0123456789abcdef",
+      });
+
+      expect(capturedBody?.context).toMatchObject({
+        pageUri: "https://rafaelsoje.com/?utm_source=outbound&utm_medium=email&utm_campaign=prospeccao&utm_content=empresa",
+        hutk: "0123456789abcdef0123456789abcdef",
+      });
+    });
+
+    it("não aceita URL externa nem cookie inválido no contexto", async () => {
+      let capturedBody: CapturedHubSpotPayload | undefined;
+      vi.spyOn(globalThis, "fetch").mockImplementation(async (_, init) => {
+        capturedBody = JSON.parse(init?.body as string) as CapturedHubSpotPayload;
+        return new Response("{}", { status: 200 });
+      });
+
+      await submitToHubSpotForm({
+        name: "Ana Souza",
+        email: "ana@exemplo.com",
+        helpTopic: "Segurança",
+        message: "Gostaria de uma auditoria de segurança no firewall do servidor.",
+        ip: "10.0.0.1",
+        pagePath: "/\\outro-dominio.com/captura",
+        hubspotutk: "inválido",
+      });
+
+      expect(capturedBody?.context?.pageUri).toBe("https://rafaelsoje.com");
+      expect(capturedBody?.context?.hutk).toBeUndefined();
     });
 
     it("deve retornar success: false em caso de resposta HTTP 4xx ou 5xx do HubSpot", async () => {

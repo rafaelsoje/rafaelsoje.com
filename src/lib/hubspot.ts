@@ -36,6 +36,8 @@ export interface SubmitToHubSpotParams {
   ip: string;
   portalId?: string;
   formGuid?: string;
+  pagePath?: string;
+  hubspotutk?: string;
 }
 
 /**
@@ -50,6 +52,8 @@ export async function submitToHubSpotForm({
   helpTopic,
   message,
   ip,
+  pagePath,
+  hubspotutk,
   portalId = HUBSPOT_PORTAL_ID,
   formGuid = HUBSPOT_FORM_GUID,
 }: SubmitToHubSpotParams): Promise<HubSpotSubmissionResult> {
@@ -74,6 +78,20 @@ export async function submitToHubSpotForm({
   }
 
   const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+  // A URL é reconstruída no servidor para impedir que o cliente envie outra origem.
+  const siteOrigin = "https://rafaelsoje.com";
+  const requestedPage = pagePath && pagePath.startsWith("/") && pagePath.length <= 2048
+    ? new URL(pagePath, siteOrigin)
+    : null;
+  const pageUri = requestedPage?.origin === siteOrigin
+    ? requestedPage.toString()
+    : siteOrigin;
+  const context = {
+    pageUri,
+    pageName: "Formulário Comercial - rafaelsoje.com",
+    ipAddress: ip,
+    ...(hubspotutk && /^[a-f\d]{32}$/i.test(hubspotutk) ? { hutk: hubspotutk } : {}),
+  };
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), HUBSPOT_TIMEOUT_MS);
@@ -87,11 +105,7 @@ export async function submitToHubSpotForm({
       },
       body: JSON.stringify({
         fields,
-        context: {
-          pageUri: "https://rafaelsoje.com",
-          pageName: "Formulário Comercial - rafaelsoje.com",
-          ipAddress: ip,
-        },
+        context,
       }),
       signal: controller.signal,
     });
@@ -118,4 +132,3 @@ export async function submitToHubSpotForm({
     return { success: false, error: isAbort ? "Timeout" : "Network error" };
   }
 }
-

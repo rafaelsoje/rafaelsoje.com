@@ -112,6 +112,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const hubspotPortalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
 
   return (
     <html lang="pt-BR" className="scroll-smooth">
@@ -143,6 +144,13 @@ export default function RootLayout({
               }}
             />
           </>
+        )}
+        {hubspotPortalId && /^\d+$/.test(hubspotPortalId) && (
+          <Script
+            id="hubspot-tracking"
+            src={`https://js.hs-scripts.com/${hubspotPortalId}.js`}
+            strategy="afterInteractive"
+          />
         )}
         {children}
       </body>

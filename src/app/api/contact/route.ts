@@ -193,6 +193,8 @@ export async function POST(req: NextRequest) {
       helpTopic,
       message,
       ip,
+      pagePath: typeof body.pagePath === "string" ? body.pagePath : undefined,
+      hubspotutk: typeof body.hubspotutk === "string" ? body.hubspotutk : undefined,
     });
 
     // Se o HubSpot rejeitar a submissão, não retorna 200 para o frontend
