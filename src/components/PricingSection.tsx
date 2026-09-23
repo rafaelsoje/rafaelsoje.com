@@ -1,4 +1,5 @@
 import React from "react";
+import { PRICING } from "@/lib/pricing";
 
 export function PricingSection() {
   return (
@@ -45,12 +46,15 @@ export function PricingSection() {
                 <span className="text-micro font-mono text-slate-500 uppercase block mb-1">
                   Investimento
                 </span>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-sm text-slate-500 font-mono font-medium">a partir de</span>
+                <div className="flex items-baseline gap-1.5 flex-wrap">
+                  <span className="text-sm text-slate-500 font-mono font-medium">{PRICING.suportePontual.prefix}</span>
                   <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                    R$ 150
+                    {PRICING.suportePontual.formattedStartingPrice}
                   </span>
                 </div>
+                <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                  {PRICING.suportePontual.note}
+                </p>
               </div>
 
               {/* Scope details */}
@@ -113,12 +117,15 @@ export function PricingSection() {
                 <span className="text-micro font-mono text-teal-800 uppercase block mb-1">
                   Investimento
                 </span>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-sm text-slate-500 font-mono font-medium">a partir de</span>
+                <div className="flex items-baseline gap-1.5 flex-wrap">
+                  <span className="text-sm text-slate-500 font-mono font-medium">{PRICING.configuracaoMigracao.prefix}</span>
                   <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                    R$ 350
+                    {PRICING.configuracaoMigracao.formattedStartingPrice}
                   </span>
                 </div>
+                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                  {PRICING.configuracaoMigracao.note}
+                </p>
               </div>
 
               {/* Scope details */}
@@ -180,13 +187,16 @@ export function PricingSection() {
                 <span className="text-micro font-mono text-slate-500 uppercase block mb-1">
                   Investimento
                 </span>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-sm text-slate-500 font-mono font-medium">a partir de</span>
+                <div className="flex items-baseline gap-1 sm:gap-1.5 flex-wrap">
+                  <span className="text-sm text-slate-500 font-mono font-medium">{PRICING.manutencaoEssencial.prefix}</span>
                   <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
-                    R$ 149
+                    {PRICING.manutencaoEssencial.formattedStartingPrice}
                   </span>
-                  <span className="text-sm sm:text-base text-slate-500 font-mono font-medium">/ mês</span>
+                  <span className="text-xs sm:text-sm text-slate-500 font-mono font-medium">{PRICING.manutencaoEssencial.period}</span>
                 </div>
+                <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                  {PRICING.manutencaoEssencial.note}
+                </p>
               </div>
 
               {/* Escopo detalhado e limites claros */}
