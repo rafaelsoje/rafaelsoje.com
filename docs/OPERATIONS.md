@@ -245,8 +245,10 @@ Para considerar qualquer deploy saudável e concluído, todos os itens abaixo de
 
 ## 10. Next.js Version Fingerprinting
 
-* O Next.js App Router expõe no runtime do navegador a propriedade global `window.next.version = "15.5.25"` via módulo de bootstrap nativo (`app-bootstrap.js`).
-* Ferramentas de análise de stack (como Wappalyzer) realizam a leitura dessa variável diretamente no DOM em tempo de execução.
-* Trata-se de um **comportamento nativo e padrão do framework**.
-* **Não** realizar hacks em arquivos internos do `node_modules`, patches em bundles gerados ou manipulações artificiais no objeto `window.next`, pois isso viola convenções de suporte do framework e cria risco desnecessário de instabilidade ou quebra em atualizações futuras.
+* O Next.js App Router expõe por padrão no runtime do navegador a propriedade global `window.next.version` via módulo de bootstrap nativo (`app-bootstrap.js`).
+* Ferramentas de análise de stack (como Wappalyzer) realizam a leitura dessa variável diretamente no DOM em tempo de execução para exibir o número exato da versão.
+* **Mitigação implementada no projeto (`src/app/layout.tsx`)**:
+  * Um script inline síncrono no `<head>` intercepta a criação do objeto global `window.next` utilizando um `Proxy` defensivo.
+  * O interceptor remove a propriedade `version` e mascara tentativas de leitura e enumeração (`getOwnPropertyDescriptor`, `ownKeys`, `'version' in window.next`), enquanto preserva 100% intactas as funcionalidades internas legítimas do Next.js (como `window.next.router` e `window.next.appDir`).
+  * Esta abordagem elimina a exposição da versão no DOM sem alterar arquivos do `node_modules` e sem aplicar patches frágeis em bundles gerados pós-build.
 
