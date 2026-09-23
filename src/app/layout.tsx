@@ -118,6 +118,11 @@ export default function RootLayout({
     <html lang="pt-BR" className="scroll-smooth">
       <head>
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var _next;var defineInterceptor=function(){Object.defineProperty(window,'next',{configurable:true,enumerable:true,get:function(){return _next},set:function(val){if(val&&typeof val==='object'){try{delete val.version}catch(e){}_next=new Proxy(val,{get:function(t,p,r){if(p==='version')return undefined;return Reflect.get(t,p,r)},set:function(t,p,v,r){if(p==='version')return true;return Reflect.set(t,p,v,r)},has:function(t,p){if(p==='version')return false;return Reflect.has(t,p)},ownKeys:function(t){return Reflect.ownKeys(t).filter(function(k){return k!=='version'})},getOwnPropertyDescriptor:function(t,p){if(p==='version')return undefined;return Reflect.getOwnPropertyDescriptor(t,p)}});return}_next=val}})};var existing=window.next;defineInterceptor();if(existing){window.next=existing;}}catch(e){}})();`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
