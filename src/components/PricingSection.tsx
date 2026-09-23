@@ -247,13 +247,14 @@ export function PricingSection() {
         </div>
 
         {/* Commercial Clarification Note */}
-        <div className="mt-10 p-4 rounded border border-slate-200 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-slate-600">
-          <div className="flex items-center space-x-2">
-            <span className="font-mono font-bold text-teal-700 uppercase">Nota de Precificação:</span>
-            <span>Todos os valores informados são expressos com &ldquo;a partir de&rdquo; e o investimento final depende da complexidade do ambiente.</span>
-          </div>
-          <div className="text-micro font-mono text-slate-500 whitespace-nowrap">
-            EMISSÃO DE NOTA FISCAL INCLUSA
+        <div className="mt-10 p-4 rounded border border-slate-200 bg-white text-xs sm:text-sm text-slate-600">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2">
+            <span className="font-mono font-bold text-teal-700 uppercase shrink-0">
+              Nota de Precificação:
+            </span>
+            <span>
+              Todos os valores informados são expressos com &ldquo;a partir de&rdquo; e o investimento final depende da complexidade do ambiente.
+            </span>
           </div>
         </div>
       </div>
