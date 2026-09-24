@@ -252,3 +252,23 @@ Para considerar qualquer deploy saudável e concluído, todos os itens abaixo de
   * O interceptor remove a propriedade `version` e mascara tentativas de leitura e enumeração (`getOwnPropertyDescriptor`, `ownKeys`, `'version' in window.next`), enquanto preserva 100% intactas as funcionalidades internas legítimas do Next.js (como `window.next.router` e `window.next.appDir`).
   * Esta abordagem elimina a exposição da versão no DOM sem alterar arquivos do `node_modules` e sem aplicar patches frágeis em bundles gerados pós-build.
 
+---
+
+## 11. Fail2ban & Monitoramento Defensivo
+
+* **Jails Ativas**:
+  * `nginx-sensitive-probes`: monitora tentativas de acesso a caminhos proibidos (`.env`, `.aws`, `.git`, `actuator`, `terraform`, `docker-compose`, etc.) e requisições encerradas com `HTTP 444`. Parâmetros: `maxretry = 2`, `findtime = 30m`, `bantime = 1h` (com incremento progressivo para reincidentes).
+  * `sshd`: monitora falhas de autenticação SSH na porta 22 via systemd journal.
+* **Bloqueio Dinâmico Nginx (`/etc/nginx/fail2ban/blocked.map`)**:
+  * O script `/usr/local/sbin/f2b-nginx-block` gerencia o arquivo `blocked.map` por IP real (via Cloudflare `CF-Connecting-IP`).
+  * O Nginx avalia a variável `$f2b_blocked` (`geo $remote_addr $f2b_blocked`) e descarta imediatamente com `HTTP 403`.
+  * O arquivo `blocked.map` é **excluído** das checagens de integridade de arquivo (`/opt/monitoramento/ignorar_arquivos.txt` e `arquivos_criticos.sh`) para evitar notificações redundantes a cada ban/expiração.
+* **Notificações Enriquecidas de Ban no Telegram**:
+  * Gerenciadas centralmente por `/usr/local/sbin/f2b-telegram-notify`.
+  * Toda notificação de ban inclui:
+    * **IP** do atacante.
+    * **Tipo de Ban / Cadeia** (ex: Sondagem Web Nginx ou Força Bruta SSH).
+    * **Duração** do ban.
+    * **Quantidade de ocorrências**.
+    * **Motivo e Comandos/Requisições Detectadas**: extrai dos logs em tempo real as URLs específicas (método e status HTTP) ou os usuários SSH testados.
+
