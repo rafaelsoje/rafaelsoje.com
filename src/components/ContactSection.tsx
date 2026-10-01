@@ -5,6 +5,7 @@ import { BrandSymbol } from "./BrandLogo";
 import { validateContactForm, ContactFormData, HELP_TOPICS } from "@/lib/validation";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import { getBrowserAttributionPagePath } from "@/lib/attribution";
+import { TurnstileWidget, TurnstileWidgetRef } from "./TurnstileWidget";
 
 export function ContactSection() {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -15,14 +16,20 @@ export function ContactSection() {
     helpTopic: "",
     message: "",
     honeypot: "",
+    website: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [serverMessage, setServerMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
   const formStartedRef = useRef(false);
   const submittingRef = useRef(false);
+  const turnstileRef = useRef<TurnstileWidgetRef>(null);
+
+  const siteKey =
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAABTAzQZsEXcdb7ps";
 
   useEffect(() => {
     getBrowserAttributionPagePath();
@@ -71,6 +78,8 @@ export function ContactSection() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...validation.sanitizedData,
+          turnstileToken,
+          "cf-turnstile-response": turnstileToken,
           pagePath: getBrowserAttributionPagePath(),
           hubspotutk: document.cookie
             .split("; ")
@@ -88,7 +97,7 @@ export function ContactSection() {
             "Solicitação enviada com sucesso. Obrigado pelo contato. Analisarei as informações e retornarei pelo e-mail ou WhatsApp informado."
         );
         trackAnalyticsEvent("form_success", { helpTopic: formData.helpTopic });
-        // Reset form
+        // Reset form & Turnstile
         setFormData({
           name: "",
           company: "",
@@ -97,7 +106,10 @@ export function ContactSection() {
           helpTopic: "",
           message: "",
           honeypot: "",
+          website: "",
         });
+        setTurnstileToken("");
+        turnstileRef.current?.reset();
         setErrors({});
         formStartedRef.current = false;
       } else {
@@ -106,12 +118,16 @@ export function ContactSection() {
           data.error ||
             "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes."
         );
+        turnstileRef.current?.reset();
+        setTurnstileToken("");
       }
     } catch {
       setSubmitStatus("error");
       setServerMessage(
         "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes."
       );
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     } finally {
       submittingRef.current = false;
       setIsSubmitting(false);
@@ -253,14 +269,28 @@ export function ContactSection() {
               )}
 
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                {/* Honeypot field - visually hidden from humans */}
-                <div className="hidden" aria-hidden="true">
+                {/* Honeypot fields - visually hidden from humans, bots fall into it */}
+                <div
+                  className="opacity-0 absolute -left-[9999px] -top-[9999px] pointer-events-none select-none h-0 w-0 overflow-hidden"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                >
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    type="text"
+                    name="website"
+                    value={formData.website || ""}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                   <label htmlFor="honeypot">Deixe este campo em branco</label>
                   <input
                     id="honeypot"
                     type="text"
                     name="honeypot"
-                    value={formData.honeypot}
+                    value={formData.honeypot || ""}
                     onChange={handleChange}
                     tabIndex={-1}
                     autoComplete="off"
@@ -433,6 +463,19 @@ export function ContactSection() {
                     <p className="mt-1.5 text-xs sm:text-sm text-rose-400 font-mono font-medium">{errors.message}</p>
                   )}
                 </div>
+
+                {/* Cloudflare Turnstile */}
+                {siteKey && (
+                  <div className="flex justify-center my-4 min-h-[65px]">
+                    <TurnstileWidget
+                      ref={turnstileRef}
+                      siteKey={siteKey}
+                      onSuccess={(token) => setTurnstileToken(token)}
+                      onError={() => setTurnstileToken("")}
+                      onExpire={() => setTurnstileToken("")}
+                    />
+                  </div>
+                )}
 
                 {/* Privacy agreement & Submit */}
                 <div className="pt-2">

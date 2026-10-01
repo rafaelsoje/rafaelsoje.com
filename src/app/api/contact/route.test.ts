@@ -406,5 +406,205 @@ describe("HubSpot Forms API Integration (/api/contact)", () => {
       const bypassRes = await POST(bypassAttempt);
       expect(bypassRes.status).toBe(429);
     });
+
+    describe("Anti-Spam & Turnstile End-to-End Verification", () => {
+      const originalSecret = process.env.TURNSTILE_SECRET_KEY;
+
+      beforeEach(() => {
+        process.env.TURNSTILE_SECRET_KEY = "0x4AAAAAAATestSecretKey123";
+      });
+
+      afterEach(() => {
+        if (originalSecret) {
+          process.env.TURNSTILE_SECRET_KEY = originalSecret;
+        } else {
+          delete process.env.TURNSTILE_SECRET_KEY;
+        }
+      });
+
+      it("envio humano válido: valida Turnstile na Cloudflare e envia contato com sucesso ao HubSpot", async () => {
+        const fetchUrls: string[] = [];
+        let hubspotContext: CapturedHubSpotPayload["context"] | undefined;
+
+        vi.spyOn(globalThis, "fetch").mockImplementation(async (url, init) => {
+          const urlStr = url.toString();
+          fetchUrls.push(urlStr);
+
+          // Validação Turnflare
+          if (urlStr.includes("challenges.cloudflare.com")) {
+            return new Response(JSON.stringify({ success: true }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+
+          // Submissão HubSpot
+          if (urlStr.includes("api.hsforms.com")) {
+            const parsed = JSON.parse(init?.body as string) as CapturedHubSpotPayload;
+            hubspotContext = parsed.context;
+            return new Response(JSON.stringify({ inlineMessage: "Thanks" }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+
+          return new Response("{}", { status: 200 });
+        });
+
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...validPayload,
+            turnstileToken: "cf-human-token-valid",
+            pagePath: "/?utm_source=google&utm_campaign=cloud",
+            hubspotutk: "1234567890abcdef1234567890abcdef",
+          }),
+        });
+
+        const res = await POST(req);
+        const data = await res.json();
+
+        expect(res.status).toBe(200);
+        expect(data.success).toBe(true);
+        // Garante que tanto a Cloudflare quanto o HubSpot foram chamados na ordem correta
+        expect(fetchUrls.some((u) => u.includes("challenges.cloudflare.com"))).toBe(true);
+        expect(fetchUrls.some((u) => u.includes("api.hsforms.com"))).toBe(true);
+        expect(hubspotContext).toMatchObject({
+          pageUri: "https://rafaelsoje.com/?utm_source=google&utm_campaign=cloud",
+          hutk: "1234567890abcdef1234567890abcdef",
+        });
+      });
+
+      it("Turnstile inválido: rejeita submissão com HTTP 400 e NUNCA cria contato no HubSpot", async () => {
+        const fetchUrls: string[] = [];
+
+        vi.spyOn(globalThis, "fetch").mockImplementation(async (url) => {
+          const urlStr = url.toString();
+          fetchUrls.push(urlStr);
+
+          if (urlStr.includes("challenges.cloudflare.com")) {
+            return new Response(
+              JSON.stringify({ success: false, "error-codes": ["invalid-input-response"] }),
+              { status: 200, headers: { "Content-Type": "application/json" } }
+            );
+          }
+
+          return new Response("{}", { status: 200 });
+        });
+
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...validPayload,
+            turnstileToken: "bot-invalid-token",
+          }),
+        });
+
+        const res = await POST(req);
+        const data = await res.json();
+
+        expect(res.status).toBe(400);
+        expect(data.error).toContain("Falha na validação anti-spam");
+        // O HubSpot NUNCA deve ser chamado quando a validação do Turnstile falha
+        expect(fetchUrls.some((u) => u.includes("api.hsforms.com"))).toBe(false);
+      });
+
+      it("Turnstile ausente quando obrigatório: rejeita com HTTP 400 sem chamar HubSpot", async () => {
+        const fetchSpy = vi.spyOn(globalThis, "fetch");
+
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...validPayload,
+            turnstileToken: "",
+          }),
+        });
+
+        const res = await POST(req);
+        const data = await res.json();
+
+        expect(res.status).toBe(400);
+        expect(data.error).toContain("complete a verificação de segurança");
+        expect(fetchSpy).not.toHaveBeenCalled();
+      });
+
+      it("Honeypot 'website' preenchido por bot: descarta silenciosamente (HTTP 200) sem chamar HubSpot nem Cloudflare", async () => {
+        const fetchSpy = vi.spyOn(globalThis, "fetch");
+
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...validPayload,
+            website: "https://cheap-seo-backlinks.ru",
+          }),
+        });
+
+        const res = await POST(req);
+        const data = await res.json();
+
+        expect(res.status).toBe(200);
+        expect(data.success).toBe(true);
+        expect(data.message).toBeDefined();
+        // Não consome cota da API da Cloudflare nem envia spam para o CRM
+        expect(fetchSpy).not.toHaveBeenCalled();
+      });
+
+      it("Campos inválidos: rejeita com HTTP 400 sem chamar HubSpot nem Cloudflare", async () => {
+        const fetchSpy = vi.spyOn(globalThis, "fetch");
+
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "A", // muito curto
+            email: "nao-eh-um-email",
+            helpTopic: "Inexistente",
+            message: "Curto",
+          }),
+        });
+
+        const res = await POST(req);
+        const data = await res.json();
+
+        expect(res.status).toBe(400);
+        expect(data.error).toBe("Dados inválidos.");
+        expect(fetchSpy).not.toHaveBeenCalled();
+      });
+
+      it("Payload muito grande (>64KB): rejeita imediatamente com HTTP 413", async () => {
+        const fetchSpy = vi.spyOn(globalThis, "fetch");
+
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "content-length": "70000",
+          },
+          body: JSON.stringify(validPayload),
+        });
+
+        const res = await POST(req);
+        const data = await res.json();
+
+        expect(res.status).toBe(413);
+        expect(data.error).toContain("Payload muito grande");
+        expect(fetchSpy).not.toHaveBeenCalled();
+      });
+
+      it("Payload que não é JSON válido: rejeita com HTTP 400", async () => {
+        const req = new NextRequest("http://localhost:3000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "isso nao é json",
+        });
+
+        const res = await POST(req);
+        expect(res.status).toBe(400);
+      });
+    });
   });
 });
