@@ -30,6 +30,20 @@ export function checkRateLimit(
   const entry = rateLimitStore.get(identifier);
 
   if (!entry || now > entry.resetTime) {
+    if (rateLimitStore.size >= 10000) {
+      // Limpeza de emergência caso haja ataque com rotação de IPs
+      for (const [k, v] of rateLimitStore.entries()) {
+        if (now > v.resetTime) rateLimitStore.delete(k);
+      }
+      if (rateLimitStore.size >= 10000) {
+        let purged = 0;
+        for (const k of rateLimitStore.keys()) {
+          rateLimitStore.delete(k);
+          if (++purged >= 1000) break;
+        }
+      }
+    }
+
     const newEntry: RateLimitEntry = {
       count: 1,
       resetTime: now + windowMs,

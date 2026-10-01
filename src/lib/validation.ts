@@ -19,6 +19,7 @@ export interface ContactFormData {
   helpTopic: string;
   message: string;
   honeypot?: string;
+  website?: string;
 }
 
 export interface ValidationResult {
@@ -46,10 +47,12 @@ export interface ValidationResult {
 }
 
 export function validateEmail(email: string): boolean {
-  if (!email) return false;
+  if (!email || typeof email !== "string") return false;
+  const trimmed = email.trim();
+  if (trimmed.length > 254) return false;
   // RFC 5322 compliant regex simplified for real-world web validation
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-  return emailRegex.test(email.trim());
+  return emailRegex.test(trimmed);
 }
 
 export function validatePhone(phone: string): boolean {
@@ -105,8 +108,18 @@ export function formatPhoneToE164(phone?: string): string {
 export function validateContactForm(data: Partial<ContactFormData>): ValidationResult {
   const errors: ValidationResult["errors"] = {};
 
-  // Honeypot validation - must be empty
-  if (data.honeypot && data.honeypot.trim() !== "") {
+  if (!data || typeof data !== "object") {
+    return {
+      isValid: false,
+      errors: { name: "Dados inválidos." },
+    };
+  }
+
+  // Honeypot validation - must be empty (tanto honeypot quanto website)
+  if (
+    (typeof data.honeypot === "string" && data.honeypot.trim() !== "") ||
+    (typeof data.website === "string" && data.website.trim() !== "")
+  ) {
     errors.honeypot = "Spam detectado.";
     return { isValid: false, errors };
   }
@@ -139,7 +152,7 @@ export function validateContactForm(data: Partial<ContactFormData>): ValidationR
   const email = (data.email || "").trim();
   if (!email) {
     errors.email = "Por favor, informe seu e-mail de contato.";
-  } else if (!validateEmail(email)) {
+  } else if (email.length > 254 || !validateEmail(email)) {
     errors.email = "E-mail inválido. Verifique o formato digitado.";
   }
 

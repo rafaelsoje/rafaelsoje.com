@@ -4,6 +4,8 @@ import { validateContactForm } from "../../../lib/validation";
 import { escapeHtml, sanitizeText, sanitizeHeaderValue } from "../../../lib/sanitize";
 import { checkRateLimit, extractClientIp } from "../../../lib/rate-limit";
 import { submitToHubSpotForm } from "../../../lib/hubspot";
+import { verifyTurnstileToken } from "../../../lib/turnstile";
+import { logSecurityEvent } from "../../../lib/observability";
 
 // Limite máximo do payload: 64 KB
 const MAX_PAYLOAD_SIZE = 64 * 1024;
@@ -125,6 +127,10 @@ export async function POST(req: NextRequest) {
     // 1. Verificação de tamanho do payload
     const contentLength = req.headers.get("content-length");
     if (contentLength && parseInt(contentLength, 10) > MAX_PAYLOAD_SIZE) {
+      logSecurityEvent({
+        action: "payload_too_large",
+        details: { size: parseInt(contentLength, 10) },
+      });
       return NextResponse.json(
         { error: "Payload muito grande. Tamanho máximo excedido." },
         { status: 413 }
@@ -136,6 +142,10 @@ export async function POST(req: NextRequest) {
 
     const rateLimit = checkRateLimit(ip, 5, 10 * 60 * 1000);
     if (!rateLimit.success) {
+      logSecurityEvent({
+        action: "rate_limit_exceeded",
+        ip,
+      });
       return NextResponse.json(
         {
           error:
@@ -158,8 +168,12 @@ export async function POST(req: NextRequest) {
 
     const validation = validateContactForm(body);
 
-    // Proteção anti-spam via honeypot: rejeição silenciosa de bots sem envio ao CRM
+    // Proteção anti-spam via honeypot: rejeição silenciosa de bots sem envio ao CRM nem chamada externa
     if (validation.errors.honeypot) {
+      logSecurityEvent({
+        action: "honeypot_triggered",
+        ip,
+      });
       return NextResponse.json(
         {
           success: true,
@@ -171,6 +185,11 @@ export async function POST(req: NextRequest) {
     }
 
     if (!validation.isValid || !validation.sanitizedData) {
+      logSecurityEvent({
+        action: "validation_failed",
+        ip,
+        details: { fields: Object.keys(validation.errors).join(",") },
+      });
       return NextResponse.json(
         {
           error: "Dados inválidos.",
@@ -180,11 +199,43 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // 4. Cloudflare Turnstile Verification (obrigatoriamente validado server-side)
+    const turnstileToken =
+      typeof body.turnstileToken === "string"
+        ? body.turnstileToken
+        : typeof body["cf-turnstile-response"] === "string"
+        ? body["cf-turnstile-response"]
+        : "";
+
+    const turnstileResult = await verifyTurnstileToken({
+      token: turnstileToken,
+      ip,
+      expectedAction: "contact",
+    });
+
+    if (!turnstileResult.success) {
+      logSecurityEvent({
+        action: "turnstile_failed",
+        ip,
+        details: {
+          errorCodes: turnstileResult.errorCodes?.join(",") || "unknown",
+        },
+      });
+      return NextResponse.json(
+        {
+          error:
+            turnstileResult.error ||
+            "Falha na validação anti-spam. Por favor, complete a verificação e tente novamente.",
+        },
+        { status: 400 }
+      );
+    }
+
     const { name, company, phone, whatsapp, email, helpTopic, message } =
       validation.sanitizedData;
     const clientPhone = phone || whatsapp;
 
-    // 4. Integração direta com HubSpot Forms API v3 (oficial para formulário publicado)
+    // 5. Integração direta com HubSpot Forms API v3 (oficial para formulário publicado)
     const hubspotResult = await submitToHubSpotForm({
       name,
       company,
@@ -199,6 +250,11 @@ export async function POST(req: NextRequest) {
 
     // Se o HubSpot rejeitar a submissão, não retorna 200 para o frontend
     if (!hubspotResult.success) {
+      logSecurityEvent({
+        action: "hubspot_rejected",
+        ip,
+        details: { status: hubspotResult.status || 0 },
+      });
       return NextResponse.json(
         {
           success: false,

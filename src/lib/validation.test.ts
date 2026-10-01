@@ -166,6 +166,31 @@ describe("Validation Utilities", () => {
       expect(result.errors.honeypot).toBeDefined();
     });
 
+    it("deve rejeitar preenchimento de honeypot no campo website", () => {
+      const result = validateContactForm({
+        ...validBase,
+        website: "https://spammer-site.com",
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.honeypot).toBeDefined();
+    });
+
+    it("deve rejeitar e-mails com tamanho superior a 254 caracteres", () => {
+      const longEmail = `${"a".repeat(245)}@exemplo.com`;
+      const result = validateContactForm({
+        ...validBase,
+        email: longEmail,
+      });
+      expect(result.isValid).toBe(false);
+      expect(result.errors.email).toBeDefined();
+    });
+
+    it("deve rejeitar payloads que não sejam objetos válidos", () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const result = validateContactForm(null as any);
+      expect(result.isValid).toBe(false);
+    });
+
     it("deve validar tamanho mínimo da mensagem", () => {
       const result = validateContactForm({
         ...validBase,
