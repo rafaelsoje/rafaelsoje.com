@@ -124,7 +124,10 @@ export async function verifyTurnstileToken({
 
       if (data.hostname && allowedHostnames.length > 0) {
         const normalizedHost = data.hostname.toLowerCase();
-        if (!allowedHostnames.includes(normalizedHost)) {
+        const isAllowed = allowedHostnames.some(
+          (h) => normalizedHost === h || normalizedHost.endsWith("." + h)
+        );
+        if (!isAllowed) {
           return {
             success: false,
             error: "Origem não autorizada para validação.",
