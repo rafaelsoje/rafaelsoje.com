@@ -44,6 +44,47 @@ describe("Cloudflare Turnstile Verification", () => {
     expect(capturedBody).toContain("remoteip=198.51.100.22");
   });
 
+  it("deve aprovar subdomínio válido como www.rafaelsoje.com quando rafaelsoje.com está autorizado", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          success: true,
+          challenge_ts: "2026-10-01T12:00:00.000Z",
+          hostname: "www.rafaelsoje.com",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const result = await verifyTurnstileToken({
+      token: "valid-token-www",
+      secretKey: "0x4AAAAAAATestSecretKey",
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  it("deve reprovar quando hostname retornado pela Cloudflare não pertencer à lista autorizada", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          success: true,
+          challenge_ts: "2026-10-01T12:00:00.000Z",
+          hostname: "hacker-domain.com",
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
+    );
+
+    const result = await verifyTurnstileToken({
+      token: "valid-token-from-bad-domain",
+      secretKey: "0x4AAAAAAATestSecretKey",
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.errorCodes).toContain("invalid-hostname");
+  });
+
   it("deve reprovar quando Cloudflare retorna success: false com error-codes", async () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue(
       new Response(

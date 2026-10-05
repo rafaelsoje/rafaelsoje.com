@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { BrandSymbol } from "./BrandLogo";
 import { validateContactForm, ContactFormData, HELP_TOPICS } from "@/lib/validation";
 import { trackAnalyticsEvent } from "@/lib/analytics";
@@ -30,6 +30,18 @@ export function ContactSection() {
 
   const siteKey =
     process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAABTAzQZsEXcdb7ps";
+
+  const handleTurnstileSuccess = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileError = useCallback(() => {
+    setTurnstileToken("");
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken("");
+  }, []);
 
   useEffect(() => {
     getBrowserAttributionPagePath();
@@ -63,6 +75,14 @@ export function ContactSection() {
     const validation = validateContactForm(formData);
     if (!validation.isValid) {
       setErrors(validation.errors);
+      return;
+    }
+
+    if (siteKey && !turnstileToken) {
+      setSubmitStatus("error");
+      setServerMessage(
+        "Por favor, aguarde ou complete a verificação de segurança antes de enviar a solicitação."
+      );
       return;
     }
 
@@ -470,9 +490,9 @@ export function ContactSection() {
                     <TurnstileWidget
                       ref={turnstileRef}
                       siteKey={siteKey}
-                      onSuccess={(token) => setTurnstileToken(token)}
-                      onError={() => setTurnstileToken("")}
-                      onExpire={() => setTurnstileToken("")}
+                      onSuccess={handleTurnstileSuccess}
+                      onError={handleTurnstileError}
+                      onExpire={handleTurnstileExpire}
                     />
                   </div>
                 )}
