@@ -253,7 +253,7 @@ export function PricingSection() {
               Nota de Precificação:
             </span>
             <span>
-              Todos os valores informados são expressos com &ldquo;a partir de&rdquo; e o investimento final depende da complexidade do ambiente.
+              Todos os valores informados são expressos com &ldquo;a partir de&rdquo; e o valor final exato é confirmado após o alinhamento de escopo e complexidade técnica.
             </span>
           </div>
         </div>

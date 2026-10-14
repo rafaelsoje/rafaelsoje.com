@@ -18,7 +18,7 @@ export function FAQSection() {
     },
     {
       q: "Quanto custa um serviço e como é calculado o valor final?",
-      a: `Os serviços contam com valores base transparentes: ${PRICING.suportePontual.title} ${PRICING.suportePontual.prefix} ${PRICING.suportePontual.formattedStartingPrice} (para emergências ou problemas específicos), ${PRICING.configuracaoMigracao.title} ${PRICING.configuracaoMigracao.prefix} ${PRICING.configuracaoMigracao.formattedStartingPrice} (para novos servidores ou mudança de provedor) e ${PRICING.manutencaoEssencial.title} ${PRICING.manutencaoEssencial.prefix} ${PRICING.manutencaoEssencial.formattedStartingPrice}${PRICING.manutencaoEssencial.periodCompact} (para supervisão contínua). O valor final depende da complexidade do ambiente e é sempre acordado previamente.`,
+      a: `Os serviços contam com valores base transparentes: ${PRICING.suportePontual.title} (${PRICING.suportePontual.prefix.toLowerCase()} ${PRICING.suportePontual.formattedStartingPrice}) para emergências ou problemas específicos, ${PRICING.configuracaoMigracao.title} (${PRICING.configuracaoMigracao.prefix.toLowerCase()} ${PRICING.configuracaoMigracao.formattedStartingPrice}) para novos servidores ou migrações, e ${PRICING.manutencaoEssencial.title} (${PRICING.manutencaoEssencial.prefix.toLowerCase()} ${PRICING.manutencaoEssencial.formattedStartingPrice}${PRICING.manutencaoEssencial.periodCompact}) para supervisão contínua. O valor final exato é confirmado após o alinhamento de escopo e complexidade do ambiente.`,
     },
     {
       q: "Você emite Nota Fiscal (NF) para empresas e pessoas físicas?",
@@ -26,7 +26,7 @@ export function FAQSection() {
     },
     {
       q: "O que a Manutenção Essencial cobre e o que fica de fora?",
-      a: `A ${PRICING.manutencaoEssencial.title} (${PRICING.manutencaoEssencial.prefix} ${PRICING.manutencaoEssencial.formattedStartingPrice}${PRICING.manutencaoEssencial.periodCompact}) é voltada para pequenos sites e aplicações estáveis que não podem ficar sem supervisão. Ela inclui: monitoramento contínuo de uptime, verificação periódica de SSL, conferência dos backups configurados, orientação técnica preventiva e até 30 minutos/mês de intervenção simples acordada (não cumulativo). Ela NÃO inclui suporte ilimitado, disponibilidade 24/7, SLA corporativo ou desenvolvimento de novos recursos.`,
+      a: `A ${PRICING.manutencaoEssencial.title} (${PRICING.manutencaoEssencial.prefix.toLowerCase()} ${PRICING.manutencaoEssencial.formattedStartingPrice}${PRICING.manutencaoEssencial.periodCompact}) é voltada para pequenos sites e aplicações estáveis que não podem ficar sem supervisão. Ela inclui: monitoramento contínuo de uptime, verificação periódica de SSL, conferência dos backups configurados, orientação técnica preventiva e até 30 minutos/mês de intervenção simples acordada (não cumulativo). Ela NÃO inclui suporte ilimitado, disponibilidade 24/7, SLA corporativo ou desenvolvimento de novos recursos.`,
     },
     {
       q: "Quais informações preciso fornecer no primeiro contato?",

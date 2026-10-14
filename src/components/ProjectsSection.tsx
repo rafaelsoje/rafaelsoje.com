@@ -20,9 +20,9 @@ const projects = [
     ],
     stack: ["Next.js", "Laravel", "PostgreSQL", "Nginx", "Linux VPS"],
     image: "/images/projeto-gestao-eventos-demo.svg",
-    alt: "Demonstração ilustrativa da interface do SIGES Eventos com dados fictícios",
+    alt: "Interface de gestão comercial e operacional para controle de propostas e contratos",
     url: "app.sigeseventos.com.br",
-    caption: "Demonstração da interface de gestão comercial e operacional (dados fictícios para preservação de sigilo).",
+    caption: "Interface de gestão comercial e operacional sob medida para controle de esteira e contratos.",
   },
   {
     code: "PROJ-02 // PAINEL OPERACIONAL & CUSTOS",
@@ -42,9 +42,9 @@ const projects = [
     ],
     stack: ["PHP", "JavaScript", "MySQL", "Nginx", "Linux Server"],
     image: "/images/projeto-dashboard-custos-demo.svg",
-    alt: "Demonstração do dashboard operacional e de custos com dados demonstrativos fictícios",
+    alt: "Interface analítica sob medida para monitoramento e controle operacional em tempo real",
     url: "operacao.painel.local",
-    caption: "Demonstração do painel de auditoria e rateio de insumos operacionais (dados fictícios).",
+    caption: "Interface analítica sob medida para monitoramento e controle operacional em tempo real.",
   },
   {
     code: "PROJ-03 // PORTAL COMERCIAL & SAAS",
@@ -64,9 +64,9 @@ const projects = [
     ],
     stack: ["Next.js", "Tailwind CSS", "TypeScript", "Cloudflare", "Linux VPS"],
     image: "/images/projeto-portal-comercial-demo.svg",
-    alt: "Demonstração do portal comercial institucional com dados demonstrativos",
+    alt: "Portal institucional de alta performance com arquitetura moderna e DNS seguro",
     url: "sigeseventos.com.br",
-    caption: "Demonstração do portal institucional e comercial da solução (dados fictícios).",
+    caption: "Portal institucional de alta performance com arquitetura moderna e DNS seguro.",
   },
 ];
 

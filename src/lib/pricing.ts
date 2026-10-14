@@ -12,10 +12,10 @@ export const PRICING = {
     type: "AVULSO",
     description:
       "Ideal para resolver emergências, desbloquear serviços fora do ar ou realizar correções específicas sob demanda.",
-    prefix: "a partir de",
-    startingPrice: 190,
-    formattedStartingPrice: "R$ 190",
-    note: "Valor final conforme complexidade e tempo necessário.",
+    prefix: "A partir de",
+    startingPrice: 250,
+    formattedStartingPrice: "R$ 250",
+    note: "Ideal para incidentes rápidos, desbloqueio de portas ou diagnóstico emergencial.",
   },
   configuracaoMigracao: {
     id: "configuracao-migracao",
@@ -25,10 +25,10 @@ export const PRICING = {
     type: "PROJETO",
     description:
       "Para quem está colocando um servidor novo no ar, mudando de hospedagem ou precisa reestruturar o ambiente.",
-    prefix: "a partir de",
-    startingPrice: 590,
-    formattedStartingPrice: "R$ 590",
-    note: "Valor definido após avaliação do ambiente e do escopo.",
+    prefix: "A partir de",
+    startingPrice: 600,
+    formattedStartingPrice: "R$ 600",
+    note: "Servidor novo, transferência de hospedagem sem downtime ou reestruturação.",
   },
   manutencaoEssencial: {
     id: "manutencao-essencial",
@@ -38,12 +38,12 @@ export const PRICING = {
     type: "MENSAL",
     description:
       "Supervisão contínua e tranquilidade técnica para sites e ambientes que não podem ser abandonados.",
-    prefix: "a partir de",
-    startingPrice: 249,
-    formattedStartingPrice: "R$ 249",
+    prefix: "Planos a partir de",
+    startingPrice: 450,
+    formattedStartingPrice: "R$ 450",
     period: "/ mês",
     periodCompact: "/mês",
-    note: "Para 1 ambiente/site de baixa complexidade.",
+    note: "Monitoramento contínuo, backups e tranquilidade operacional.",
   },
 } as const;
 
