@@ -31,15 +31,13 @@ export function HeroSection() {
         {/* Monumental Headline */}
         <div className="max-w-4xl mb-8">
           <h1 className="text-display font-extrabold text-slate-100">
-            Infraestrutura de servidores, segurança e sistemas para manter sua operação{" "}
+            Servidores estáveis, seguros e sistemas sob medida para sua empresa{" "}
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
-              funcionando.
+              não parar.
             </span>
           </h1>
           <p className="mt-6 text-body-lead text-slate-300 leading-relaxed max-w-[65ch]">
-            Diagnóstico de instabilidade, configuração de novos servidores, migrações planejadas, 
-            rotinas de backup e desenvolvimento de sistemas sob medida. Atendimento técnico direto 
-            para ambientes <strong>Linux</strong> e <strong>Windows Server</strong>, sem intermediários.
+            Diagnóstico imediato de instabilidade, configuração, migrações sem perda de dados e desenvolvimento ágil em <strong>Linux</strong> e <strong>Windows Server</strong>. Atendimento técnico direto com especialista.
           </p>
         </div>
 

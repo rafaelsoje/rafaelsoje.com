@@ -397,7 +397,7 @@ export function ContactSection() {
                       htmlFor="phone"
                       className="block text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-slate-200 mb-1.5"
                     >
-                      Telefone <span className="text-slate-400 text-xs lowercase">(opcional)</span>
+                      WhatsApp <span className="text-slate-400 text-xs lowercase font-normal">(para retorno rápido)</span>
                     </label>
                     <input
                       id="phone"
@@ -518,6 +518,11 @@ export function ContactSection() {
                       <span>Solicitar avaliação inicial →</span>
                     )}
                   </button>
+
+                  <div className="mt-3.5 flex items-center justify-center gap-2 text-xs sm:text-[13px] font-mono text-slate-400 text-center">
+                    <span className="text-amber-400 select-none" aria-hidden="true">⚡</span>
+                    <span>Retorno técnico geralmente em menos de 2 horas em horário comercial.</span>
+                  </div>
                 </div>
               </form>
             </div>
