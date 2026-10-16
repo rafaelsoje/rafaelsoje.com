@@ -123,7 +123,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 
 ## 📄 Licença & Autor
 
-Desenvolvido por **Rafael Soares de Jesus (Rafael Soje)**.  
+Desenvolvido por **Rafael Soje**.  
 Bacharel em Ciência da Computação • Pós-Graduado em Segurança da Informação • Certificado LPIC-1 (Linux Professional Institute).
 
 * **Website Oficial:** [rafaelsoje.com](https://rafaelsoje.com)  
