@@ -11,6 +11,7 @@ export function Header() {
   const navLinks = [
     { label: "Serviços & Problemas", href: "#servicos" },
     { label: "Projetos", href: "#projetos" },
+    { label: "Recomendações", href: "#recomendacoes" },
     { label: "Preços", href: "#precos" },
     { label: "Sobre Rafael", href: "#sobre" },
     { label: "Tecnologias", href: "#tecnologias" },
