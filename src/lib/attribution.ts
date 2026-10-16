@@ -17,8 +17,8 @@ export function sanitizeCampaignPagePath(input: string): { pagePath: string; has
     const campaign = new URLSearchParams();
     for (const key of UTM_KEYS) {
       const value = url.searchParams.get(key);
-      // Identificadores comerciais curtos, iniciados por letra. Exclui e-mails e telefones.
-      if (value && /^[a-z][a-z0-9_-]{0,79}$/i.test(value)) {
+      // Identificadores comerciais (ex: 3dots-eng, diretrix). Exclui e-mails e telefones.
+      if (value && /^[a-z0-9][a-z0-9_-]{0,79}$/i.test(value)) {
         campaign.set(key, value);
       }
     }

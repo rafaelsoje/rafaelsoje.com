@@ -151,13 +151,56 @@ export default function RootLayout({
             />
           </>
         )}
-        {hubspotPortalId && /^\d+$/.test(hubspotPortalId) && (
+        {/* HubSpot Tracking Script (Portal Oficial 52058679) */}
+        <Script
+          id="hubspot-tracking"
+          src={`https://js.hs-scripts.com/${hubspotPortalId || "52058679"}.js`}
+          strategy="afterInteractive"
+        />
+
+        {/* Microsoft Clarity (Gravação de tela e mapa de calor gratuito) */}
+        {process.env.NEXT_PUBLIC_CLARITY_ID && (
           <Script
-            id="hubspot-tracking"
-            src={`https://js.hs-scripts.com/${hubspotPortalId}.js`}
+            id="microsoft-clarity"
             strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_ID}");
+              `,
+            }}
           />
         )}
+
+        {/* Rastreador próprio de abertura de links de prospecção (Imune a AdBlock) */}
+        <Script
+          id="prospection-pageview"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                try {
+                  var p = window.location.pathname + window.location.search;
+                  var data = JSON.stringify({
+                    event: "page_view",
+                    pagePath: p,
+                    referrer: document.referrer || undefined,
+                    screen: { width: window.innerWidth, height: window.innerHeight }
+                  });
+                  if (navigator.sendBeacon) {
+                    navigator.sendBeacon("/api/track", data);
+                  } else {
+                    fetch("/api/track", { method: "POST", headers: { "Content-Type": "application/json" }, body: data, keepalive: true }).catch(function(){});
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+
         {children}
         <WhatsAppButton />
       </body>
