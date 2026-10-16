@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { RafaelProfileSection } from "@/components/RafaelProfileSection";
 import { ProblemsServicesSection } from "@/components/ProblemsServicesSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { RecommendationsSection } from "@/components/RecommendationsSection";
 import { PricingSection } from "@/components/PricingSection";
 import { FreeEvaluationSection } from "@/components/FreeEvaluationSection";
 import { TechMatrixSection } from "@/components/TechMatrixSection";
@@ -20,6 +21,7 @@ export default function HomePage() {
         <RafaelProfileSection />
         <ProblemsServicesSection />
         <ProjectsSection />
+        <RecommendationsSection />
         <PricingSection />
         <FreeEvaluationSection />
         <TechMatrixSection />
