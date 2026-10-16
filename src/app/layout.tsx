@@ -151,6 +151,14 @@ export default function RootLayout({
             />
           </>
         )}
+        {/* Sentry (Monitoramento de Erros Client-side) */}
+        <Script
+          id="sentry-sdk"
+          src="https://js.sentry-cdn.com/08329e705d6a00f5ef615315cfadf826.min.js"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+
         {/* HubSpot Tracking Script (Portal Oficial 52058679) */}
         <Script
           id="hubspot-tracking"
