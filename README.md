@@ -15,7 +15,7 @@
 
 ---
 
-## 📌 Visão Geral
+## Visão Geral
 
 Repositório da plataforma web oficial e sistema de atendimento de **Rafael Soje** ([rafaelsoje.com](https://rafaelsoje.com)) — Consultoria e Engenharia em Infraestrutura Linux, Cloud, Segurança da Informação e Desenvolvimento Web.
 
@@ -23,7 +23,7 @@ Desenvolvida com foco em **altíssimo desempenho**, **segurança defensiva rigor
 
 ---
 
-## 🚀 Arquitetura & Diferenciais Técnicos
+## Arquitetura & Diferenciais Técnicos
 
 ### 1. Frontend & Performance
 * **Next.js 15 (App Router):** Renderização híbrida (SSG/SSR) com otimização avançada de fontes (`next/font/google` Geist) e Core Web Vitals.
@@ -55,7 +55,7 @@ Desenvolvida com foco em **altíssimo desempenho**, **segurança defensiva rigor
 
 ---
 
-## 📂 Estrutura de Diretórios
+## Estrutura de Diretórios
 
 ```bash
 rafaelsoje.com/
@@ -94,7 +94,7 @@ rafaelsoje.com/
 
 ---
 
-## 💻 Desenvolvimento Local
+## Desenvolvimento Local
 
 ### Pré-requisitos
 * Node.js 20.x ou superior
@@ -121,7 +121,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 
 ---
 
-## 📄 Licença & Autor
+## Licença & Autor
 
 Desenvolvido por **Rafael Soje**.  
 Bacharel em Ciência da Computação • Pós-Graduado em Segurança da Informação • Certificado LPIC-1 (Linux Professional Institute).
