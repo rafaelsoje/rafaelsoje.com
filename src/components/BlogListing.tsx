@@ -65,7 +65,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
     });
   }, [posts, searchQuery, selectedCategory, selectedTag]);
 
-  const POSTS_PER_PAGE = 6;
+  const POSTS_PER_PAGE = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   const clearFilters = () => {
