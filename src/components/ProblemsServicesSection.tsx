@@ -63,7 +63,7 @@ export function ProblemsServicesSection() {
       serviceType: "Suporte Pontual / Configuração",
       actionText: "Corrigir SSL, DNS ou segurança",
       articleLink: {
-        title: "Artigo: Defesa em Camadas com Cloudflare e Fail2ban",
+        title: "Artigo: SSL Confiável, Proteção de DNS e Bloqueio de Invasões (Cloudflare + Fail2ban)",
         href: "/blog/defesa-em-camadas-cloudflare-fail2ban",
       },
     },
@@ -79,8 +79,8 @@ export function ProblemsServicesSection() {
       serviceType: "Desenvolvimento & Suporte Técnico",
       actionText: "Conversar sobre sistema ou automação",
       articleLink: {
-        title: "Artigo: Automação de Infraestrutura com Ansible Idempotente",
-        href: "/blog/automacao-infraestrutura-ansible-playbooks-idempotentes",
+        title: "Artigo: Banco de Dados em Produção: A Base Segura para Substituir Planilhas",
+        href: "/blog/hardening-banco-dados-postgresql-seguranca-producao",
       },
     },
   ];

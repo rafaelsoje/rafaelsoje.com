@@ -1,6 +1,6 @@
 ---
 title: "Migração de Servidores sem Downtime: Estratégias com Rsync, Dump Consistente e Cutover de DNS"
-date: "2026-10-20"
+date: "2026-09-03"
 excerpt: "Metodologia prática e comprovada para transferir bancos de dados e volumes de arquivos entre servidores sem paralisação de serviços: pré-sincronização com rsync, dump atômico, redução prévia de TTL e proxy reverso temporário."
 category: "Infraestrutura & Redes"
 tags: ["Migração de Servidores", "Linux", "Rsync", "DNS", "MySQL", "Sysadmin"]
