@@ -28,8 +28,9 @@ export function parseFrontmatter(rawContent: string): {
     // Check array item
     if (trimmed.startsWith("- ") && currentArrayKey) {
       const itemVal = trimmed.slice(2).trim().replace(/^["']|["']$/g, "");
-      if (Array.isArray(data[currentArrayKey])) {
-        data[currentArrayKey].push(itemVal);
+      const arr = data[currentArrayKey];
+      if (Array.isArray(arr)) {
+        arr.push(itemVal);
       }
       continue;
     }
