@@ -1,6 +1,6 @@
 ---
 title: "VPN Corporativa com WireGuard: Túneis Site-to-Site Criptografados e Acesso Remoto Seguro"
-date: "2026-10-17"
+date: "2026-10-01"
 excerpt: "Arquitetura e implementação de VPN de alta performance com WireGuard no Linux: autenticação via chaves assimétricas Curve25519, roteamento restritivo AllowedIPs e regras de firewall."
 category: "Segurança Ofensiva & Defensiva"
 tags: ["WireGuard", "VPN", "Criptografia", "Linux", "Redes", "Segurança"]

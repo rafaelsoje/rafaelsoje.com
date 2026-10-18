@@ -1,6 +1,6 @@
 ---
 title: "Docker em Produção: Hardening de Containers, Isolamento de Recursos e Boas Práticas de Segurança"
-date: "2026-10-16"
+date: "2026-10-06"
 excerpt: "Práticas essenciais de DevSecOps para proteger containers Docker em produção: execução non-root, limitação de CPU/memória, sistema de arquivos somente-leitura e descarte de privilégios de kernel."
 category: "DevSecOps & Linux"
 tags: ["Docker", "Containers", "DevSecOps", "Linux", "Segurança", "Sysadmin"]

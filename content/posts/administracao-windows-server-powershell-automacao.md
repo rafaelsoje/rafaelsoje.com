@@ -1,6 +1,6 @@
 ---
 title: "Administração de Windows Server com PowerShell: Automação de Rotinas e Diagnóstico de Serviços"
-date: "2026-10-18"
+date: "2026-10-13"
 excerpt: "Scripts e rotinas práticas em PowerShell para monitorar integridade de serviços críticos, auditar espaço em disco, rotação de logs do IIS e resposta rápida a incidentes no Windows Server."
 category: "Windows Server & Cloud"
 tags: ["Windows Server", "PowerShell", "Active Directory", "Automação", "Sysadmin"]
