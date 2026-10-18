@@ -48,7 +48,7 @@ export function ProblemsServicesSection() {
       actionText: "Estruturar estratégia de backup",
       articleLink: {
         title: "Artigo: Backups Resilientes com Rclone e Criptografia GPG",
-        href: "/blog/backups-resilientes-rclone-storage-cloud-gpg",
+        href: "/blog/rclone-backups-criptografados-multi-cloud",
       },
     },
     {
