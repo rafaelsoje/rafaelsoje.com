@@ -1,6 +1,6 @@
 ---
 title: "Hardening de Servidores Linux em Produção: Da Camada do Kernel ao Nginx"
-date: "2026-10-18"
+date: "2026-10-13"
 excerpt: "Guia prático de engenharia para proteger servidores e VPS Linux em produção, cobrindo parâmetros sysctl de kernel, isolamento SSH, firewalling restritivo e terminação segura no Nginx."
 category: "DevSecOps & Linux"
 tags: ["Linux", "Hardening", "Nginx", "DevSecOps", "Segurança", "Sysadmin"]

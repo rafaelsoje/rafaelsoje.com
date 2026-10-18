@@ -1,6 +1,6 @@
 ---
 title: "Defesa em Camadas: Integrando Cloudflare Edge WAF, Fail2ban e ModSecurity"
-date: "2026-10-18"
+date: "2026-10-14"
 excerpt: "Como arquitetar uma defesa perimetral em camadas para aplicações web, combinando regras de borda na Cloudflare, filtragem de payloads no ModSecurity e bloqueio dinâmico no Fail2ban."
 category: "Segurança Ofensiva & Defensiva"
 tags: ["Cloudflare", "WAF", "Fail2Ban", "ModSecurity", "Segurança", "DevSecOps"]

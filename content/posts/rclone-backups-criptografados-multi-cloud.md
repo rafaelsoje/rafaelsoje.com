@@ -1,6 +1,6 @@
 ---
 title: "Backups Automatizados e Criptografados com Rclone: Do Servidor ao Cloud Storage"
-date: "2026-10-18"
+date: "2026-10-15"
 excerpt: "Guia completo de sincronização e contingência de dados com Rclone, aplicando criptografia client-side de ponta a ponta, controle de banda e agendamento via systemd timers no Linux."
 category: "Ferramentas & Automação"
 tags: ["Rclone", "Backups", "Cloud Storage", "Linux", "Criptografia", "Automação"]
