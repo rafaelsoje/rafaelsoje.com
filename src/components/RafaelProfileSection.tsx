@@ -36,23 +36,7 @@ export function RafaelProfileSection() {
               </p>
             </div>
 
-            {/* Quick stats / Highlights */}
-            <div className="mt-6 pt-6 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-3 gap-4 font-mono text-xs text-slate-600">
-              <div>
-                <span className="block font-bold text-slate-900 text-sm">Direto</span>
-                <span className="text-slate-500 text-[11px]">Sem intermediários</span>
-              </div>
-              <div>
-                <span className="block font-bold text-slate-900 text-sm">Remoto</span>
-                <span className="text-slate-500 text-[11px]">Brasil e Exterior</span>
-              </div>
-              <div className="col-span-2 sm:col-span-1">
-                <span className="block font-bold text-slate-900 text-sm">Nota Fiscal</span>
-                <span className="text-slate-500 text-[11px]">PJ &amp; PF</span>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-1">
+            <div className="mt-8">
               <Link
                 href="/sobre"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 font-mono text-xs font-semibold tracking-wide transition-colors shadow-sm"
