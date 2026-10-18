@@ -124,3 +124,4 @@ peer: bM41...=
 ```
 
 Com essa arquitetura, eliminamos a complexidade de daemons legados e garantimos uma malha segura, auditável e extremamente veloz com consumo mínimo de recursos de CPU.
+

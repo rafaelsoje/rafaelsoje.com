@@ -130,3 +130,4 @@ docker ps -q | xargs docker inspect --format \
 Se o campo `User` estiver vazio (`""`), significa que o container está rodando como `root`.
 
 A adoção dessas quatro camadas (usuário dedicado, descarte de capacidades, filesystem somente-leitura e limites de recursos) blinda o ambiente Docker e atende aos mais rígidos critérios do CIS Benchmark corporativo.
+
