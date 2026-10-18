@@ -36,12 +36,18 @@ export function RafaelProfileSection() {
               </p>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/sobre"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 font-mono text-xs font-semibold tracking-wide transition-colors shadow-sm"
               >
                 Conhecer trajetória completa e certificações &rarr;
+              </Link>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-mono text-xs font-semibold tracking-wide transition-colors shadow-sm"
+              >
+                Acessar artigos técnicos &rarr;
               </Link>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export function ProblemsServicesSection() {
   const journeys = [
@@ -13,6 +14,10 @@ export function ProblemsServicesSection() {
         "Investigação completa do servidor e da aplicação, identificação da causa raiz e otimização das configurações do ambiente para melhorar a estabilidade e o tempo de resposta.",
       serviceType: "Suporte Pontual / Manutenção",
       actionText: "Solicitar diagnóstico para site ou servidor",
+      articleLink: {
+        title: "Artigo: Nginx de Alta Performance e Rate Limiting",
+        href: "/blog/nginx-alta-performance-reverse-proxy-rate-limiting",
+      },
     },
     {
       code: "02 // MIGRAÇÃO & NOVOS AMBIENTES",
@@ -25,6 +30,10 @@ export function ProblemsServicesSection() {
         "Planejamento estruturado da migração, preparação do novo servidor (Linux ou Windows Server), transferência segura de dados e virada assistida de DNS com foco em reduzir riscos de indisponibilidade.",
       serviceType: "Configuração e Migração",
       actionText: "Planejar migração de servidor",
+      articleLink: {
+        title: "Artigo: Migração de Servidores sem Downtime (Zero-Loss)",
+        href: "/blog/migracao-servidores-sem-downtime-rsync-dns-zero-loss",
+      },
     },
     {
       code: "03 // PROTEÇÃO DE DADOS & BACKUP",
@@ -37,6 +46,10 @@ export function ProblemsServicesSection() {
         "Revisão da rotina existente, estruturação de cópias automatizadas com compactação e envio seguro para armazenamento externo em nuvem, além de validação dos procedimentos de recuperação.",
       serviceType: "Configuração & Migração / Manutenção",
       actionText: "Estruturar estratégia de backup",
+      articleLink: {
+        title: "Artigo: Backups Resilientes com Rclone e Criptografia GPG",
+        href: "/blog/backups-resilientes-rclone-storage-cloud-gpg",
+      },
     },
     {
       code: "04 // SEGURANÇA, SSL & DOMÍNIO",
@@ -49,6 +62,10 @@ export function ProblemsServicesSection() {
         "Instalação e alinhamento de certificados SSL com renovação automática confiável, diagnóstico e ajuste de zonas de DNS, isolamento de acessos e aplicação de medidas de proteção adequadas ao ambiente.",
       serviceType: "Suporte Pontual / Configuração",
       actionText: "Corrigir SSL, DNS ou segurança",
+      articleLink: {
+        title: "Artigo: Defesa em Camadas com Cloudflare e Fail2ban",
+        href: "/blog/defesa-em-camadas-cloudflare-fail2ban",
+      },
     },
     {
       code: "05 // SISTEMAS & AUTOMAÇÃO",
@@ -61,6 +78,10 @@ export function ProblemsServicesSection() {
         "Desenvolvimento de sistemas sob medida, criação de aplicações web, manutenção e evolução de sistemas existentes, integração de APIs e automação de processos para organizar a operação.",
       serviceType: "Desenvolvimento & Suporte Técnico",
       actionText: "Conversar sobre sistema ou automação",
+      articleLink: {
+        title: "Artigo: Automação de Infraestrutura com Ansible Idempotente",
+        href: "/blog/automacao-infraestrutura-ansible-playbooks-idempotentes",
+      },
     },
   ];
 
@@ -137,6 +158,17 @@ export function ProblemsServicesSection() {
                     <p className="text-sm sm:text-[15px] text-slate-800 leading-relaxed">
                       {item.solution}
                     </p>
+                    {item.articleLink && (
+                      <div className="mt-3 pt-2.5 border-t border-slate-100">
+                        <Link
+                          href={item.articleLink.href}
+                          className="text-[12px] font-mono text-teal-700 hover:text-teal-900 font-semibold inline-flex items-center gap-1 group"
+                        >
+                          <span className="underline underline-offset-2">{item.articleLink.title}</span>
+                          <span className="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-5 pt-3 border-t border-slate-200 flex items-center justify-between">

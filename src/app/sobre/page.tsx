@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Sobre Rafael Soje | Engenharia de Infraestrutura & Segurança Linux",
@@ -23,6 +24,8 @@ export const metadata: Metadata = {
 };
 
 export default function SobrePage() {
+  const featuredPosts = getAllPosts().slice(0, 3);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#090d16] text-slate-100">
       <Header />
@@ -259,6 +262,72 @@ export default function SobrePage() {
                   Toda intervenção é documentada. O cliente é dono de 100% da sua infraestrutura e recebe os manuais das configurações e rotinas aplicadas.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Publicações Técnicas & Engenharia de Conhecimento */}
+        <section className="py-12 sm:py-16 md:py-20 border-b border-slate-800/80 bg-slate-900/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+              <div className="max-w-2xl">
+                <span className="text-xs font-mono text-teal-400 uppercase tracking-wider block mb-2">
+                  CONHECIMENTO ABERTO &amp; METODOLOGIA
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  Publicações Técnicas &amp; Engenharia de Produção
+                </h2>
+                <p className="text-slate-400 text-sm mt-3 leading-relaxed">
+                  Acredito na engenharia transparente. Documento metodologias reais de hardening, mitigação de ameaças, alta disponibilidade e otimização de kernel em artigos práticos com comandos e arquiteturas verificadas.
+                </p>
+              </div>
+
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-xs font-mono text-teal-400 hover:text-teal-300 font-semibold gap-1.5 shrink-0 transition-colors"
+              >
+                Explorar todos os artigos no Blog &rarr;
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featuredPosts.map((post) => (
+                <article
+                  key={post.slug}
+                  className="flex flex-col justify-between rounded-xl border border-slate-800/90 bg-slate-900/50 p-6 hover:border-teal-500/40 hover:bg-slate-900/80 transition-all duration-200 group shadow-md"
+                >
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                      <span className="text-teal-400 font-semibold bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 text-[11px]">
+                        {post.category}
+                      </span>
+                      <span className="text-[11px]">{post.readTime}</span>
+                    </div>
+
+                    <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-2 leading-snug">
+                      <Link href={`/blog/${post.slug}`}>
+                        {post.title}
+                      </Link>
+                    </h3>
+
+                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                    <span className="text-[11px] font-mono text-slate-400">
+                      {post.date}
+                    </span>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-xs font-mono text-teal-400 group-hover:text-teal-300 font-semibold flex items-center gap-1"
+                    >
+                      Ler artigo &rarr;
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>

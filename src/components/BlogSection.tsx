@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 
 export function BlogSection() {
-  const posts = getAllPosts().slice(0, 2);
+  const posts = getAllPosts().slice(0, 3);
 
   if (posts.length === 0) return null;
 
@@ -32,11 +32,11 @@ export function BlogSection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="flex flex-col justify-between rounded-xl border border-slate-800/90 bg-slate-900/30 p-6 sm:p-8 hover:border-teal-500/40 hover:bg-slate-900/60 transition-all duration-200 group shadow-md"
+              className="flex flex-col justify-between rounded-xl border border-slate-800/90 bg-slate-900/30 p-6 hover:border-teal-500/40 hover:bg-slate-900/60 transition-all duration-200 group shadow-md"
             >
               <div>
                 <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">

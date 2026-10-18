@@ -13,7 +13,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-10">
           {/* Brand Col */}
-          <div className="md:col-span-5 space-y-3">
+          <div className="md:col-span-4 space-y-3">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center p-1.5 text-white">
                 <BrandSymbol className="w-full h-full" theme="dark" />
@@ -33,7 +33,7 @@ export function Footer() {
           </div>
 
           {/* Quick links */}
-          <div className="md:col-span-4 space-y-2">
+          <div className="md:col-span-3 space-y-2">
             <span className="text-[12px] sm:text-[13px] text-slate-300 font-bold uppercase tracking-wider block mb-3.5">
               Navegação Direta
             </span>
@@ -49,8 +49,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-teal-400 text-teal-400/90 font-semibold transition-colors">
-                  › Artigos Técnicos & Blog
+                <Link href="/sobre" className="hover:text-teal-400 transition-colors">
+                  › Sobre Rafael (Trajetória)
                 </Link>
               </li>
               <li>
@@ -64,11 +64,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#sobre" className="hover:text-teal-400 transition-colors">
-                  › Identidade &amp; Atuação
-                </Link>
-              </li>
-              <li>
                 <Link href="/#faq" className="hover:text-teal-400 transition-colors">
                   › Dúvidas Frequentes (FAQ)
                 </Link>
@@ -76,8 +71,42 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Featured Blog Posts */}
+          <div className="md:col-span-3 space-y-2">
+            <span className="text-[12px] sm:text-[13px] text-slate-300 font-bold uppercase tracking-wider block mb-3.5">
+              Artigos em Destaque
+            </span>
+            <ul className="space-y-2 text-[13px] sm:text-[13.5px]">
+              <li>
+                <Link href="/blog" className="text-teal-400 hover:underline font-semibold transition-colors">
+                  › Ver Todos os Artigos &rarr;
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/hardening-linux-servidores-producao" className="hover:text-teal-400 transition-colors">
+                  › Hardening Linux em Produção
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/defesa-em-camadas-cloudflare-fail2ban" className="hover:text-teal-400 transition-colors">
+                  › Cloudflare &amp; Fail2ban
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/alta-disponibilidade-keepalived-ip-virtual-vip-failover" className="hover:text-teal-400 transition-colors">
+                  › Alta Disponibilidade Keepalived
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/nginx-alta-performance-reverse-proxy-rate-limiting" className="hover:text-teal-400 transition-colors">
+                  › Tuning de Nginx &amp; Rate Limit
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Contact and Legal */}
-          <div className="md:col-span-3 space-y-3">
+          <div className="md:col-span-2 space-y-3">
             <span className="text-[12px] sm:text-[13px] text-slate-300 font-bold uppercase tracking-wider block mb-3.5">
               Contato &amp; Termos
             </span>
