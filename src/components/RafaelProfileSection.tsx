@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function RafaelProfileSection() {
   const [imageError, setImageError] = useState(false);
@@ -49,6 +50,15 @@ export function RafaelProfileSection() {
                 <span className="block font-bold text-slate-900 text-sm">Nota Fiscal</span>
                 <span className="text-slate-500 text-[11px]">PJ &amp; PF</span>
               </div>
+            </div>
+
+            <div className="mt-6 pt-1">
+              <Link
+                href="/sobre"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 font-mono text-xs font-semibold tracking-wide transition-colors shadow-sm"
+              >
+                Conhecer trajetória completa e certificações &rarr;
+              </Link>
             </div>
           </div>
 
@@ -107,6 +117,14 @@ export function RafaelProfileSection() {
                   <span>Ciência da Computação</span>
                   <span>•</span>
                   <span>LPIC-1</span>
+                </div>
+                <div className="mt-3 pt-2 border-t border-slate-100">
+                  <Link
+                    href="/sobre"
+                    className="inline-block text-xs font-mono text-teal-700 hover:text-teal-900 font-semibold"
+                  >
+                    Ver perfil institucional detalhado &rarr;
+                  </Link>
                 </div>
               </div>
             </div>

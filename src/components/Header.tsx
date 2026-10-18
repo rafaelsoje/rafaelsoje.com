@@ -13,7 +13,7 @@ export function Header() {
     { label: "Projetos", href: "/#projetos" },
     { label: "Recomendações", href: "/#recomendacoes" },
     { label: "Preços", href: "/#precos" },
-    { label: "Sobre Rafael", href: "/#sobre" },
+    { label: "Sobre", href: "/sobre" },
     { label: "Tecnologias", href: "/#tecnologias" },
     { label: "FAQ", href: "/#faq" },
     { label: "Artigos", href: "/blog" },
