@@ -44,13 +44,13 @@ export function getAllPosts(): PostMeta[] {
 
     posts.push({
       slug,
-      title: data.title || slug,
-      date: data.date ? String(data.date) : "2026-10-18",
-      excerpt: data.excerpt || "",
-      category: data.category || "Engenharia & Infraestrutura",
-      tags: Array.isArray(data.tags) ? data.tags : [],
-      author: data.author || "Rafael Soje",
-      readTime: data.readTime || calculateReadTime(content),
+      title: typeof data.title === "string" ? data.title : slug,
+      date: typeof data.date === "string" ? data.date : "2026-10-18",
+      excerpt: typeof data.excerpt === "string" ? data.excerpt : "",
+      category: typeof data.category === "string" ? data.category : "Engenharia & Infraestrutura",
+      tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+      author: typeof data.author === "string" ? data.author : "Rafael Soje",
+      readTime: typeof data.readTime === "string" ? data.readTime : calculateReadTime(content),
     });
   }
 
@@ -71,13 +71,13 @@ export function getPostBySlug(slug: string): Post | null {
 
   return {
     slug,
-    title: data.title || slug,
-    date: data.date ? String(data.date) : "2026-10-18",
-    excerpt: data.excerpt || "",
-    category: data.category || "Engenharia & Infraestrutura",
-    tags: Array.isArray(data.tags) ? data.tags : [],
-    author: data.author || "Rafael Soje",
-    readTime: data.readTime || calculateReadTime(content),
+    title: typeof data.title === "string" ? data.title : slug,
+    date: typeof data.date === "string" ? data.date : "2026-10-18",
+    excerpt: typeof data.excerpt === "string" ? data.excerpt : "",
+    category: typeof data.category === "string" ? data.category : "Engenharia & Infraestrutura",
+    tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+    author: typeof data.author === "string" ? data.author : "Rafael Soje",
+    readTime: typeof data.readTime === "string" ? data.readTime : calculateReadTime(content),
     contentHtml,
     rawContent: content,
   };
@@ -106,3 +106,4 @@ export function getAllTags(): { tag: string; count: number }[] {
 
   return Object.entries(counts).map(([tag, count]) => ({ tag, count }));
 }
+
