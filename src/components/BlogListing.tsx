@@ -65,10 +65,46 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
     });
   }, [posts, searchQuery, selectedCategory, selectedTag]);
 
+  const POSTS_PER_PAGE = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedCategory("all");
     setSelectedTag(null);
+    setCurrentPage(1);
+  };
+
+  const handleCategorySelect = (cat: string) => {
+    setSelectedCategory(cat);
+    setCurrentPage(1);
+  };
+
+  const handleTagSelect = (tag: string | null) => {
+    setSelectedTag(tag);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+
+  const paginatedPosts = useMemo(() => {
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+    return filteredPosts.slice(start, start + POSTS_PER_PAGE);
+  }, [filteredPosts, currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    if (typeof window !== "undefined") {
+      const el = document.getElementById("blog-grid-top");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   const hasActiveFilters = searchQuery !== "" || selectedCategory !== "all" || selectedTag !== null;
@@ -98,13 +134,13 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Pesquisar por assunto, comando, tecnologia (ex: Linux, Windows, Nginx, WAF)..."
             className="w-full pl-10 pr-10 py-2.5 rounded-lg bg-slate-950/80 border border-slate-800 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors"
           />
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery("")}
+              onClick={() => handleSearchChange("")}
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white"
               aria-label="Limpar pesquisa"
             >
@@ -121,7 +157,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
             Assunto:
           </span>
           <button
-            onClick={() => setSelectedCategory("all")}
+            onClick={() => handleCategorySelect("all")}
             className={`px-3 py-1 rounded-md shrink-0 transition-all ${
               selectedCategory === "all"
                 ? "bg-teal-500 text-slate-950 font-bold shadow-sm"
@@ -133,7 +169,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
           {categories.map((c) => (
             <button
               key={c.category}
-              onClick={() => setSelectedCategory(c.category)}
+              onClick={() => handleCategorySelect(c.category)}
               className={`px-3 py-1 rounded-md shrink-0 transition-all ${
                 selectedCategory === c.category
                   ? "bg-teal-500 text-slate-950 font-bold shadow-sm"
@@ -156,7 +192,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
               return (
                 <button
                   key={t.tag}
-                  onClick={() => setSelectedTag(isSelected ? null : t.tag)}
+                  onClick={() => handleTagSelect(isSelected ? null : t.tag)}
                   className={`text-[11px] font-mono px-2 py-0.5 rounded transition-all ${
                     isSelected
                       ? "bg-teal-400/20 border border-teal-400 text-teal-300 font-semibold shadow-sm"
@@ -212,6 +248,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
       </div>
 
       {/* Grid de Artigos */}
+      <div id="blog-grid-top" className="scroll-mt-8" />
       {filteredPosts.length === 0 ? (
         <div className="text-center py-12 border border-dashed border-slate-800 rounded-xl bg-slate-900/20">
           <p className="text-slate-300 font-medium text-sm mb-1">
@@ -228,72 +265,118 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {filteredPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-7 hover:border-teal-500/50 hover:bg-slate-900/60 transition-all duration-200 group shadow-lg"
-            >
-              <div>
-                {/* Metadados Superiores */}
-                <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 mb-3">
-                  <button
-                    onClick={() => setSelectedCategory(post.category)}
-                    className="text-teal-400 font-medium bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 hover:bg-teal-500/20 transition-colors"
-                  >
-                    {post.category}
-                  </button>
-                  <div className="flex items-center gap-2">
-                    <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString("pt-BR", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </time>
-                    <span>•</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                </div>
-
-                {/* Título */}
-                <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-2.5">
-                  <Link href={`/blog/${post.slug}`} className="focus:outline-none">
-                    {post.title}
-                  </Link>
-                </h2>
-
-                {/* Resumo */}
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
-                  {post.excerpt}
-                </p>
-              </div>
-
-              {/* Rodapé do Card */}
-              <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap gap-1.5">
-                  {post.tags.slice(0, 3).map((tag) => (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {paginatedPosts.map((post) => (
+              <article
+                key={post.slug}
+                className="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-7 hover:border-teal-500/50 hover:bg-slate-900/60 transition-all duration-200 group shadow-lg"
+              >
+                <div>
+                  {/* Metadados Superiores */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 mb-3">
                     <button
-                      key={tag}
-                      onClick={() => setSelectedTag(tag)}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 hover:border-teal-500/40 hover:text-slate-200 transition-colors"
+                      onClick={() => handleCategorySelect(post.category)}
+                      className="text-teal-400 font-medium bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 hover:bg-teal-500/20 transition-colors"
                     >
-                      #{tag}
+                      {post.category}
                     </button>
-                  ))}
+                    <div className="flex items-center gap-2">
+                      <time dateTime={post.date}>
+                        {new Date(post.date).toLocaleDateString("pt-BR", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </time>
+                      <span>•</span>
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
+
+                  {/* Título */}
+                  <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-2.5">
+                    <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+                      {post.title}
+                    </Link>
+                  </h2>
+
+                  {/* Resumo */}
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+                    {post.excerpt}
+                  </p>
                 </div>
 
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="text-xs font-mono text-teal-400 group-hover:text-teal-300 flex items-center gap-1 font-semibold"
-                  aria-label={`Ler artigo completo: ${post.title}`}
+                {/* Rodapé do Card */}
+                <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    {post.tags.slice(0, 3).map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => handleTagSelect(tag)}
+                        className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 hover:border-teal-500/40 hover:text-slate-200 transition-colors"
+                      >
+                        #{tag}
+                      </button>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="text-xs font-mono text-teal-400 group-hover:text-teal-300 flex items-center gap-1 font-semibold"
+                    aria-label={`Ler artigo completo: ${post.title}`}
+                  >
+                    Ler artigo <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Barra de Paginação */}
+          {totalPages > 1 && (
+            <div className="mt-10 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+              <span className="text-slate-400">
+                Página <strong className="text-white">{currentPage}</strong> de{" "}
+                <strong className="text-white">{totalPages}</strong> ({filteredPosts.length} artigos)
+              </span>
+
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white hover:border-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  aria-label="Página anterior"
                 >
-                  Ler artigo <span aria-hidden="true">&rarr;</span>
-                </Link>
+                  &larr; Anterior
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                      currentPage === pageNum
+                        ? "bg-teal-500 text-slate-950 font-bold shadow-md"
+                        : "border border-slate-800 bg-slate-900/40 text-slate-400 hover:text-white hover:border-slate-700"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white hover:border-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  aria-label="Próxima página"
+                >
+                  Próxima &rarr;
+                </button>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
