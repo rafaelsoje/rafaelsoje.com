@@ -9,13 +9,14 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "Serviços & Problemas", href: "#servicos" },
-    { label: "Projetos", href: "#projetos" },
-    { label: "Recomendações", href: "#recomendacoes" },
-    { label: "Preços", href: "#precos" },
-    { label: "Sobre Rafael", href: "#sobre" },
-    { label: "Tecnologias", href: "#tecnologias" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Serviços & Problemas", href: "/#servicos" },
+    { label: "Projetos", href: "/#projetos" },
+    { label: "Artigos", href: "/blog" },
+    { label: "Recomendações", href: "/#recomendacoes" },
+    { label: "Preços", href: "/#precos" },
+    { label: "Sobre Rafael", href: "/#sobre" },
+    { label: "Tecnologias", href: "/#tecnologias" },
+    { label: "FAQ", href: "/#faq" },
   ];
 
   return (
@@ -80,7 +81,7 @@ export function Header() {
         {/* Action Button */}
         <div className="hidden sm:flex items-center space-x-3">
           <a
-            href="#contato"
+            href="/#contato"
             className="inline-flex items-center justify-center px-4 py-2 rounded text-xs font-mono font-semibold tracking-wider uppercase bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
           >
             Avaliação Inicial
@@ -124,7 +125,7 @@ export function Header() {
           </nav>
           <div className="pt-3 border-t border-slate-800 flex flex-col space-y-2">
             <a
-              href="#contato"
+              href="/#contato"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors"
             >

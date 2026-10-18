@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { RafaelProfileSection } from "@/components/RafaelProfileSection";
 import { ProblemsServicesSection } from "@/components/ProblemsServicesSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { BlogSection } from "@/components/BlogSection";
 import { RecommendationsSection } from "@/components/RecommendationsSection";
 import { PricingSection } from "@/components/PricingSection";
 import { FreeEvaluationSection } from "@/components/FreeEvaluationSection";
@@ -21,6 +22,7 @@ export default function HomePage() {
         <RafaelProfileSection />
         <ProblemsServicesSection />
         <ProjectsSection />
+        <BlogSection />
         <RecommendationsSection />
         <PricingSection />
         <FreeEvaluationSection />

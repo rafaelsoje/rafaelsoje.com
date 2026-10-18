@@ -39,37 +39,37 @@ export function Footer() {
             </span>
             <ul className="space-y-2 text-[13px] sm:text-[13.5px]">
               <li>
-                <a href="#servicos" className="hover:text-teal-400 transition-colors">
+                <a href="/#servicos" className="hover:text-teal-400 transition-colors">
                   › Problemas & Soluções
                 </a>
               </li>
               <li>
-                <a href="#projetos" className="hover:text-teal-400 transition-colors">
+                <a href="/#projetos" className="hover:text-teal-400 transition-colors">
                   › Projetos & Cases
                 </a>
               </li>
               <li>
-                <a href="#precos" className="hover:text-teal-400 transition-colors">
+                <Link href="/blog" className="hover:text-teal-400 text-teal-400/90 font-semibold transition-colors">
+                  › Artigos Técnicos & Blog
+                </Link>
+              </li>
+              <li>
+                <a href="/#precos" className="hover:text-teal-400 transition-colors">
                   › Modalidades & Preços
                 </a>
               </li>
               <li>
-                <a href="#contato" className="hover:text-teal-400 transition-colors">
+                <a href="/#contato" className="hover:text-teal-400 transition-colors">
                   › Avaliação Inicial &amp; Contato
                 </a>
               </li>
               <li>
-                <a href="#avaliacao" className="hover:text-teal-400 transition-colors">
-                  › Triagem Inicial
-                </a>
-              </li>
-              <li>
-                <a href="#sobre" className="hover:text-teal-400 transition-colors">
+                <a href="/#sobre" className="hover:text-teal-400 transition-colors">
                   › Identidade &amp; Atuação
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-teal-400 transition-colors">
+                <a href="/#faq" className="hover:text-teal-400 transition-colors">
                   › Dúvidas Frequentes (FAQ)
                 </a>
               </li>
