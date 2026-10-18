@@ -219,12 +219,12 @@ export default async function BlogPostPage({ params }: Props) {
                 Entre em contato para diagnósticos, sustentação de servidores ou projetos sob medida.
               </p>
             </div>
-            <a
+            <Link
               href="/#contato"
               className="shrink-0 px-5 py-2.5 rounded-lg bg-teal-500 text-slate-950 font-semibold text-xs sm:text-sm hover:bg-teal-400 transition-colors shadow-md"
             >
               Falar com Rafael
-            </a>
+            </Link>
           </div>
 
           {/* Navegação Inferior */}
@@ -243,3 +243,4 @@ export default async function BlogPostPage({ params }: Props) {
     </div>
   );
 }
+

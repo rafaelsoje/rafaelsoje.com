@@ -152,12 +152,12 @@ export default function BlogIndexPage() {
                   Atendimento direto e sem intermediários para diagnósticos de instabilidade, hardening de servidores, migrações críticas e arquitetura web.
                 </p>
               </div>
-              <a
+              <Link
                 href="/#contato"
                 className="shrink-0 px-6 py-3 rounded-lg bg-teal-500 text-slate-950 font-semibold text-sm hover:bg-teal-400 transition-colors shadow-md"
               >
                 Solicitar Avaliação Técnica
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -167,3 +167,4 @@ export default function BlogIndexPage() {
     </div>
   );
 }
+

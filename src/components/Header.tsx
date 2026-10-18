@@ -68,24 +68,24 @@ export function Header() {
         {/* Desktop Nav Links */}
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-300" aria-label="Navegação Principal">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="hover:text-teal-400 transition-colors duration-150 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Action Button */}
         <div className="hidden sm:flex items-center space-x-3">
-          <a
+          <Link
             href="/#contato"
             className="inline-flex items-center justify-center px-4 py-2 rounded text-xs font-mono font-semibold tracking-wider uppercase bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
           >
             Avaliação Inicial
-          </a>
+          </Link>
         </div>
 
         {/* Mobile menu trigger button */}
@@ -113,24 +113,24 @@ export function Header() {
         <div className="lg:hidden border-t border-slate-800 bg-slate-950 px-4 pt-3 pb-6 space-y-3">
           <nav className="flex flex-col space-y-2 text-sm text-slate-200">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 rounded hover:bg-slate-900 hover:text-teal-400 font-medium transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="pt-3 border-t border-slate-800 flex flex-col space-y-2">
-            <a
+            <Link
               href="/#contato"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors"
             >
               Solicitar Avaliação Inicial
-            </a>
+            </Link>
             <a
               href="mailto:contato@rafaelsoje.com"
               onClick={() => {

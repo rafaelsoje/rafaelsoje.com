@@ -4,7 +4,7 @@
  */
 
 export function parseFrontmatter(rawContent: string): {
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   content: string;
 } {
   const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
@@ -16,7 +16,7 @@ export function parseFrontmatter(rawContent: string): {
 
   const yamlBlock = match[1];
   const content = match[2].trim();
-  const data: Record<string, any> = {};
+  const data: Record<string, unknown> = {};
 
   const lines = yamlBlock.split(/\r?\n/);
   let currentArrayKey: string | null = null;
@@ -57,7 +57,7 @@ export function parseFrontmatter(rawContent: string): {
       currentArrayKey = key;
     } else {
       currentArrayKey = null;
-      let cleanVal = rawVal.replace(/^["']|["']$/g, "");
+      const cleanVal = rawVal.replace(/^["']|["']$/g, "");
       if (cleanVal === "true") data[key] = true;
       else if (cleanVal === "false") data[key] = false;
       else data[key] = cleanVal;
@@ -327,3 +327,4 @@ function formatInline(text: string): string {
 
   return result;
 }
+
