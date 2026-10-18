@@ -3,7 +3,8 @@ export type AnalyticsEvent =
   | "form_submit"
   | "form_success"
   | "whatsapp_click"
-  | "email_click";
+  | "email_click"
+  | "share_click";
 
 export function trackAnalyticsEvent(
   eventName: AnalyticsEvent,

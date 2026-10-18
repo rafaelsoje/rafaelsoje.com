@@ -6,6 +6,11 @@ category: "Ferramentas & Automação"
 tags: ["Rclone", "Backups", "Cloud Storage", "Linux", "Criptografia", "Automação"]
 author: "Rafael Soje"
 readTime: "6 min de leitura"
+references:
+  - "Rclone Official Documentation: Crypt (Encrypted Storage) (https://rclone.org/crypt)"
+  - "Rclone Official Documentation: Sync & Bandwidth Limiting (https://rclone.org/docs)"
+  - "CISA / US-CERT: Data Backup and Contingency Guidelines (Alert AA21-131A)"
+  - "NIST Special Publication 800-209: Security Guidelines for Storage Infrastructure"
 ---
 
 A perda de dados ou o comprometimento de backups por ransomware é um dos maiores pesadelos de qualquer infraestrutura corporativa. Para garantir a regra de ouro 3-2-1 de backups, precisamos de uma cópia segura, isolada e imutável fora do datacenter principal.

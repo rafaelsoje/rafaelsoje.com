@@ -6,6 +6,11 @@ category: "Windows Server & Cloud"
 tags: ["Windows Server", "PowerShell", "Active Directory", "Automação", "Sysadmin"]
 author: "Rafael Soje"
 readTime: "7 min de leitura"
+references:
+  - "Microsoft Learn: Documentação Oficial do PowerShell (https://learn.microsoft.com/powershell)"
+  - "Microsoft Learn: Windows Server Administration & Cmdlets (https://learn.microsoft.com/windows-server)"
+  - "CIS Microsoft Windows Server Benchmark (Center for Internet Security)"
+  - "PowerShell Team Blog: Security Best Practices & Logging (https://devblogs.microsoft.com/powershell)"
 ---
 
 A administração moderna de ambientes Windows Server corporativos exige produtividade e padronização. Realizar tarefas manuais via interface gráfica (GUI) em múltiplos servidores é lento, suscetível a falhas humanas e inviabiliza diagnósticos rápidos.

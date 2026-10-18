@@ -11,12 +11,12 @@ export function Header() {
   const navLinks = [
     { label: "Serviços & Problemas", href: "/#servicos" },
     { label: "Projetos", href: "/#projetos" },
-    { label: "Artigos", href: "/blog" },
     { label: "Recomendações", href: "/#recomendacoes" },
     { label: "Preços", href: "/#precos" },
     { label: "Sobre Rafael", href: "/#sobre" },
     { label: "Tecnologias", href: "/#tecnologias" },
     { label: "FAQ", href: "/#faq" },
+    { label: "Artigos", href: "/blog" },
   ];
 
   return (
@@ -66,16 +66,30 @@ export function Header() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-300" aria-label="Navegação Principal">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hover:text-teal-400 transition-colors duration-150 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden lg:flex items-center space-x-5 text-sm font-medium text-slate-300" aria-label="Navegação Principal">
+          {navLinks.map((link) => {
+            if (link.href === "/blog") {
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="relative inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold text-teal-300 bg-teal-500/10 border border-teal-500/30 hover:bg-teal-500/20 hover:border-teal-400 transition-all duration-150 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+                  {link.label}
+                </Link>
+              );
+            }
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hover:text-teal-400 transition-colors duration-150 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Action Button */}
@@ -112,16 +126,34 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-800 bg-slate-950 px-4 pt-3 pb-6 space-y-3">
           <nav className="flex flex-col space-y-2 text-sm text-slate-200">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded hover:bg-slate-900 hover:text-teal-400 font-medium transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.href === "/blog") {
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="inline-flex items-center justify-between px-3 py-2 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-300 font-semibold font-mono text-xs transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+                      {link.label}
+                    </span>
+                    <span className="text-[10px] uppercase tracking-wider text-teal-400">Novo</span>
+                  </Link>
+                );
+              }
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded hover:bg-slate-900 hover:text-teal-400 font-medium transition-colors"
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
           <div className="pt-3 border-t border-slate-800 flex flex-col space-y-2">
             <Link

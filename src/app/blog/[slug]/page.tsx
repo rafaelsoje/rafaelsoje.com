@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ShareButtons } from "@/components/ShareButtons";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 
 type Props = {
@@ -164,6 +165,34 @@ export default async function BlogPostPage({ params }: Props) {
             className="prose prose-invert max-w-none text-slate-200 leading-relaxed text-base sm:text-lg"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
+
+          {/* Botões de Compartilhamento Social */}
+          <ShareButtons title={post.title} slug={post.slug} />
+
+          {/* Bibliografia Sugerida & Referências Técnicas */}
+          {post.references && post.references.length > 0 && (
+            <section
+              aria-labelledby="bibliografia-titulo"
+              className="my-10 rounded-xl border border-slate-800 bg-slate-900/40 p-6 sm:p-7 shadow-lg"
+            >
+              <div className="flex items-center gap-2 mb-4 text-xs font-mono text-teal-400 uppercase tracking-wider">
+                <svg className="w-4 h-4 text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <h3 id="bibliografia-titulo" className="font-bold">
+                  Bibliografia Sugerida &amp; Fontes Oficiais
+                </h3>
+              </div>
+              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">
+                {post.references.map((ref, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5 leading-relaxed font-mono">
+                    <span className="text-teal-400 select-none font-bold">[{idx + 1}]</span>
+                    <span>{ref}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Card do Autor */}
           <div className="mt-16 rounded-xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-xl">

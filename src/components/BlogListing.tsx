@@ -10,11 +10,32 @@ interface BlogListingProps {
   tags: { tag: string; count: number }[];
 }
 
+const INITIAL_TAGS_LIMIT = 6;
+
 export function BlogListing({ posts, categories, tags }: BlogListingProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [showAllTags, setShowAllTags] = useState(false);
 
+  // Ordena tags por frequência (mais usadas primeiro)
+  const sortedTags = useMemo(() => {
+    return [...tags].sort((a, b) => b.count - a.count);
+  }, [tags]);
+
+  // Lista de tags visíveis (limitada inicialmente para não poluir a tela)
+  const visibleTags = useMemo(() => {
+    if (showAllTags) return sortedTags;
+    const top = sortedTags.slice(0, INITIAL_TAGS_LIMIT);
+    // Garante que a tag selecionada esteja visível se o usuário clicou nela
+    if (selectedTag && !top.some((t) => t.tag === selectedTag)) {
+      const activeObj = sortedTags.find((t) => t.tag === selectedTag);
+      if (activeObj) return [...top, activeObj];
+    }
+    return top;
+  }, [sortedTags, showAllTags, selectedTag]);
+
+  // Filtragem combinada em memória
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
       // Filtro por Categoria
@@ -54,13 +75,13 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
 
   return (
     <div>
-      {/* Controles de Busca e Filtros */}
-      <div className="mb-10 space-y-6">
-        {/* Barra de Pesquisa */}
-        <div className="relative max-w-2xl">
+      {/* Controles de Busca e Filtros Compactos e Escaláveis */}
+      <div className="mb-8 p-4 sm:p-5 rounded-xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm space-y-4 shadow-lg">
+        {/* Linha 1: Campo de Busca com Atalho e Limpeza */}
+        <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -79,12 +100,12 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Pesquisar por assunto, comando, tecnologia (ex: Linux, Windows, Nginx, WAF)..."
-            className="w-full pl-11 pr-10 py-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors shadow-inner"
+            className="w-full pl-10 pr-10 py-2.5 rounded-lg bg-slate-950/80 border border-slate-800 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white"
               aria-label="Limpar pesquisa"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,14 +115,14 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
           )}
         </div>
 
-        {/* Filtros por Categorias / Assunto */}
-        <div className="flex flex-wrap items-center gap-2 pt-2">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider mr-1">
+        {/* Linha 2: Categorias em barra deslizável (evita empilhar na vertical) */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono scrollbar-none">
+          <span className="text-slate-400 uppercase tracking-wider text-[11px] shrink-0 mr-1">
             Assunto:
           </span>
           <button
             onClick={() => setSelectedCategory("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
+            className={`px-3 py-1 rounded-md shrink-0 transition-all ${
               selectedCategory === "all"
                 ? "bg-teal-500 text-slate-950 font-bold shadow-sm"
                 : "bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
@@ -113,7 +134,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
             <button
               key={c.category}
               onClick={() => setSelectedCategory(c.category)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
+              className={`px-3 py-1 rounded-md shrink-0 transition-all ${
                 selectedCategory === c.category
                   ? "bg-teal-500 text-slate-950 font-bold shadow-sm"
                   : "bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
@@ -124,13 +145,13 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
           ))}
         </div>
 
-        {/* Nuvem de Tópicos / Tags Populares */}
+        {/* Linha 3: Tags compactas (apenas top 6 com expansão opcional sob demanda) */}
         {tags.length > 0 && (
-          <div className="flex flex-wrap items-center gap-1.5 pt-1">
+          <div className="pt-2 border-t border-slate-800/60 flex flex-wrap items-center gap-1.5">
             <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mr-1">
               Tags:
             </span>
-            {tags.map((t) => {
+            {visibleTags.map((t) => {
               const isSelected = selectedTag === t.tag;
               return (
                 <button
@@ -138,49 +159,62 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
                   onClick={() => setSelectedTag(isSelected ? null : t.tag)}
                   className={`text-[11px] font-mono px-2 py-0.5 rounded transition-all ${
                     isSelected
-                      ? "bg-teal-400/20 border border-teal-400 text-teal-300 font-semibold"
-                      : "bg-slate-950/60 border border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700"
+                      ? "bg-teal-400/20 border border-teal-400 text-teal-300 font-semibold shadow-sm"
+                      : "bg-slate-950/70 border border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700"
                   }`}
                 >
                   #{t.tag} ({t.count})
                 </button>
               );
             })}
+
+            {/* Botão de expansão/colapso quando houver mais de 6 tags */}
+            {sortedTags.length > INITIAL_TAGS_LIMIT && (
+              <button
+                onClick={() => setShowAllTags(!showAllTags)}
+                className="text-[11px] font-mono px-2 py-0.5 rounded text-teal-400 hover:text-teal-300 bg-teal-500/10 border border-teal-500/20 hover:border-teal-500/40 transition-colors"
+              >
+                {showAllTags
+                  ? "Ocultar tags ▴"
+                  : `+ Mais tags (${sortedTags.length - INITIAL_TAGS_LIMIT}) ▾`}
+              </button>
+            )}
           </div>
         )}
 
-        {/* Resumo de Filtros Ativos */}
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-400 pt-3 border-t border-slate-800/60">
-          <div>
-            Mostrando <span className="text-teal-400 font-semibold">{filteredPosts.length}</span> de{" "}
-            {posts.length} publicações
-            {selectedCategory !== "all" && (
-              <span className="ml-2 px-2 py-0.5 bg-slate-800 text-slate-200 rounded">
-                em {selectedCategory}
+        {/* Linha 4: Resumo dos filtros ativos */}
+        {hasActiveFilters && (
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800/40 text-xs font-mono text-slate-400">
+            <div className="flex items-center gap-2">
+              <span>
+                Mostrando <strong className="text-teal-400">{filteredPosts.length}</strong> de{" "}
+                {posts.length} artigos
               </span>
-            )}
-            {selectedTag && (
-              <span className="ml-2 px-2 py-0.5 bg-teal-500/20 text-teal-300 rounded border border-teal-500/30">
-                #{selectedTag}
-              </span>
-            )}
-          </div>
-
-          {hasActiveFilters && (
+              {selectedCategory !== "all" && (
+                <span className="px-2 py-0.5 bg-slate-800 text-slate-200 rounded text-[11px]">
+                  {selectedCategory}
+                </span>
+              )}
+              {selectedTag && (
+                <span className="px-2 py-0.5 bg-teal-500/20 text-teal-300 rounded border border-teal-500/30 text-[11px]">
+                  #{selectedTag}
+                </span>
+              )}
+            </div>
             <button
               onClick={clearFilters}
-              className="text-teal-400 hover:text-teal-300 underline underline-offset-2 flex items-center gap-1 font-semibold"
+              className="text-teal-400 hover:text-teal-300 underline underline-offset-2 font-semibold"
             >
-              Limpar todos os filtros &times;
+              Limpar filtros &times;
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
-      {/* Grid de Artigos Filtrados */}
+      {/* Grid de Artigos */}
       {filteredPosts.length === 0 ? (
-        <div className="text-center py-16 border border-dashed border-slate-800 rounded-xl bg-slate-900/20">
-          <p className="text-slate-300 font-medium text-base mb-1">
+        <div className="text-center py-12 border border-dashed border-slate-800 rounded-xl bg-slate-900/20">
+          <p className="text-slate-300 font-medium text-sm mb-1">
             Nenhum artigo encontrado com os filtros atuais.
           </p>
           <p className="text-slate-400 text-xs font-mono mb-4">
@@ -194,15 +228,15 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {filteredPosts.map((post) => (
             <article
               key={post.slug}
-              className="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-8 hover:border-teal-500/50 hover:bg-slate-900/60 transition-all duration-200 group shadow-lg"
+              className="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-7 hover:border-teal-500/50 hover:bg-slate-900/60 transition-all duration-200 group shadow-lg"
             >
               <div>
                 {/* Metadados Superiores */}
-                <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 mb-3">
                   <button
                     onClick={() => setSelectedCategory(post.category)}
                     className="text-teal-400 font-medium bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 hover:bg-teal-500/20 transition-colors"
@@ -223,14 +257,14 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
                 </div>
 
                 {/* Título */}
-                <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-3">
+                <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-2.5">
                   <Link href={`/blog/${post.slug}`} className="focus:outline-none">
                     {post.title}
                   </Link>
                 </h2>
 
                 {/* Resumo */}
-                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
                   {post.excerpt}
                 </p>
               </div>
@@ -264,4 +298,3 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
     </div>
   );
 }
-

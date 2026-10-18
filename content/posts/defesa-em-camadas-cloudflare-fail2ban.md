@@ -6,6 +6,11 @@ category: "Segurança Ofensiva & Defensiva"
 tags: ["Cloudflare", "WAF", "Fail2Ban", "ModSecurity", "Segurança", "DevSecOps"]
 author: "Rafael Soje"
 readTime: "7 min de leitura"
+references:
+  - "OWASP Core Rule Set (CRS) Official Documentation (https://coreruleset.org)"
+  - "Cloudflare Developers: Web Application Firewall (WAF) & DDoS (https://developers.cloudflare.com/waf)"
+  - "ModSecurity Reference Manual & Nginx Connector Guidelines (OWASP/SpiderLabs)"
+  - "Fail2ban Official Manual & Linux Netfilter/Iptables Integration"
 ---
 
 Muitas equipes confiam exclusivamente em uma CDN ou em um firewall de servidor, criando pontos únicos de falha na segurança perimetral. A estratégia mais resiliente é a **defesa em profundidade (Defense-in-Depth)**, onde cada camada atua de forma coordenada.

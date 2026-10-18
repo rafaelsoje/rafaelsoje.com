@@ -6,6 +6,11 @@ category: "DevSecOps & Linux"
 tags: ["Linux", "Hardening", "Nginx", "DevSecOps", "Segurança", "Sysadmin"]
 author: "Rafael Soje"
 readTime: "8 min de leitura"
+references:
+  - "Center for Internet Security: CIS Ubuntu Linux Benchmark v2.0"
+  - "OpenSSH Project: Security Advisory & sshd_config hardening (https://www.openssh.com)"
+  - "Linux Kernel Documentation: Sysctl parameters, ASLR and TCP/IP stack hardening"
+  - "ANSSI: Recommendations for Securing a GNU/Linux System (French Cybersecurity Agency)"
 ---
 
 Em ambientes de produção, expor um servidor Linux diretamente à internet pública sem uma rotina rigorosa de hardening é um convite a varreduras automatizadas, ataques de força bruta e exploração de superfície.

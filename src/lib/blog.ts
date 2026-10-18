@@ -11,6 +11,7 @@ export interface PostMeta {
   tags: string[];
   author: string;
   readTime: string;
+  references?: string[];
 }
 
 export interface Post extends PostMeta {
@@ -51,6 +52,7 @@ export function getAllPosts(): PostMeta[] {
       tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
       author: typeof data.author === "string" ? data.author : "Rafael Soje",
       readTime: typeof data.readTime === "string" ? data.readTime : calculateReadTime(content),
+      references: Array.isArray(data.references) ? (data.references as string[]) : undefined,
     });
   }
 
@@ -78,6 +80,7 @@ export function getPostBySlug(slug: string): Post | null {
     tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
     author: typeof data.author === "string" ? data.author : "Rafael Soje",
     readTime: typeof data.readTime === "string" ? data.readTime : calculateReadTime(content),
+    references: Array.isArray(data.references) ? (data.references as string[]) : undefined,
     contentHtml,
     rawContent: content,
   };

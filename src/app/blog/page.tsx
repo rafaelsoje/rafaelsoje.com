@@ -32,18 +32,18 @@ export default function BlogIndexPage() {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative border-b border-slate-800/80 bg-gradient-to-b from-slate-900/60 to-transparent py-14 md:py-20">
+        {/* Hero Section Compacto */}
+        <section className="relative border-b border-slate-800/80 bg-gradient-to-b from-slate-900/60 to-transparent py-8 sm:py-10 md:py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-mono mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-mono mb-3">
                 <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
                 BASE DE CONHECIMENTO & ENGENHARIA
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-                Artigos Técnicos & Práticas de Engenharia
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
+                Artigos Técnicos &amp; Práticas de Engenharia
               </h1>
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                 Análises aprofundadas sobre administração Linux, Windows Server, ferramentas, DevSecOps e segurança defensiva aplicados ao ambiente real.
               </p>
             </div>
@@ -51,7 +51,7 @@ export default function BlogIndexPage() {
         </section>
 
         {/* Listagem Interativa com Busca e Filtros */}
-        <section className="py-12 md:py-16">
+        <section className="py-8 md:py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <BlogListing posts={posts} categories={categories} tags={tags} />
 
