@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -166,8 +167,14 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Card do Autor */}
           <div className="mt-16 rounded-xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-xl">
-            <div className="w-16 h-16 rounded-full bg-slate-800 border-2 border-teal-400/80 flex items-center justify-center text-teal-400 font-bold text-xl shrink-0 font-mono">
-              RS
+            <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-teal-400/80 shrink-0 shadow-md bg-slate-800">
+              <Image
+                src="/images/rafael-soje.jpg"
+                alt="Rafael Soje"
+                fill
+                className="object-cover"
+                sizes="64px"
+              />
             </div>
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2 mb-1">

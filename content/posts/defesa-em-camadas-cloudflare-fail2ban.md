@@ -109,3 +109,4 @@ Essa combinação transforma a infraestrutura em um alvo muito difícil e caro p
 * O tráfego sujo e volumoso morre na borda distribuída da Cloudflare.
 * Tentativas sofisticadas de exploração de vulnerabilidades web são neutralizadas pelo ModSecurity.
 * E clientes abusivos são bloqueados diretamente na tabela de firewall do kernel Linux via Fail2ban.
+

@@ -143,3 +143,4 @@ Hardening não é uma etapa estática, mas um processo contínuo. Ferramentas re
 3. **Tripwire / AIDE:** Verificação de integridade de arquivos críticos do sistema com hashes criptográficos SHA-256.
 
 Aplicar essas diretivas logo no provisionamento reduz em mais de 95% os ruídos de varredura e vulnerabilidades comuns em ambientes corporativos.
+

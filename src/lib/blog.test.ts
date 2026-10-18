@@ -49,3 +49,4 @@ Texto com **negrito** e \`código inline\`.`;
     expect(post?.contentHtml).toContain("<pre");
   });
 });
+
