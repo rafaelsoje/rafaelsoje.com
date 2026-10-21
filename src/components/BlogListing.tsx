@@ -284,6 +284,7 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
                     <div className="flex items-center gap-2">
                       <time dateTime={post.date}>
                         {new Date(post.date).toLocaleDateString("pt-BR", {
+                          timeZone: "UTC",
                           year: "numeric",
                           month: "short",
                           day: "numeric",

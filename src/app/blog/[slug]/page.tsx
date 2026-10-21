@@ -130,6 +130,7 @@ export default async function BlogPostPage({ params }: Props) {
               <span>•</span>
               <time dateTime={post.date}>
                 {new Date(post.date).toLocaleDateString("pt-BR", {
+                  timeZone: "UTC",
                   year: "numeric",
                   month: "long",
                   day: "numeric",
