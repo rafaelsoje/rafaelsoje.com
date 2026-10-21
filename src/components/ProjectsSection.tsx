@@ -1,28 +1,42 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const projects = [
   {
-    code: "PROJ-01 // SISTEMA WEB & GESTÃO",
-    status: "Em produção e evolução",
+    code: "PROJ-01 // SAAS & DEVSECOPS",
+    status: "No ar em produção (Live)",
     statusColor: "text-emerald-400 bg-emerald-950/60 border-emerald-800",
-    title: "Sistema de Gestão Comercial e Operacional de Eventos",
-    subtitle: "SIGES Eventos: propostas, contratos, agenda integrada e esteira operacional",
+    title: "SIGES Eventos — Plataforma SaaS Multi-Tenant & Infraestrutura DevSecOps",
+    subtitle: "SaaS corporativo em produção: esteira operacional, gestão de eventos, logística e perímetro blindado",
     problem:
-      "Descentralização operacional: propostas dispersas em mensagens e planilhas, risco de conflito de datas e ausência de visão consolidada do faturamento.",
+      "Descentralização operacional no setor de eventos: propostas dispersas, risco de conflito de datas de espaços/geradores e ausência de uma infraestrutura com isolamento multi-tenant seguro.",
     solution:
-      "Desenvolvimento de aplicação web sob medida com banco de dados estruturado, controle de acesso por perfil e ambiente provisionado em VPS Linux dedicada com Nginx e backups automáticos.",
+      "Desenvolvimento de aplicação web corporativa com Laravel, Livewire e PostgreSQL, operando sob uma arquitetura de Defesa em Profundidade com Cloudflare WAF, Nginx com ModSecurity (OWASP CRS), gestão Zero-Trust via WireGuard VPN e banimento automatizado em borda.",
     organizes: [
-      "Cadastro centralizado de clientes, propostas comerciais e contratos",
-      "Controle de agenda de eventos sem sobreposição de datas ou salões",
-      "Painel de métricas financeiras e faturamento operacional mensal",
-      "Rotinas diárias de backup automatizado e monitoramento do servidor",
+      "Isolamento multi-tenant seguro com segregação física de acessos administrativos",
+      "Controle de agenda, propostas comerciais, contratos e esteira operacional sem conflito de datas",
+      "Perímetro Zero-Trust: portas de gestão remota bloqueadas na internet pública via VPN",
+      "WAF na aplicação com regras OWASP CRS e mitigação reativa orquestrada com a Cloudflare",
+      "Rotinas de backup automatizado GFS, monitoramento proativo e workers assíncronos no Supervisor",
     ],
-    stack: ["Next.js", "Laravel", "PostgreSQL", "Nginx", "Linux VPS"],
+    stack: [
+      "Laravel",
+      "Livewire",
+      "PostgreSQL",
+      "ModSecurity",
+      "WireGuard",
+      "Cloudflare WAF",
+      "Redis",
+      "Nginx",
+      "Linux Server",
+    ],
     image: "/images/projeto-gestao-eventos-demo.svg",
     alt: "Interface de gestão comercial e operacional para controle de propostas e contratos",
-    url: "app.sigeseventos.com.br",
-    caption: "Interface de gestão comercial e operacional sob medida para controle de esteira e contratos.",
+    url: "sigeseventos.com.br",
+    liveUrl: "https://sigeseventos.com.br",
+    caseStudyUrl: "/blog/estudo-de-caso-siges-eventos-devsecops-laravel-wireguard-modsecurity",
+    caption: "Plataforma corporativa em produção operando sob perímetro Zero-Trust e WAF de camada de aplicação.",
   },
   {
     code: "PROJ-02 // PAINEL OPERACIONAL & CUSTOS",
@@ -147,6 +161,29 @@ export function ProjectsSection() {
                       ))}
                     </div>
                   </div>
+
+                  {"caseStudyUrl" in project && project.caseStudyUrl && (
+                    <div className="mt-6 pt-5 border-t border-slate-800/80 flex flex-wrap gap-3">
+                      <Link
+                        href={project.caseStudyUrl}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-mono font-semibold transition-all hover:border-teal-500/50"
+                      >
+                        <span>Ler Estudo de Caso Completo</span>
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                      {"liveUrl" in project && project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-slate-700 text-xs font-mono font-semibold transition-all"
+                        >
+                          <span>Acessar Plataforma</span>
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Coluna com Moldura de Navegador & Imagem Real */}
