@@ -1,6 +1,6 @@
 ---
 title: "Estudo de Caso: Arquitetura SaaS Multi-Tenant e Engenharia DevSecOps em Produção (SIGES Eventos)"
-date: "2026-10-20"
+date: "2026-10-21"
 excerpt: "Da concepção de um SaaS corporativo à sua infraestrutura de missão crítica: arquitetura multi-tenant com Laravel e PostgreSQL, perímetro Zero-Trust com WireGuard, defesa em camadas com Cloudflare e ModSecurity, rotinas GFS e observabilidade proativa."
 category: "DevSecOps & Engenharia de Software"
 tags: ["Estudo de Caso", "SaaS", "Laravel", "DevSecOps", "PostgreSQL", "Cloudflare", "WireGuard", "ModSecurity", "Linux", "Sysadmin"]
