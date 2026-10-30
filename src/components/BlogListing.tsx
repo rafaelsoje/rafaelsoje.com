@@ -267,71 +267,152 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {paginatedPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-7 hover:border-teal-500/50 hover:bg-slate-900/60 transition-all duration-200 group shadow-lg"
-              >
-                <div>
-                  {/* Metadados Superiores */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 mb-3">
-                    <button
-                      onClick={() => handleCategorySelect(post.category)}
-                      className="text-teal-400 font-medium bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 hover:bg-teal-500/20 transition-colors"
-                    >
-                      {post.category}
-                    </button>
-                    <div className="flex items-center gap-2">
-                      <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString("pt-BR", {
-                          timeZone: "UTC",
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </time>
-                      <span>•</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                  </div>
+            {paginatedPosts.map((post, index) => {
+              const isFeatured = currentPage === 1 && index === 0;
 
-                  {/* Título */}
-                  <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-2.5">
-                    <Link href={`/blog/${post.slug}`} className="focus:outline-none">
-                      {post.title}
-                    </Link>
-                  </h2>
-
-                  {/* Resumo */}
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
-                    {post.excerpt}
-                  </p>
-                </div>
-
-                {/* Rodapé do Card */}
-                <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => handleTagSelect(tag)}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 hover:border-teal-500/40 hover:text-slate-200 transition-colors"
-                      >
-                        #{tag}
-                      </button>
-                    ))}
-                  </div>
-
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="text-xs font-mono text-teal-400 group-hover:text-teal-300 flex items-center gap-1 font-semibold"
-                    aria-label={`Ler artigo completo: ${post.title}`}
+              if (isFeatured) {
+                return (
+                  <article
+                    key={post.slug}
+                    className="md:col-span-2 flex flex-col justify-between rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/50 to-slate-950/80 p-6 sm:p-8 md:p-10 hover:border-teal-400/60 transition-all duration-200 group shadow-2xl relative overflow-hidden"
                   >
-                    Ler artigo <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </div>
-              </article>
-            ))}
+                    {/* Linha decorativa de topo */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-teal-400 to-transparent" />
+
+                    <div>
+                      {/* Selo de Destaque e Metadados */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div className="flex flex-wrap items-center gap-2.5">
+                          <span className="px-2.5 py-1 rounded-md bg-teal-500/15 border border-teal-500/30 text-teal-300 font-mono text-[11px] font-bold tracking-wider uppercase">
+                            DESTAQUE // ARTIGO RECENTE
+                          </span>
+                          <button
+                            onClick={() => handleCategorySelect(post.category)}
+                            className="text-teal-400 font-medium bg-slate-950/60 px-2.5 py-1 rounded-md border border-slate-800 hover:border-teal-500/30 transition-colors text-xs font-mono"
+                          >
+                            {post.category}
+                          </button>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                          <time dateTime={post.date}>
+                            {new Date(post.date).toLocaleDateString("pt-BR", {
+                              timeZone: "UTC",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </time>
+                          <span>•</span>
+                          <span>{post.readTime}</span>
+                        </div>
+                      </div>
+
+                      {/* Título em Destaque */}
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-3 sm:mb-4 leading-tight">
+                        <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+                          {post.title}
+                        </Link>
+                      </h2>
+
+                      {/* Resumo */}
+                      <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-4xl">
+                        {post.excerpt}
+                      </p>
+                    </div>
+
+                    {/* Rodapé com Tags e CTA de Destaque */}
+                    <div className="pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4">
+                      <div className="flex flex-wrap gap-1.5">
+                        {post.tags.map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={() => handleTagSelect(tag)}
+                            className="text-xs font-mono px-2.5 py-1 rounded bg-slate-950 text-slate-300 border border-slate-800 hover:border-teal-500/40 hover:text-white transition-colors"
+                          >
+                            #{tag}
+                          </button>
+                        ))}
+                      </div>
+
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-teal-500 text-slate-950 font-mono text-xs font-bold hover:bg-teal-400 transition-colors shadow-lg"
+                        aria-label={`Ler artigo completo: ${post.title}`}
+                      >
+                        Ler artigo completo <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    </div>
+                  </article>
+                );
+              }
+
+              return (
+                <article
+                  key={post.slug}
+                  className="flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-7 hover:border-teal-500/50 hover:bg-slate-900/60 transition-all duration-200 group shadow-lg"
+                >
+                  <div>
+                    {/* Metadados Superiores */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 mb-3">
+                      <button
+                        onClick={() => handleCategorySelect(post.category)}
+                        className="text-teal-400 font-medium bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20 hover:bg-teal-500/20 transition-colors"
+                      >
+                        {post.category}
+                      </button>
+                      <div className="flex items-center gap-2">
+                        <time dateTime={post.date}>
+                          {new Date(post.date).toLocaleDateString("pt-BR", {
+                            timeZone: "UTC",
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </time>
+                        <span>•</span>
+                        <span>{post.readTime}</span>
+                      </div>
+                    </div>
+
+                    {/* Título */}
+                    <h2 className="text-lg sm:text-xl font-bold text-white group-hover:text-teal-300 transition-colors tracking-tight mb-2.5">
+                      <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+                        {post.title}
+                      </Link>
+                    </h2>
+
+                    {/* Resumo */}
+                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+                      {post.excerpt}
+                    </p>
+                  </div>
+
+                  {/* Rodapé do Card */}
+                  <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <button
+                          key={tag}
+                          onClick={() => handleTagSelect(tag)}
+                          className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 hover:border-teal-500/40 hover:text-slate-200 transition-colors"
+                        >
+                          #{tag}
+                        </button>
+                      ))}
+                    </div>
+
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-xs font-mono text-teal-400 group-hover:text-teal-300 flex items-center gap-1 font-semibold"
+                      aria-label={`Ler artigo completo: ${post.title}`}
+                    >
+                      Ler artigo <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
           {/* Barra de Paginação */}
