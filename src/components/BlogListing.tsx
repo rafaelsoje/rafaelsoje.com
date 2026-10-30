@@ -65,7 +65,9 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
     });
   }, [posts, searchQuery, selectedCategory, selectedTag]);
 
-  const POSTS_PER_PAGE = 10;
+  // Na página 1, o artigo em destaque ocupa 2 colunas, exigindo 11 artigos no total (1 destaque + 10 em 5 pares completos) para a grade fechar perfeitamente alinhada sem cartões órfãos.
+  const PAGE_1_SIZE = 11;
+  const SUBSEQUENT_PAGE_SIZE = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   const clearFilters = () => {
@@ -90,11 +92,17 @@ export function BlogListing({ posts, categories, tags }: BlogListingProps) {
     setCurrentPage(1);
   };
 
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const totalPages = useMemo(() => {
+    if (filteredPosts.length <= PAGE_1_SIZE) return 1;
+    return 1 + Math.ceil((filteredPosts.length - PAGE_1_SIZE) / SUBSEQUENT_PAGE_SIZE);
+  }, [filteredPosts.length]);
 
   const paginatedPosts = useMemo(() => {
-    const start = (currentPage - 1) * POSTS_PER_PAGE;
-    return filteredPosts.slice(start, start + POSTS_PER_PAGE);
+    if (currentPage === 1) {
+      return filteredPosts.slice(0, PAGE_1_SIZE);
+    }
+    const start = PAGE_1_SIZE + (currentPage - 2) * SUBSEQUENT_PAGE_SIZE;
+    return filteredPosts.slice(start, start + SUBSEQUENT_PAGE_SIZE);
   }, [filteredPosts, currentPage]);
 
   const handlePageChange = (newPage: number) => {
