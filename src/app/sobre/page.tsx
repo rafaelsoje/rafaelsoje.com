@@ -8,14 +8,14 @@ import { getAllPosts } from "@/lib/blog";
 export const metadata: Metadata = {
   title: "Sobre Rafael Soje | Engenharia de Infraestrutura & Segurança Linux",
   description:
-    "Trajetória profissional, formação acadêmica em Ciência da Computação, pós-graduação em Cyber Security, certificação LPIC-1 e princípios de engenharia de Rafael Soje.",
+    "Trajetória profissional, formação acadêmica em Ciência da Computação, pós-graduação em Cyber Security, certificação LPIC-1, contribuições open source globais e princípios de engenharia de Rafael Soje.",
   alternates: {
     canonical: "https://rafaelsoje.com/sobre",
   },
   openGraph: {
     title: "Sobre Rafael Soje | Engenharia de Infraestrutura & Segurança Linux",
     description:
-      "Trajetória profissional, formação acadêmica em Ciência da Computação, pós-graduação em Cyber Security, certificação LPIC-1 e princípios de engenharia de Rafael Soje.",
+      "Trajetória profissional, formação acadêmica em Ciência da Computação, pós-graduação em Cyber Security, certificação LPIC-1, contribuições open source globais e princípios de engenharia de Rafael Soje.",
     url: "https://rafaelsoje.com/sobre",
     siteName: "Rafael Soje",
     type: "profile",
@@ -69,6 +69,9 @@ export default function SobrePage() {
                   <div className="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-200">
                     +10 Anos de Prática Operacional
                   </div>
+                  <div className="px-3 py-1.5 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-300 font-semibold">
+                    Contribuidor Open Source (tldr, CrowdSec, SigmaHQ)
+                  </div>
                 </div>
               </div>
 
@@ -97,7 +100,7 @@ export default function SobrePage() {
                       Infraestrutura, Cloud &amp; Segurança
                     </span>
                     <span className="block text-[11px] font-mono text-slate-400 mt-2 pt-2 border-t border-slate-800">
-                      Ciência da Computação • LPIC-1
+                      Ciência da Computação • LPIC-1 • Open Source
                     </span>
                   </div>
                 </div>
@@ -197,11 +200,11 @@ export default function SobrePage() {
 
               {/* Marco 5: 2018 até o Presente */}
               <div className="relative flex items-start gap-4 md:gap-6 pl-10 md:pl-14">
-                <div className="absolute left-1.5 md:left-3 top-1 w-4 h-4 rounded-full border-2 border-teal-400 bg-teal-400" />
-                <div className="p-6 rounded-xl border border-teal-500/40 bg-slate-900/60 w-full space-y-2 shadow-lg">
+                <div className="absolute left-1.5 md:left-3 top-1 w-4 h-4 rounded-full border-2 border-teal-400 bg-slate-950" />
+                <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/40 w-full space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                     <span className="font-bold text-teal-400">2018 — PRESENTE</span>
-                    <span className="text-teal-300">Consultoria Especializada Independente</span>
+                    <span className="text-slate-400">Consultoria Especializada Independente</span>
                   </div>
                   <h3 className="text-lg font-bold text-white">
                     Engenharia de Infraestrutura Crítica e Segurança Linux
@@ -209,6 +212,110 @@ export default function SobrePage() {
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                     Atendimento direto a empresas, fintechs e plataformas corporativas na concepção de defesas perimetrais em camadas, implantação de WAF e mitigações com Fail2ban, redes seguras com WireGuard VPN, backups multi-cloud criptografados com Rclone/GPG e automação com Docker e Ansible.
                   </p>
+                </div>
+              </div>
+
+              {/* Marco 6: 2024 até o Presente */}
+              <div className="relative flex items-start gap-4 md:gap-6 pl-10 md:pl-14">
+                <div className="absolute left-1.5 md:left-3 top-1 w-4 h-4 rounded-full border-2 border-teal-400 bg-teal-400" />
+                <div className="p-6 rounded-xl border border-teal-500/40 bg-slate-900/60 w-full space-y-2 shadow-lg">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                    <span className="font-bold text-teal-400">2024 — PRESENTE</span>
+                    <span className="text-teal-300">P&amp;D &amp; Comunidade Global</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white">
+                    Colaboração Contínua no Ecossistema Open Source e Segurança
+                  </h3>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Atuação ativa no aprimoramento de documentação canônica (tldr-pages com contribuições upstream aceitas em Lynis e Fail2ban), desenvolvimento de regras de detecção para SIEM no SigmaHQ, parsers de proteção defensiva no CrowdSec Hub e templates de análise de superfície no Nuclei.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contribuições para o Ecossistema Open Source */}
+        <section className="py-12 sm:py-16 md:py-20 border-b border-slate-800/80 bg-slate-900/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+              <div className="max-w-3xl">
+                <span className="text-xs font-mono text-teal-400 uppercase tracking-wider block mb-2">
+                  SEGURANÇA GLOBAL &amp; CÓDIGO ABERTO
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  Contribuições para o Ecossistema Open Source
+                </h2>
+                <p className="text-slate-400 text-sm mt-3 leading-relaxed">
+                  Engenharia e segurança da informação são fortalecidas pela colaboração pública. Atuo ativamente no desenvolvimento, documentação canônica e validação de regras de detecção em ferramentas adotadas por milhares de engenheiros em escala global.
+                </p>
+              </div>
+
+              <a
+                href="https://github.com/rafaelsoje"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-xs font-mono text-teal-400 hover:text-teal-300 font-semibold gap-1.5 shrink-0 transition-colors"
+              >
+                Ver perfil e histórico no GitHub &rarr;
+              </a>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Card 1: Segurança Defensiva & Resposta a Incidentes */}
+              <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/40 space-y-4 hover:border-slate-700 transition-colors">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-teal-400 font-bold uppercase">Defensiva &amp; SIEM</span>
+                  <span className="text-slate-400">Hardening</span>
+                </div>
+                <h3 className="text-base font-bold text-white">
+                  Auditoria, Mitigação &amp; Telemetria
+                </h3>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Contribuições no <strong className="text-white">tldr-pages</strong> (páginas oficiais de Lynis e Fail2ban com melhorias aceitas no upstream em inglês e português), desenvolvimento de parsers Grok no <strong className="text-white">CrowdSec Hub</strong> (mitigação de força bruta em PgBouncer/PostgreSQL) e regras de correlação SIEM no <strong className="text-white">SigmaHQ</strong>.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">tldr-pages</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">CrowdSec</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">SigmaHQ</span>
+                </div>
+              </div>
+
+              {/* Card 2: Segurança Ofensiva & Análise de Vulnerabilidades */}
+              <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/40 space-y-4 hover:border-slate-700 transition-colors">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-teal-400 font-bold uppercase">Ofensiva &amp; Recon</span>
+                  <span className="text-slate-400">Superfície</span>
+                </div>
+                <h3 className="text-base font-bold text-white">
+                  Detecção de Superfície de Ataque
+                </h3>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Desenvolvimento de templates de auditoria no ecossistema <strong className="text-white">ProjectDiscovery (Nuclei-Templates)</strong> para mapeamento e detecção automatizada de painéis de gerenciamento e serviços corporativos expostos em infraestruturas web.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Nuclei</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">ProjectDiscovery</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">AppSec</span>
+                </div>
+              </div>
+
+              {/* Card 3: Infraestrutura Comunitária & Dados Abertos */}
+              <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/40 space-y-4 hover:border-slate-700 transition-colors">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-teal-400 font-bold uppercase">Dados Abertos</span>
+                  <span className="text-slate-400">Infraestrutura</span>
+                </div>
+                <h3 className="text-base font-bold text-white">
+                  Transparência Pública e APIs Nacionais
+                </h3>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Colaboração em projetos abertos de alto impacto nacional, incluindo o ecossistema <strong className="text-white">BrasilAPI</strong> (APIs abertas de serviços públicos) e a iniciativa <strong className="text-white">Querido Diário</strong> (Open Knowledge Brasil) para transparência e processamento de diários oficiais.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BrasilAPI</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Open Knowledge</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">GovTech</span>
                 </div>
               </div>
             </div>
