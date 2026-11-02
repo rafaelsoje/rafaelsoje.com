@@ -227,7 +227,7 @@ export default function SobrePage() {
                     Colaboração Contínua no Ecossistema Open Source e Segurança
                   </h3>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Atuação ativa no aprimoramento de documentação canônica (tldr-pages com contribuições upstream aceitas em Lynis e Fail2ban), desenvolvimento de regras de detecção para SIEM no SigmaHQ, parsers de proteção defensiva no CrowdSec Hub e templates de análise de superfície no Nuclei.
+                    Contribuições aceitas no core upstream do Fail2ban (filtro e jail oficial para Authelia), aprimoramento de documentação canônica (tldr-pages com contribuições aceitas em Lynis e Fail2ban), desenvolvimento de regras de detecção para SIEM no SigmaHQ, parsers defensivos no CrowdSec Hub e templates no Nuclei.
                   </p>
                 </div>
               </div>
@@ -272,9 +272,10 @@ export default function SobrePage() {
                   Auditoria, Mitigação &amp; Telemetria
                 </h3>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Contribuições no <strong className="text-white">tldr-pages</strong> (páginas oficiais de Lynis e Fail2ban com melhorias aceitas no upstream em inglês e português), desenvolvimento de parsers Grok no <strong className="text-white">CrowdSec Hub</strong> (mitigação de força bruta em PgBouncer/PostgreSQL) e regras de correlação SIEM no <strong className="text-white">SigmaHQ</strong>.
+                  Contribuição aceita no core do <strong className="text-white">Fail2ban</strong> (novo filtro e jail oficial para autenticação Authelia), melhorias no <strong className="text-white">tldr-pages</strong> (páginas canônicas de Lynis e Fail2ban), parsers Grok no <strong className="text-white">CrowdSec Hub</strong> e regras de detecção SIEM no <strong className="text-white">SigmaHQ</strong>.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Fail2ban Core</span>
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">tldr-pages</span>
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">CrowdSec</span>
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">SigmaHQ</span>
