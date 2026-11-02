@@ -151,6 +151,7 @@ Essa experiência evidencia três princípios aplicáveis à engenharia de infra
 
 Os registros públicos das discussões técnicas, análises de código e aprovações podem ser verificados nos seguintes links oficiais:
 
+* [Pull Request #4259 (Merged) - fail2ban/fail2ban: Official Authelia Filter & Jail](https://github.com/fail2ban/fail2ban/pull/4259)
 * [Pull Request #24929 (Merged) - tldr-pages/tldr: fail2ban-client (pt_BR)](https://github.com/tldr-pages/tldr/pull/24929)
-* [Pull Request #24941 (Open) - tldr-pages/tldr: fail2ban-client (en)](https://github.com/tldr-pages/tldr/pull/24941)
+* [Pull Request #24941 (Approved) - tldr-pages/tldr: fail2ban-client (en)](https://github.com/tldr-pages/tldr/pull/24941)
 * [Perfil de Contribuições de Rafael Soje no GitHub](https://github.com/rafaelsoje)

@@ -70,7 +70,7 @@ export default function SobrePage() {
                     +10 Anos de Prática Operacional
                   </div>
                   <div className="px-3 py-1.5 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-300 font-semibold">
-                    Contribuidor Open Source (tldr, CrowdSec, SigmaHQ)
+                    Contribuidor Open Source (Fail2ban, Nuclei, tldr, CrowdSec)
                   </div>
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function SobrePage() {
                     Colaboração Contínua no Ecossistema Open Source e Segurança
                   </h3>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Contribuições aceitas no core upstream do Fail2ban (filtro e jail oficial para Authelia), aprimoramento de documentação canônica (tldr-pages com contribuições aceitas em Lynis e Fail2ban), desenvolvimento de regras de detecção para SIEM no SigmaHQ, parsers defensivos no CrowdSec Hub e templates no Nuclei.
+                    Contribuições aceitas no core upstream do Fail2ban (filtro e jail oficial para Authelia), templates oficiais aceitos no ProjectDiscovery Nuclei-Templates (Infisical e Coolify), aprimoramento de documentação canônica no tldr-pages (contribuições aceitas em Lynis, Fail2ban e Nuclei), desenvolvimento de regras SIEM no SigmaHQ, parsers defensivos no CrowdSec Hub e hardening em CISOfy Lynis e Ansible Dev-Sec.
                   </p>
                 </div>
               </div>
@@ -272,7 +272,7 @@ export default function SobrePage() {
                   Auditoria, Mitigação &amp; Telemetria
                 </h3>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Contribuição aceita no core do <strong className="text-white">Fail2ban</strong> (novo filtro e jail oficial para autenticação Authelia), melhorias no <strong className="text-white">tldr-pages</strong> (páginas canônicas de Lynis e Fail2ban), parsers Grok no <strong className="text-white">CrowdSec Hub</strong> e regras de detecção SIEM no <strong className="text-white">SigmaHQ</strong>.
+                  Contribuição aceita no core do <strong className="text-white">Fail2ban</strong> (novo filtro e jail oficial para autenticação Authelia com suporte a logs de arquivo, JSON e systemd-journal), melhorias aceitas no <strong className="text-white">tldr-pages</strong> (páginas canônicas de Lynis, Fail2ban e Nuclei), parsers Grok no <strong className="text-white">CrowdSec Hub</strong> e regras de detecção SIEM no <strong className="text-white">SigmaHQ</strong>.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Fail2ban Core</span>
@@ -292,7 +292,7 @@ export default function SobrePage() {
                   Detecção de Superfície de Ataque
                 </h3>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Desenvolvimento de templates de auditoria no ecossistema <strong className="text-white">ProjectDiscovery (Nuclei-Templates)</strong> para mapeamento e detecção automatizada de painéis de gerenciamento e serviços corporativos expostos em infraestruturas web.
+                  Contribuição aceita no repositório oficial <strong className="text-white">ProjectDiscovery (Nuclei-Templates)</strong> com template de detecção do gerenciador de segredos <strong className="text-white">Infisical</strong> e mapeamento de painéis <strong className="text-white">Coolify PaaS</strong> expostos em infraestruturas web.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Nuclei</span>
