@@ -70,7 +70,7 @@ export default function SobrePage() {
                     +10 Anos de Prática Operacional
                   </div>
                   <div className="px-3 py-1.5 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-300 font-semibold">
-                    Contribuidor Open Source (Fail2ban, Nuclei, tldr, CrowdSec)
+                    Contribuidor Open Source (Fail2ban, Lynis, Fastfetch, CrowdSec, Nuclei)
                   </div>
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function SobrePage() {
                     Colaboração Contínua no Ecossistema Open Source e Segurança
                   </h3>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Contribuições aceitas no core upstream do Fail2ban (filtro e jail oficial para Authelia), templates oficiais aceitos no ProjectDiscovery Nuclei-Templates (Infisical e Coolify), aprimoramento de documentação canônica no tldr-pages (contribuições aceitas em Lynis, Fail2ban e Nuclei), desenvolvimento de regras SIEM no SigmaHQ, parsers defensivos no CrowdSec Hub e hardening em CISOfy Lynis e Ansible Dev-Sec.
+                    Contribuições aceitas no core upstream do Fail2ban (filtro e jail oficial para Authelia), templates oficiais aceitos no ProjectDiscovery Nuclei-Templates (Infisical e Coolify), aprimoramento de documentação canônica no tldr-pages (Lynis, Fail2ban, Nuclei, WireGuard, rclone e auditctl), correções nos testes de conformidade do CISOfy Lynis, parsers defensivos no CrowdSec Hub (PgBouncer e Traefik h2c), logotipos no Fastfetch e regras SIEM no SigmaHQ.
                   </p>
                 </div>
               </div>
@@ -272,12 +272,14 @@ export default function SobrePage() {
                   Auditoria, Mitigação &amp; Telemetria
                 </h3>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Contribuição aceita no core do <strong className="text-white">Fail2ban</strong> (novo filtro e jail oficial para autenticação Authelia com suporte a logs de arquivo, JSON e systemd-journal), melhorias aceitas no <strong className="text-white">tldr-pages</strong> (páginas canônicas de Lynis, Fail2ban e Nuclei), parsers Grok no <strong className="text-white">CrowdSec Hub</strong> e regras de detecção SIEM no <strong className="text-white">SigmaHQ</strong>.
+                  Contribuição aceita no core do <strong className="text-white">Fail2ban</strong> (filtro e jail oficial para autenticação Authelia com suporte a logs de arquivo, JSON e systemd-journal), correções nos testes de auditoria e conformidade do <strong className="text-white">CISOfy Lynis</strong> (descoberta de caminhos de modprobe e detecção de SO), páginas canônicas no <strong className="text-white">tldr-pages</strong> (Lynis, Fail2ban, Nuclei, WireGuard, rclone e auditctl), parsers Grok e regras HTTP no <strong className="text-white">CrowdSec Hub</strong> (PgBouncer e Traefik h2c), regras SIEM no <strong className="text-white">SigmaHQ</strong> e suporte de sistema no <strong className="text-white">Fastfetch</strong>.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-400">
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Fail2ban Core</span>
-                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">tldr-pages</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">CISOfy Lynis</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">Fastfetch</span>
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">CrowdSec</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">tldr-pages</span>
                   <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700">SigmaHQ</span>
                 </div>
               </div>
