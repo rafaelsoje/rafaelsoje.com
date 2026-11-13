@@ -102,6 +102,24 @@ export function ProjectsSection() {
             Exemplos reais de aplicações web, painéis de gestão e portais desenvolvidos por Rafael Soje 
             para resolver gargalos operacionais e comerciais.
           </p>
+          <div className="mt-6 inline-flex flex-wrap items-center gap-3 p-3.5 rounded-xl border border-purple-500/30 bg-purple-950/20 text-xs font-mono">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
+            </span>
+            <span className="text-purple-300 font-semibold">Padrão de Engenharia Validado:</span>
+            <span className="text-slate-300">
+              Automações baseadas no repositório <strong className="text-white">linux-sysadmin-toolbox</strong>, selecionado para o <strong className="text-purple-300">XERJ Corpus Hub</strong> de IA (+19k stars).
+            </span>
+            <a
+              href="https://hub.xerj.org/contributors/rafaelsoje"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-purple-400 hover:text-purple-300 underline font-semibold"
+            >
+              Ver chancela &rarr;
+            </a>
+          </div>
         </div>
 
         <div className="space-y-12">

@@ -49,6 +49,15 @@ export function RafaelProfileSection() {
               >
                 Acessar artigos técnicos &rarr;
               </Link>
+              <a
+                href="https://hub.xerj.org/contributors/rafaelsoje"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-purple-50 border border-purple-200 hover:bg-purple-100 hover:border-purple-300 text-purple-900 font-mono text-xs font-semibold tracking-wide transition-colors shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-purple-600" />
+                <span>XERJ Corpus Hub Contributor &rarr;</span>
+              </a>
             </div>
           </div>
 
@@ -107,6 +116,8 @@ export function RafaelProfileSection() {
                   <span>Ciência da Computação</span>
                   <span>•</span>
                   <span>LPIC-1</span>
+                  <span>•</span>
+                  <span className="text-purple-700 font-semibold">XERJ Hub</span>
                 </div>
                 <div className="mt-3 pt-2 border-t border-slate-100">
                   <Link
@@ -149,6 +160,27 @@ export function RafaelProfileSection() {
                   <p className="text-xs text-slate-600 font-mono mt-0.5">
                     Linux Professional Institute Certification
                   </p>
+                </div>
+                <div className="border-l-2 border-purple-600 pl-3.5 py-0.5">
+                  <div className="flex items-center gap-2">
+                    <div className="font-mono text-sm sm:text-[15px] font-bold text-slate-900">
+                      XERJ Corpus Hub
+                    </div>
+                    <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-purple-100 border border-purple-200 text-purple-800">
+                      IA Reference
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 font-mono mt-0.5">
+                    Memória de referência de automação Linux para agentes de IA (+19k stars).
+                  </p>
+                  <a
+                    href="https://hub.xerj.org/contributors/rafaelsoje"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-purple-700 hover:text-purple-900 font-semibold mt-1"
+                  >
+                    Ver chancela oficial no XERJ Hub &rarr;
+                  </a>
                 </div>
               </div>
             </div>

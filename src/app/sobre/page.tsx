@@ -72,6 +72,15 @@ export default function SobrePage() {
                   <div className="px-3 py-1.5 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-300 font-semibold">
                     Contribuidor Open Source (Fail2ban, Lynis, Fastfetch, CrowdSec, Nuclei)
                   </div>
+                  <a
+                    href="https://hub.xerj.org/contributors/rafaelsoje"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 font-semibold hover:border-purple-400 transition-colors inline-flex items-center gap-1.5"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                    XERJ Corpus Hub Contributor (AI Reference)
+                  </a>
                 </div>
               </div>
 
@@ -259,6 +268,54 @@ export default function SobrePage() {
               >
                 Ver perfil e histórico no GitHub &rarr;
               </a>
+            </div>
+
+            {/* Destaque Internacional: XERJ Corpus Hub */}
+            <div className="mb-8 p-6 sm:p-8 rounded-2xl border border-purple-500/40 bg-gradient-to-r from-purple-950/30 via-slate-900/60 to-slate-900/40 backdrop-blur-sm shadow-xl">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="space-y-3 max-w-3xl">
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
+                    <span className="px-2.5 py-0.5 rounded bg-purple-500/20 border border-purple-500/40 text-purple-300 font-bold uppercase tracking-wider">
+                      CHANCELA INTERNACIONAL DE IA
+                    </span>
+                    <span className="text-slate-400">•</span>
+                    <span className="text-slate-300 font-semibold">XERJ Open Memory (+19.000 stars)</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                    Implementação de Referência para Agentes Autônomos de Código
+                  </h3>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    O repositório <strong className="text-white font-mono">linux-sysadmin-toolbox</strong> foi selecionado e integrado ao <strong className="text-purple-300">XERJ Corpus Hub</strong> oficial. Quando agentes de inteligência artificial de programação (Claude Code, Cursor, SWE-bench) resolvem desafios de automação Shell/Python, hardening CIS de Nginx, manutenção de Docker e detecção de intrusão HIDS, as rotinas desenvolvidas por Rafael Soje são consultadas e retornadas como modelo padrão de execução.
+                  </p>
+                </div>
+                <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3">
+                  <a
+                    href="https://hub.xerj.org/contributors/rafaelsoje"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block hover:opacity-90 transition-opacity"
+                    title="Ver perfil oficial de contribuidor no XERJ Corpus Hub"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="https://hub.xerj.org/contributors/rafaelsoje/badge.svg"
+                      alt="XERJ Corpus Hub Contributor"
+                      width={199}
+                      height={20}
+                      className="rounded"
+                    />
+                  </a>
+                  <a
+                    href="https://hub.xerj.org/contributors/rafaelsoje"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-mono text-xs font-bold transition-colors shadow-md"
+                  >
+                    <span>Ver perfil no XERJ Hub</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
